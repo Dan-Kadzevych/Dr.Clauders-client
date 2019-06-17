@@ -1,4 +1,4 @@
-const subMenuCats = [
+const SUB_MENU_CATS = [
     {
         link: '#',
         text: 'Lorem Inspum'
@@ -33,7 +33,7 @@ const subMenuCats = [
     }
 ];
 
-const subMenuDogs = [
+const SUB_MENU_DOGS = [
     {
         link: '#',
         text: 'Lorem Inspum'
@@ -68,18 +68,21 @@ const subMenuDogs = [
     }
 ];
 
-export const maxSubmenuItems = Math.max(subMenuCats.length, subMenuDogs.length);
+export const MAX_SUB_ITEMS = Math.max(
+    SUB_MENU_CATS.length,
+    SUB_MENU_DOGS.length
+);
 
-export const navConfig = [
+export const NAV_CONFIG = [
     {
         link: '#',
         text: 'Dog Supplements',
-        subMenu: subMenuDogs
+        subMenu: SUB_MENU_DOGS
     },
     {
         link: '#',
         text: 'Cat Supplements',
-        subMenu: subMenuCats
+        subMenu: SUB_MENU_CATS
     },
     {
         link: '#',

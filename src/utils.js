@@ -8,3 +8,9 @@ export const toRgba = color => {
             .join(',') + ','
     );
 };
+
+export const toDark = color => {
+    return Color(color)
+        .darken(0.2)
+        .hex();
+};

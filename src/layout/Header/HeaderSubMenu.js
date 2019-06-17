@@ -6,7 +6,7 @@ import {
     color_grey_dark_3,
     color_secondary,
     color_white
-} from 'styles/abstracts/variables';
+} from 'styles/variables';
 import A from 'elements/A';
 
 const Submenu = styled.ul`

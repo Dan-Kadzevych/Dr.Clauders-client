@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { color_black } from 'styles/abstracts/variables';
+import { color_black } from 'styles/variables';
 
 const A = styled.a`
     :link,

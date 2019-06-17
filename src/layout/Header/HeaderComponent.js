@@ -11,8 +11,7 @@ const StyledHeader = styled.header`
 
     display: grid;
     align-items: center;
-    justify-content: center;
-    padding: 2rem 1.5rem;
+    padding: 2rem 0;
 
     grid-template-columns:
         [header-start] repeat(

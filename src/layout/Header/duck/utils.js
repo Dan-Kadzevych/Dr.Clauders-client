@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 
-import { maxSubmenuItems } from './constants';
+import { MAX_SUB_ITEMS } from './constants';
 
 const delayTemplate = i => {
     return `
@@ -13,7 +13,7 @@ const delayTemplate = i => {
 export const getSubmenuDelays = () => {
     let styles = '';
 
-    for (let i = 2; i <= maxSubmenuItems; i++) {
+    for (let i = 2; i <= MAX_SUB_ITEMS; i++) {
         styles += delayTemplate(i);
     }
 
