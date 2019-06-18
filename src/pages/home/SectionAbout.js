@@ -5,6 +5,7 @@ import { Button, H1, P } from 'elements';
 
 const StyledSection = styled.section`
     grid-column: center-start / center-end;
+
     margin: 5rem 0;
     text-align: center;
 `;
@@ -32,7 +33,7 @@ const SectionAbout = () => (
             to improve your pets overall well-being and help ensure a long and
             healthy life.
         </P>
-        <Button className="mt-sm" href="#">
+        <Button className="mt-md" href="#">
             View Our Pet Vitamins and Supplements
         </Button>
     </StyledSection>

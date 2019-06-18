@@ -25,8 +25,20 @@ const GlobalStyles = createGlobalStyle`
         font-size: 62.5%;
     }
     
-    .mt-sm {
+    .mt-md {
         margin-top: 3rem;
+    }
+    
+    .mb-sm {
+        margin-bottom: 2rem;
+    }
+    
+    .mb-md {
+        margin-bottom: 3rem;
+    }
+    
+    .mb-md-b {
+        margin-bottom: 4rem;
     }
     
     ::selection {

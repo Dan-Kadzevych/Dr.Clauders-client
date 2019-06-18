@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { color_primary } from 'styles/variables';
-import { NAV_CONFIG } from './duck/constants';
+import navConfig from './duck/navConfig';
 import { getSubmenuDelays } from './duck/utils';
 import { A } from 'elements';
 import HeaderSubMenu from './HeaderSubMenu';
@@ -76,7 +76,7 @@ const Element = styled.li`
 const HeaderNav = () => (
     <Nav>
         <List>
-            {NAV_CONFIG.map((el, i) => (
+            {navConfig.map((el, i) => (
                 <Element key={el.text + i}>
                     <Link href={el.link}>{el.text}</Link>
                     {el.subMenu && <HeaderSubMenu config={el.subMenu} />}
