@@ -1,10 +1,11 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Header from './layout/Header';
 import Footer from './layout/Footer';
 import Home from './pages/home';
+import Products from './pages/products';
 
 import GlobalStyles from './styles/GlobalStyles';
 import { gridTemplate } from 'styles/mixins';
@@ -27,27 +28,23 @@ function App() {
             <GlobalStyles />
             <Router>
                 <Header />
-                <Route path="/" exact component={Home} />
-                <Route
-                    path="/dog-supplements"
-                    exact
-                    component={() => <PageContainer>Dog</PageContainer>}
-                />
-                <Route
-                    path="/cat-supplements"
-                    exact
-                    component={() => <PageContainer>Cat</PageContainer>}
-                />
-                <Route
-                    path="/about-us"
-                    exact
-                    component={() => <PageContainer>About Us</PageContainer>}
-                />
-                <Route
-                    path="/contact-us"
-                    exact
-                    component={() => <PageContainer>Contact</PageContainer>}
-                />
+
+                <Switch>
+                    <Route path="/" exact component={Home} />
+                    <Route path="/pet-supplements/:pet" component={Products} />
+                    <Route
+                        path="/about-us"
+                        exact
+                        component={() => (
+                            <PageContainer>About Us</PageContainer>
+                        )}
+                    />
+                    <Route
+                        path="/contact-us"
+                        exact
+                        component={() => <PageContainer>Contact</PageContainer>}
+                    />
+                </Switch>
                 <Footer />
             </Router>
         </Container>

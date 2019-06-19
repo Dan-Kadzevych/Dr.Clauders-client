@@ -13,9 +13,8 @@ import { gridTemplate } from 'styles/mixins';
 const StyledHome = styled.div`
     grid-column: full-start / full-end;
 
-    ${gridTemplate}
-
-    grid-template-rows: repeat(3, min-content) 40vw;
+    ${gridTemplate};
+    grid-template-rows: 40vw repeat(2, min-content) 40vw;
 `;
 
 const Home = () => (

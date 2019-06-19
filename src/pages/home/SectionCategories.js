@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { H2 } from 'elements';
+import { A, H2 } from 'elements';
 import Category from 'blocks/Category';
 import categoriesConfig from './duck/categoriesConfig';
 
@@ -40,12 +40,14 @@ const SectionCategories = () => (
         </HeadingBox>
 
         <Container>
-            {categoriesConfig.map(({ title, icon, text }, i) => (
-                <Category key={title + i}>
-                    <Category.Icon icon={icon} />
-                    <Category.Title>{title}</Category.Title>
-                    <Category.Text>{text}</Category.Text>
-                </Category>
+            {categoriesConfig.map(({ title, icon, text, link }, i) => (
+                <A to={link}>
+                    <Category key={title + i}>
+                        <Category.Icon icon={icon} />
+                        <Category.Title>{title}</Category.Title>
+                        <Category.Text>{text}</Category.Text>
+                    </Category>
+                </A>
             ))}
         </Container>
     </StyledSection>

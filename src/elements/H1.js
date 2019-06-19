@@ -9,6 +9,7 @@ const H1 = styled.h1`
     line-height: 7rem;
     font-family: 'Raleway', sans-serif;
     color: ${color_primary};
+    font-weight: 400;
 `;
 
 export default H1;

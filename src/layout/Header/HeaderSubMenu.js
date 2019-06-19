@@ -49,7 +49,7 @@ const HeaderSubMenu = ({ config }) => (
     <Submenu>
         {config.map(({ link, text }, i) => (
             <SubmenuElement key={text + i}>
-                <SubmenuLink href={link}>{text}</SubmenuLink>
+                <SubmenuLink to={link}>{text}</SubmenuLink>
             </SubmenuElement>
         ))}
     </Submenu>
