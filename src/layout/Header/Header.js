@@ -33,7 +33,7 @@ const Logo = styled.img`
 
 const Header = () => (
     <StyledHeader>
-        <LogoBox href="#">
+        <LogoBox to="/">
             <Logo src={logo} alt="Dr Clauder's" />
         </LogoBox>
         <HeaderNav />

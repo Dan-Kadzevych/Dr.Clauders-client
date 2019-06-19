@@ -1,8 +1,9 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { color_black } from 'styles/variables';
 
-const A = styled.a`
+const A = styled(Link)`
     :link,
     :visited {
         display: inline-block;

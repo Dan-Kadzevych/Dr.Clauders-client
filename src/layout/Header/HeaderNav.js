@@ -78,7 +78,7 @@ const HeaderNav = () => (
         <List>
             {navConfig.map((el, i) => (
                 <Element key={el.text + i}>
-                    <Link href={el.link}>{el.text}</Link>
+                    <Link to={el.link}>{el.text}</Link>
                     {el.subMenu && <HeaderSubMenu config={el.subMenu} />}
                 </Element>
             ))}

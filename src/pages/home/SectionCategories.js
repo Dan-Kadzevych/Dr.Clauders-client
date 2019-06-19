@@ -40,8 +40,8 @@ const SectionCategories = () => (
         </HeadingBox>
 
         <Container>
-            {categoriesConfig.map(({ title, icon, text }) => (
-                <Category>
+            {categoriesConfig.map(({ title, icon, text }, i) => (
+                <Category key={title + i}>
                     <Category.Icon icon={icon} />
                     <Category.Title>{title}</Category.Title>
                     <Category.Text>{text}</Category.Text>

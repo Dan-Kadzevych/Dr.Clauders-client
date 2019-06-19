@@ -70,21 +70,21 @@ export const dogsConfig = [
 
 const navConfig = [
     {
-        link: '#',
+        link: '/dog-supplements',
         text: 'Dog Supplements',
         subMenu: dogsConfig
     },
     {
-        link: '#',
+        link: '/cat-supplements',
         text: 'Cat Supplements',
         subMenu: catsConfig
     },
     {
-        link: '#',
+        link: '/about-us',
         text: 'About Us'
     },
     {
-        link: '#',
+        link: '/contact-us',
         text: 'Contact Us'
     }
 ];

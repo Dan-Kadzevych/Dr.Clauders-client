@@ -23,6 +23,7 @@ const StyledGallery = styled.section`
     background-color: ${color_secondary};
 
     display: grid;
+    margin-top: 100rem;
 
     grid-template: repeat(7, 5vw) / repeat(8, 1fr);
     grid-gap: 1.5rem;
