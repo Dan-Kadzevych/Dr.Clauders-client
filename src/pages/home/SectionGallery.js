@@ -3,6 +3,21 @@ import styled from 'styled-components';
 
 import { color_secondary } from 'styles/variables';
 
+import i1 from 'images/gallery-1.jpg';
+import i2 from 'images/gallery-2.jpg';
+import i3 from 'images/gallery-3.jpg';
+import i4 from 'images/gallery-4.jpeg';
+import i5 from 'images/gallery-5.jpg';
+import i6 from 'images/gallery-6.jpg';
+import i7 from 'images/gallery-7.jpg';
+import i8 from 'images/gallery-8.jpg';
+import i9 from 'images/gallery-9.webp';
+import i10 from 'images/gallery-10.webp';
+import i11 from 'images/gallery-11.jpg';
+import i12 from 'images/gallery-12.jpg';
+import i13 from 'images/gallery-13.jpg';
+import i14 from 'images/gallery-14.jpg';
+
 const StyledGallery = styled.section`
     grid-column: full-start / full-end;
     background-color: ${color_secondary};
@@ -98,46 +113,46 @@ const StyledGallery = styled.section`
 const SectionGallery = () => (
     <StyledGallery>
         <div>
-            <img src="" alt="" />
+            <img src={i1} alt="" />
         </div>
         <div>
-            <img src="" alt="" />
+            <img src={i2} alt="" />
         </div>
         <div>
-            <img src="" alt="" />
+            <img src={i3} alt="" />
         </div>
         <div>
-            <img src="" alt="" />
+            <img src={i4} alt="" />
         </div>
         <div>
-            <img src="" alt="" />
+            <img src={i5} alt="" />
         </div>
         <div>
-            <img src="" alt="" />
+            <img src={i6} alt="" />
         </div>
         <div>
-            <img src="" alt="" />
+            <img src={i7} alt="" />
         </div>
         <div>
-            <img src="" alt="" />
+            <img src={i8} alt="" />
         </div>
         <div>
-            <img src="" alt="" />
+            <img src={i9} alt="" />
         </div>
         <div>
-            <img src="" alt="" />
+            <img src={i10} alt="" />
         </div>
         <div>
-            <img src="" alt="" />
+            <img src={i11} alt="" />
         </div>
         <div>
-            <img src="" alt="" />
+            <img src={i12} alt="" />
         </div>
         <div>
-            <img src="" alt="" />
+            <img src={i13} alt="" />
         </div>
         <div>
-            <img src="" alt="" />
+            <img src={i14} alt="" />
         </div>
     </StyledGallery>
 );
