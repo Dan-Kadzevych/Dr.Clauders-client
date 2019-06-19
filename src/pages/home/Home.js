@@ -6,6 +6,7 @@ import SectionAbout from './SectionAbout';
 import SectionCategories from './SectionCategories';
 import StoryPictures from './StoryPictures';
 import StoryContent from './StoryContent';
+import SectionGallery from './SectionGallery';
 
 import { gridTemplate } from 'styles/mixins';
 
@@ -24,6 +25,7 @@ const Home = () => (
         <SectionCategories />
         <StoryPictures />
         <StoryContent />
+        <SectionGallery />
     </StyledHome>
 );
 

@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Header from './layout/Header';
+import Footer from './layout/Footer';
 import Home from './pages/home';
 
 import GlobalStyles from './styles/GlobalStyles';
@@ -17,6 +18,7 @@ function App() {
             <GlobalStyles />
             <Header />
             <Home />
+            <Footer />
         </Container>
     );
 }
