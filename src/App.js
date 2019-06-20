@@ -28,10 +28,15 @@ function App() {
             <GlobalStyles />
             <Router>
                 <Header />
-
                 <Switch>
                     <Route path="/" exact component={Home} />
-                    <Route path="/pet-supplements/:pet" component={Products} />
+                    <Route
+                        path={[
+                            '/pet-supplements/:pet/:category',
+                            '/pet-supplements/:pet'
+                        ]}
+                        component={Products}
+                    />
                     <Route
                         path="/about-us"
                         exact

@@ -5,14 +5,12 @@ import { A, H2 } from 'elements';
 import Category from 'blocks/Category';
 import categoriesConfig from './duck/categoriesConfig';
 
-import { gridTemplate } from 'styles/mixins';
+import { gridTemplate, subGridTemplate } from 'styles/mixins';
 import { color_secondary } from 'styles/variables';
 
 const StyledSection = styled.section`
     grid-column: full-start / full-end;
-
-    display: grid;
-    grid-template-columns: ${gridTemplate};
+    ${gridTemplate};
     background-color: ${color_secondary};
     grid-row-gap: 6rem;
     padding: 4rem 0 6rem 0;
@@ -20,8 +18,7 @@ const StyledSection = styled.section`
 
 const Container = styled.div`
     grid-column: center-start / center-end;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    ${subGridTemplate};
     grid-gap: 6rem;
     align-items: start;
 `;
@@ -41,8 +38,8 @@ const SectionCategories = () => (
 
         <Container>
             {categoriesConfig.map(({ title, icon, text, link }, i) => (
-                <A to={link}>
-                    <Category key={title + i}>
+                <A to={link} key={title + i}>
+                    <Category>
                         <Category.Icon icon={icon} />
                         <Category.Title>{title}</Category.Title>
                         <Category.Text>{text}</Category.Text>

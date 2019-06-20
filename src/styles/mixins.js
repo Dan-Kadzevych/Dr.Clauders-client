@@ -11,3 +11,9 @@ export const gridTemplate = css`
         [center-end]
         minmax(6rem, 1fr) [full-end];
 `;
+
+export const subGridTemplate = css`
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+`;

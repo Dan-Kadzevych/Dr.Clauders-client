@@ -21,7 +21,7 @@ const StoryContent = () => (
             distinctio necessitatibus pariatur voluptatibus. Quidem consequatur
             harum volupta! Quidem consequatur harum volupta!
         </P>
-        <Button href="#">Become an Opt customer</Button>
+        <Button to="/">Become an Opt customer</Button>
     </Container>
 );
 

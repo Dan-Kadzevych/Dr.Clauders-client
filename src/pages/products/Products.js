@@ -8,9 +8,8 @@ import { gridTemplate } from 'styles/mixins';
 
 const Container = styled.div`
     grid-column: full-start / full-end;
-    background-color: orangered;
     text-align: center;
-    color: #ffffff;
+    color: #000;
 
     ${gridTemplate};
     grid-template-rows: 30rem min-content;
@@ -21,7 +20,7 @@ class Products extends Component {
         return (
             <Container>
                 <Hero />
-                <ProductsGrid>Hello</ProductsGrid>
+                <ProductsGrid />
             </Container>
         );
     }
