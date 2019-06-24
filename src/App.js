@@ -27,7 +27,7 @@ function App() {
         <Container>
             <GlobalStyles />
             <Router>
-                <Header />
+                <Route component={Header} />
                 <Switch>
                     <Route path="/" exact component={Home} />
                     <Route

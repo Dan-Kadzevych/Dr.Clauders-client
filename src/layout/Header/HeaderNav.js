@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import { color_primary } from 'styles/variables';
 import navConfig from './duck/navConfig';
 import { getSubmenuDelays } from './duck/utils';
-import { A } from 'elements';
 import HeaderSubMenu from './HeaderSubMenu';
+import NavLink from './NavLink';
 
 const Nav = styled.nav`
     grid-column: col-start 5 / col-end 8;
@@ -16,21 +16,6 @@ const List = styled.ul`
     list-style-type: none;
     display: flex;
     justify-content: space-between;
-`;
-
-const Link = styled(A)`
-    :link,
-    :visited {
-        line-height: 4.6rem;
-        font-size: 1.2rem;
-        font-weight: 300;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-    }
-
-    &:hover {
-        color: ${color_primary};
-    }
 `;
 
 const Element = styled.li`
@@ -73,12 +58,14 @@ const Element = styled.li`
     }
 `;
 
-const HeaderNav = () => (
+const HeaderNav = props => (
     <Nav>
         <List>
             {navConfig.map((el, i) => (
                 <Element key={el.text + i}>
-                    <Link to={el.link}>{el.text}</Link>
+                    <NavLink link={el.link} path={props.location.pathname}>
+                        {el.text}
+                    </NavLink>
                     {el.subMenu && <HeaderSubMenu config={el.subMenu} />}
                 </Element>
             ))}

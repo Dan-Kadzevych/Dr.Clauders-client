@@ -10,6 +10,10 @@ const A = styled(Link)`
         text-decoration: none;
         color: ${color_black};
     }
+
+    :focus {
+        outline: none;
+    }
 `;
 
 export default A;

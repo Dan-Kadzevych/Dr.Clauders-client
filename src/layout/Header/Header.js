@@ -22,7 +22,7 @@ const StyledHeader = styled.header`
 `;
 
 const LogoBox = styled(A)`
-    grid-column: col-start 1 / col-end 2;
+    grid-column: col-start 1 / col-end 1;
     cursor: pointer;
 `;
 
@@ -31,12 +31,12 @@ const Logo = styled.img`
     height: auto;
 `;
 
-const Header = () => (
+const Header = props => (
     <StyledHeader>
         <LogoBox to="/">
             <Logo src={logo} alt="Dr Clauder's" />
         </LogoBox>
-        <HeaderNav />
+        <HeaderNav {...props} />
     </StyledHeader>
 );
 
