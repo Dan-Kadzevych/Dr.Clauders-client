@@ -1,7 +1,9 @@
 import { css } from 'styled-components';
+import get from 'lodash/get';
 
 import { MAX_SUB_ITEMS } from './constants';
 
+const emptyArr = [];
 const delayTemplate = i => {
     return `
         &:nth-child(${i}) {
@@ -21,3 +23,6 @@ export const getSubmenuDelays = () => {
         ${styles}
     `;
 };
+
+export const getNavConfig = state =>
+    get(state, 'appConfig.navConfig') || emptyArr;

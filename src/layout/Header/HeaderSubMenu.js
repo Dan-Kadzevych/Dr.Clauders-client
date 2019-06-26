@@ -18,6 +18,7 @@ const Submenu = styled.ul`
     transition: all 0.15s cubic-bezier(0.215, 0.61, 0.355, 1);
     transform-origin: center top;
     background-color: rgba(${toRgba(color_secondary)} 0.94);
+    z-index: 1000;
 `;
 
 const SubmenuLink = styled(A)`
@@ -47,9 +48,9 @@ const SubmenuElement = styled.li`
 
 const HeaderSubMenu = ({ config }) => (
     <Submenu>
-        {config.map(({ link, text }, i) => (
-            <SubmenuElement key={text + i}>
-                <SubmenuLink to={link}>{text}</SubmenuLink>
+        {config.map(({ slug, name }) => (
+            <SubmenuElement key={slug}>
+                <SubmenuLink to={slug}>{name}</SubmenuLink>
             </SubmenuElement>
         ))}
     </Submenu>

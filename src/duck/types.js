@@ -1,0 +1,7 @@
+export const REQUEST_APP_CONFIG = 'FETCH_APP_CONFIG';
+export const RECEIVE_APP_CONFIG = 'RECEIVE_APP_CONFIG';
+
+export default {
+    REQUEST_APP_CONFIG,
+    RECEIVE_APP_CONFIG
+};

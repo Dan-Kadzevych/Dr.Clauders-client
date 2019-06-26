@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 import Header from './layout/Header';
 import Footer from './layout/Footer';
 import Home from './pages/home';
 import Products from './pages/products';
+import { operations } from './duck';
 
 import GlobalStyles from './styles/GlobalStyles';
 import { gridTemplate } from 'styles/mixins';
@@ -22,38 +24,55 @@ const PageContainer = styled.div`
     padding: 20rem;
 `;
 
-function App() {
-    return (
-        <Container>
-            <GlobalStyles />
-            <Router>
-                <Route component={Header} />
-                <Switch>
-                    <Route path="/" exact component={Home} />
-                    <Route
-                        path={[
-                            '/pet-supplements/:pet/:category',
-                            '/pet-supplements/:pet'
-                        ]}
-                        component={Products}
-                    />
-                    <Route
-                        path="/about-us"
-                        exact
-                        component={() => (
-                            <PageContainer>About Us</PageContainer>
-                        )}
-                    />
-                    <Route
-                        path="/contact-us"
-                        exact
-                        component={() => <PageContainer>Contact</PageContainer>}
-                    />
-                </Switch>
-                <Footer />
-            </Router>
-        </Container>
-    );
+const mapDispatchToProps = dispatch => ({
+    fetchAppConfig() {
+        return dispatch(operations.fetchAppConfig());
+    }
+});
+
+class App extends Component {
+    componentDidMount() {
+        this.props.fetchAppConfig();
+    }
+
+    render() {
+        return (
+            <Container>
+                <GlobalStyles />
+                <Router>
+                    <Route component={Header} />
+                    <Switch>
+                        <Route path="/" exact component={Home} />
+                        <Route
+                            path={[
+                                '/pet-supplements/:pet/:category',
+                                '/pet-supplements/:pet'
+                            ]}
+                            component={Products}
+                        />
+                        <Route
+                            path="/about-us"
+                            exact
+                            component={() => (
+                                <PageContainer>About Us</PageContainer>
+                            )}
+                        />
+                        <Route
+                            path="/contact-us"
+                            exact
+                            component={() => (
+                                <PageContainer>Contact</PageContainer>
+                            )}
+                        />
+                    </Switch>
+                    <Footer />
+                </Router>
+            </Container>
+        );
+    }
 }
 
-export default App;
+export default connect(
+    null,
+    mapDispatchToProps
+)(App);

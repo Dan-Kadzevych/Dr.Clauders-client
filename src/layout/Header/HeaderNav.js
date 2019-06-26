@@ -1,9 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 import { color_primary } from 'styles/variables';
-import navConfig from './duck/navConfig';
-import { getSubmenuDelays } from './duck/utils';
+import { getSubmenuDelays, getNavConfig } from './duck/utils';
 import HeaderSubMenu from './HeaderSubMenu';
 import NavLink from './NavLink';
 
@@ -58,19 +58,26 @@ const Element = styled.li`
     }
 `;
 
+const mapStateToProps = state => ({
+    navConfig: getNavConfig(state)
+});
+
 const HeaderNav = props => (
     <Nav>
         <List>
-            {navConfig.map((el, i) => (
-                <Element key={el.text + i}>
-                    <NavLink link={el.link} path={props.location.pathname}>
-                        {el.text}
-                    </NavLink>
-                    {el.subMenu && <HeaderSubMenu config={el.subMenu} />}
-                </Element>
-            ))}
+            {props.navConfig &&
+                props.navConfig.map(el => (
+                    <Element key={el.slug}>
+                        <NavLink link={el.slug} path={props.location.pathname}>
+                            {el.name}
+                        </NavLink>
+                        {el.subCategories && !!el.subCategories.length && (
+                            <HeaderSubMenu config={el.subCategories} />
+                        )}
+                    </Element>
+                ))}
         </List>
     </Nav>
 );
 
-export default HeaderNav;
+export default connect(mapStateToProps)(HeaderNav);

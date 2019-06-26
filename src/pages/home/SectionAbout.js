@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Button, H1, P } from 'elements';
@@ -22,7 +23,7 @@ const HeadingSub = styled.strong`
 
 const SectionAbout = () => (
     <StyledSection>
-        <H1>
+        <H1 className="mb-sm-s">
             <HeadingMain>Pet Vitamins and Supplements for a</HeadingMain>
             <HeadingSub>Long and Healthy Life</HeadingSub>
         </H1>
@@ -33,9 +34,11 @@ const SectionAbout = () => (
             to improve your pets overall well-being and help ensure a long and
             healthy life.
         </P>
-        <Button className="mt-md" to="/">
-            View Our Pet Vitamins and Supplements
-        </Button>
+        <Link to="/pet_supplements">
+            <Button className="mt-md" to="/">
+                View Our Pet Vitamins and Supplements
+            </Button>
+        </Link>
     </StyledSection>
 );
 

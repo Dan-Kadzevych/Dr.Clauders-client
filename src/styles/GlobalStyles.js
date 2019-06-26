@@ -16,9 +16,10 @@ const GlobalStyles = createGlobalStyle`
     }
 
     body {
-        font-family: 'Merriweather Sans', sans-serif;
+        font-family: 'Merriwreather Sans', sans-serif;
         font-size: 1.6rem;
         box-sizing: border-box;
+        min-height: 100vh;
     }
     
     html {
@@ -32,6 +33,11 @@ const GlobalStyles = createGlobalStyle`
     .mb-sm {
         margin-bottom: 2rem;
     }
+    
+    .mb-sm-s {
+        margin-bottom: 1.5rem;
+    }
+    
     
     .mb-md {
         margin-bottom: 3rem;
