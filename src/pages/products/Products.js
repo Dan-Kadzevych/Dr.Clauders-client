@@ -7,13 +7,20 @@ import ProductsGrid from './ProductsGrid';
 import { operations, selectors, utils } from './duck';
 
 import { gridTemplate } from 'styles/mixins';
+import { color_grey_light } from 'styles/variables';
 
 const Container = styled.div`
     grid-column: full-start / full-end;
-    text-align: center;
-    color: #000;
 
     ${gridTemplate};
+    min-height: calc(100vh - 5rem);
+    align-content: start;
+`;
+
+const Results = styled.div`
+    grid-column: center-start / center-end;
+    margin-top: 5rem;
+    color: ${color_grey_light};
 `;
 
 const mapStateToProps = state => {
@@ -65,6 +72,7 @@ class Products extends Component {
         return (
             <Container>
                 <Hero title={categoryName} media={categoryMedia} />
+                <Results>Showing all {products.length} results</Results>
                 <ProductsGrid products={products} />
             </Container>
         );

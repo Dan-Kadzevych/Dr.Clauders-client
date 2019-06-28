@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 
+import { A } from 'elements';
 import Image from './Image';
 
-const Body = styled.div`
-    margin-bottom: 2rem;
+const Body = styled(A)`
+    margin-bottom: 1.5rem;
     cursor: pointer;
 
     :hover {

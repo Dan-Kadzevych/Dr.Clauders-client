@@ -9,7 +9,7 @@ const initialState = {
 const productsReducer = (state = initialState, action) => {
     switch (action.type) {
         case types.REQUEST_PRODUCTS:
-            return { ...state, isLoading: true };
+            return { ...state, products: [], isLoading: true };
         case types.RECEIVE_PRODUCTS:
             return { ...state, products: action.products, isLoading: false };
         case types.SET_PRODUCTS_FILTER:

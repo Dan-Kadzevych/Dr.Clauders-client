@@ -4,10 +4,16 @@ import get from 'lodash/get';
 
 import { H1 } from 'elements';
 import { toRgba } from 'utils';
-import { color_primary, color_white, color_secondary } from 'styles/variables';
+import {
+    color_primary,
+    color_white,
+    color_secondary,
+    font_secondary
+} from 'styles/variables';
 
 const Title = styled(H1)`
     color: ${color_white};
+    ${font_secondary};
 `;
 
 const StyledHero = styled.section`

@@ -1,11 +1,12 @@
 import { createGlobalStyle } from 'styled-components';
 
-import { color_primary, color_white } from './variables';
+import { color_primary, color_white, font_primary } from './variables';
 
 const GlobalStyles = createGlobalStyle`
     @import url('https://fonts.googleapis.com/css?family=Merriweather+Sans:300,300i,400,400i,700,700i,800,800i&display=swap');
     @import url('https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap');
     @import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+    @import url('https://fonts.googleapis.com/css?family=Crimson+Text&display=swap');
     
     *,
     *::after,
@@ -16,11 +17,13 @@ const GlobalStyles = createGlobalStyle`
     }
 
     body {
-        font-family: 'Merriwreather Sans', sans-serif;
-        font-size: 1.6rem;
+        ${font_primary};
+        font-size: 1.5rem;
         box-sizing: border-box;
-        min-height: 100vh;
+        line-height: 2.7rem;
+        font-weight: 400;
     }
+    
     
     html {
         font-size: 62.5%;

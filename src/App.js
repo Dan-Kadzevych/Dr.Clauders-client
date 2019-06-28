@@ -7,6 +7,7 @@ import Header from './layout/Header';
 import Footer from './layout/Footer';
 import Home from './pages/home';
 import Products from './pages/products';
+import Product from './pages/product';
 import { operations } from './duck';
 
 import GlobalStyles from './styles/GlobalStyles';
@@ -48,7 +49,12 @@ class App extends Component {
                                 '/pet-supplements/:pet/:category',
                                 '/pet-supplements/:pet'
                             ]}
+                            exact
                             component={Products}
+                        />
+                        <Route
+                            path="/shop/:pet/:category/:productName"
+                            component={Product}
                         />
                         <Route
                             path="/about-us"

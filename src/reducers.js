@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
 
-import { productReducer } from './pages/products/duck';
+import { productsReducer } from './pages/products/duck';
+import { productReducer } from './pages/product/duck';
 import { appConfigReducer } from './duck';
 
 export default combineReducers({
-    productsPage: productReducer,
+    productsPage: productsReducer,
+    productPage: productReducer,
     appConfig: appConfigReducer
 });

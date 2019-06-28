@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-import { color_primary } from 'styles/variables';
+import { color_primary, font_tertiary } from 'styles/variables';
 import { getSubmenuDelays, getNavConfig } from './duck/utils';
 import HeaderSubMenu from './HeaderSubMenu';
 import NavLink from './NavLink';
@@ -10,6 +10,7 @@ import NavLink from './NavLink';
 const Nav = styled.nav`
     grid-column: col-start 5 / col-end 8;
     font-size: 1.2rem;
+    ${font_tertiary};
 `;
 
 const List = styled.ul`

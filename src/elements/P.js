@@ -1,9 +1,5 @@
 import styled from 'styled-components';
 
-const P = styled.p`
-    font-size: 1.5rem;
-    line-height: 2.7rem;
-    font-family: 'Lato', sans-serif;
-`;
+const P = styled.p``;
 
 export default P;

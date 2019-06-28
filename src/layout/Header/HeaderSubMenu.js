@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { toRgba } from 'utils';
@@ -31,6 +32,11 @@ const SubmenuLink = styled(A)`
         letter-spacing: 1px;
         padding: 1rem 3rem;
     }
+
+    &.active {
+        color: ${color_white};
+        background-color: rgba(${toRgba(color_grey_dark_3)} 0.94);
+    }
 `;
 
 const SubmenuElement = styled.li`
@@ -50,7 +56,9 @@ const HeaderSubMenu = ({ config }) => (
     <Submenu>
         {config.map(({ slug, name }) => (
             <SubmenuElement key={slug}>
-                <SubmenuLink to={slug}>{name}</SubmenuLink>
+                <SubmenuLink as={NavLink} activeClassName="active" to={slug}>
+                    {name}
+                </SubmenuLink>
             </SubmenuElement>
         ))}
     </Submenu>

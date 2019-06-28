@@ -4,18 +4,13 @@ import get from 'lodash/get';
 import { normalizeCategories } from './utils';
 
 const emptyObj = {};
+const emptyArr = [];
 const getProductsFilter = state => get(state, 'productsPage.filter');
-const getAllProducts = state => get(state, 'productsPage.products');
+const getProducts = state => get(state, 'productsPage.products', emptyArr);
 const getAllCategories = state => get(state, 'appConfig.navConfig');
 const getNormalizedCategories = createSelector(
     getAllCategories,
     normalizeCategories
-);
-const getProducts = createSelector(
-    [getProductsFilter, getAllProducts],
-    (filter, products) => {
-        return products;
-    }
 );
 
 const getCurrentCategory = createSelector(

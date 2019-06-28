@@ -1,0 +1,7 @@
+export const REQUEST_PRODUCT = 'REQUEST_PRODUCT';
+export const RECEIVE_PRODUCT = 'RECEIVE_PRODUCT';
+
+export default {
+    REQUEST_PRODUCT,
+    RECEIVE_PRODUCT
+};
