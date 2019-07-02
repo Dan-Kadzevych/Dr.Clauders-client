@@ -14,7 +14,7 @@ const Container = styled.main`
     margin: 3rem 0 8rem 0;
 `;
 
-const ProductsGrid = ({ products }) => (
+const ProductsGrid = ({ products, addToCart, isAdded, isRequested }) => (
     <Container>
         {products.map(({ title, price, _id, media: { url }, slug }) => (
             <Card key={_id}>
@@ -27,7 +27,14 @@ const ProductsGrid = ({ products }) => (
                     <Card.Price>{price}</Card.Price>
                 </Card.Body>
 
-                <Card.Button>Add to Cart</Card.Button>
+                <Card.Button
+                    onClick={() => addToCart(_id)}
+                    loading={isRequested(_id)}
+                    added={isAdded(_id)}
+                >
+                    Add to Cart
+                </Card.Button>
+                {isAdded(_id) && <div>View cart</div>}
             </Card>
         ))}
     </Container>

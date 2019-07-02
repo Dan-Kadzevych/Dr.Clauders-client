@@ -5,6 +5,11 @@ import styled from 'styled-components';
 import Hero from './Hero';
 import ProductsGrid from './ProductsGrid';
 import { operations, selectors, utils } from './duck';
+import { addToCart } from 'pages/cart/duck/operations';
+import {
+    getIsProductAddedFunc,
+    getIsProductRequestedFunc
+} from 'pages/cart/duck/selectors';
 
 import { gridTemplate } from 'styles/mixins';
 import { color_grey_light } from 'styles/variables';
@@ -30,7 +35,9 @@ const mapStateToProps = state => {
         products: selectors.getProducts(state),
         categoryName: utils.getCategoryName(category),
         categoryID: utils.getCategoryID(category),
-        categoryMedia: utils.getCategoryMedia(category)
+        categoryMedia: utils.getCategoryMedia(category),
+        isProductRequestedFunc: getIsProductRequestedFunc(state),
+        isProductAddedFunc: getIsProductAddedFunc(state)
     };
 };
 
@@ -40,6 +47,9 @@ const mapDispatchToProps = dispatch => ({
     },
     setFilter(filter) {
         return dispatch(operations.setProductsFilter(filter));
+    },
+    addToCart(ID) {
+        return dispatch(addToCart(ID));
     }
 });
 
@@ -53,7 +63,10 @@ class Products extends Component {
         setFilter(url);
     }
 
-    componentDidUpdate({ categoryID: prevCategoryId }) {
+    componentDidUpdate({
+        categoryID: prevCategoryId,
+        match: { url: prevUrl }
+    }) {
         const {
             match: { url },
             categoryID
@@ -63,17 +76,31 @@ class Products extends Component {
             this.props.fetchProducts(categoryID);
         }
 
-        this.props.setFilter(url);
+        if (url !== prevUrl) {
+            this.props.setFilter(url);
+        }
     }
 
     render() {
-        const { products, categoryName, categoryMedia } = this.props;
+        const {
+            products,
+            categoryName,
+            categoryMedia,
+            addToCart,
+            isProductAddedFunc,
+            isProductRequestedFunc
+        } = this.props;
 
         return (
             <Container>
                 <Hero title={categoryName} media={categoryMedia} />
                 <Results>Showing all {products.length} results</Results>
-                <ProductsGrid products={products} />
+                <ProductsGrid
+                    products={products}
+                    addToCart={addToCart}
+                    isAdded={isProductAddedFunc}
+                    isRequested={isProductRequestedFunc}
+                />
             </Container>
         );
     }
