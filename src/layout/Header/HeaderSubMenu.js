@@ -2,10 +2,10 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { toRgba } from 'utils';
+import { toRgba } from 'utils/utils';
 import {
     color_grey_dark_3,
-    color_secondary,
+    color_tertiary,
     color_white
 } from 'styles/variables';
 import A from 'elements/A';
@@ -18,7 +18,7 @@ const Submenu = styled.ul`
     transform: scaleY(0);
     transition: all 0.15s cubic-bezier(0.215, 0.61, 0.355, 1);
     transform-origin: center top;
-    background-color: rgba(${toRgba(color_secondary)} 0.94);
+    background-color: rgba(${toRgba(color_tertiary)} 0.94);
     z-index: 1000;
 `;
 

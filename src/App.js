@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
 import { connect } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
 import styled from 'styled-components';
 
 import Header from './layout/Header';
 import Footer from './layout/Footer';
-import Home from './pages/home';
-import Products from './pages/products';
-import Product from './pages/product';
-import { operations } from './duck';
+import { Home, Cart, Product, Products } from 'pages';
+
+import { operations } from 'duck';
+import { initCart } from 'pages/Cart/duck/operations';
 
 import GlobalStyles from './styles/GlobalStyles';
 import { gridTemplate } from 'styles/mixins';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 const Container = styled.div`
     ${gridTemplate}
@@ -28,19 +32,24 @@ const PageContainer = styled.div`
 const mapDispatchToProps = dispatch => ({
     fetchAppConfig() {
         return dispatch(operations.fetchAppConfig());
+    },
+    initCart() {
+        return dispatch(initCart());
     }
 });
 
 class App extends Component {
     componentDidMount() {
         this.props.fetchAppConfig();
+        this.props.initCart();
     }
 
     render() {
         return (
             <Container>
                 <GlobalStyles />
-                <Router>
+                <ConnectedRouter history={this.props.history}>
+                    <ToastContainer />
                     <Route component={Header} />
                     <Switch>
                         <Route path="/" exact component={Home} />
@@ -54,8 +63,10 @@ class App extends Component {
                         />
                         <Route
                             path="/shop/:pet/:category/:productName"
+                            exact
                             component={Product}
                         />
+                        <Route exact path="/cart" component={Cart} />
                         <Route
                             path="/about-us"
                             exact
@@ -72,7 +83,7 @@ class App extends Component {
                         />
                     </Switch>
                     <Footer />
-                </Router>
+                </ConnectedRouter>
             </Container>
         );
     }

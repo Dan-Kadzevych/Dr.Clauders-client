@@ -8,8 +8,10 @@ import Title from './Title';
 
 const Card = styled.div`
     display: flex;
+    position: relative;
     flex-direction: column;
     justify-content: space-between;
+    padding-bottom: 2.5rem;
 `;
 
 Card.Image = Image;

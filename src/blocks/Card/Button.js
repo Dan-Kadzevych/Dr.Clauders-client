@@ -1,18 +1,21 @@
 import styled, { css } from 'styled-components';
 
 import { ButtonAlt } from 'elements';
+import { color_secondary } from 'styles/variables';
 
 const CardButton = styled(ButtonAlt)`
-    ${({ loading, added }) => {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    :hover {
+        background-color: ${color_secondary};
+    }
+
+    ${({ loading }) => {
         if (loading) {
             return css`
                 opacity: 0.3;
-            `;
-        }
-
-        if (added) {
-            return css`
-                background-color: #000;
             `;
         }
     }}

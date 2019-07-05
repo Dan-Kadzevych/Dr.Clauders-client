@@ -2,11 +2,19 @@ import React from 'react';
 import styled from 'styled-components';
 
 import HeaderNav from './HeaderNav';
+import TopBar from './TopBar';
 import { A } from 'elements';
+import { gridTemplate } from 'styles/mixins';
 
 import logo from 'images/logo.jpg';
 
-const StyledHeader = styled.header`
+const HeaderContainer = styled.header`
+    grid-column: full-start / full-end;
+
+    ${gridTemplate};
+`;
+
+const StyledHeader = styled.div`
     grid-column: center-start / center-end;
 
     display: grid;
@@ -32,12 +40,15 @@ const Logo = styled.img`
 `;
 
 const Header = props => (
-    <StyledHeader>
-        <LogoBox to="/">
-            <Logo src={logo} alt="Dr Clauder's" />
-        </LogoBox>
-        <HeaderNav {...props} />
-    </StyledHeader>
+    <HeaderContainer>
+        <TopBar />
+        <StyledHeader>
+            <LogoBox to="/">
+                <Logo src={logo} alt="Dr Clauder's" />
+            </LogoBox>
+            <HeaderNav {...props} />
+        </StyledHeader>
+    </HeaderContainer>
 );
 
 export default Header;

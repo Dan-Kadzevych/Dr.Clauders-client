@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { toDark } from 'utils';
+import { toDark } from 'utils/utils';
 
 import { color_primary, color_white, font_secondary } from 'styles/variables';
 
@@ -13,7 +13,7 @@ const StyledButton = styled.button`
     ${font_secondary};
     font-size: 1.5rem;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.2s ease;
     color: ${color_white};
 
     :focus {

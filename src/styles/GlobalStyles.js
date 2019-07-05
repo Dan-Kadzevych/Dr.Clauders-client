@@ -1,6 +1,13 @@
 import { createGlobalStyle } from 'styled-components';
 
-import { color_primary, color_white, font_primary } from './variables';
+import {
+    color_primary,
+    color_secondary,
+    color_tertiary,
+    color_white,
+    color_black,
+    font_primary
+} from './variables';
 
 const GlobalStyles = createGlobalStyle`
     @import url('https://fonts.googleapis.com/css?family=Merriweather+Sans:300,300i,400,400i,700,700i,800,800i&display=swap');
@@ -48,6 +55,18 @@ const GlobalStyles = createGlobalStyle`
     
     .mb-md-b {
         margin-bottom: 4rem;
+    }
+    
+    .toast-success.toast-success {
+        background-color: ${color_tertiary}  ;
+        box-shadow: none ;
+        border-radius: 0 ;
+        color: ${color_black} ;
+        align-items: start;
+    }
+    
+    .toast-progress-success.toast-progress-success {
+        background-color: ${color_secondary}  ;
     }
     
     ::selection {

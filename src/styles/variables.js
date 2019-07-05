@@ -1,7 +1,9 @@
 import { css } from 'styled-components';
 
-const color_primary = '#002D9C';
-const color_secondary = '#F2F2F2';
+// primary old #002D9C
+const color_primary = '#042c59';
+const color_secondary = '#f96d0b';
+const color_tertiary = '#F2F2F2';
 
 const color_white = '#fff';
 const color_black = '#000';
@@ -29,6 +31,7 @@ const font_quaternary = css`
 export {
     color_primary,
     color_secondary,
+    color_tertiary,
     color_white,
     color_black,
     color_grey_dark,
