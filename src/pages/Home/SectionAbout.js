@@ -39,7 +39,7 @@ const SectionAbout = () => (
             to improve your pets overall well-being and help ensure a long and
             healthy life.
         </p>
-        <Link to="/pet_supplements">
+        <Link to="/pet-supplements/dog-supplements">
             <Button className="mt-md" to="/">
                 View Our Pet Vitamins and Supplements
             </Button>

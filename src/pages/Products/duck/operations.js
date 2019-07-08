@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { getCurrentLocation } from 'utils/redux/location';
+import { getCurrentLocation } from 'duck/selectors';
 import { requestProducts, receiveProducts } from './actions';
 
 const fetchProducts = (categoryID, filter) => async (dispatch, getState) => {
@@ -13,11 +13,11 @@ const fetchProducts = (categoryID, filter) => async (dispatch, getState) => {
             }
         });
 
-        if (data.error) {
-            return;
-        }
-
         if (getCurrentLocation(getState()) === filter) {
+            if (data.error) {
+                return;
+            }
+
             return dispatch(receiveProducts(data));
         }
     } catch (e) {

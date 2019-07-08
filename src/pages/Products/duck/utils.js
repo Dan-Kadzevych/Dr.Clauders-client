@@ -2,20 +2,6 @@ import get from 'lodash/get';
 
 const emptyObj = {};
 
-export const normalizeCategories = categories => {
-    const normalizedCategories = [];
-    categories.forEach(category => {
-        const subCategories = get(category, 'subCategories');
-        if (subCategories && subCategories.length) {
-            subCategories.forEach(subCategory =>
-                normalizedCategories.push(subCategory)
-            );
-        }
-        normalizedCategories.push(category);
-    });
-    return normalizedCategories;
-};
-
 export const getCategoryName = category => {
     const name = get(category, 'name');
     const pet = get(category, 'pet');
@@ -23,7 +9,7 @@ export const getCategoryName = category => {
 
     return parent ? `${pet} - ${name}` : name;
 };
-export const getCategoryID = category => get(category, '_id') || '';
+export const getCategoryID = category => get(category, '_id') || null;
 export const getCategoryMedia = category => get(category, 'media') || emptyObj;
 
 export default {

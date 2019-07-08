@@ -2,34 +2,29 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
+import { Spinner } from 'blocks';
 import Media from './Media';
 import Description from './Description';
 import Tabs from './Tabs';
 import { operations, selectors } from './duck';
-
-const Loading = styled.div`
-    grid-column: full-start / full-end;
-    width: 100%;
-    height: calc(100vh - 10rem);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`;
+import { NoMatch } from 'pages';
 
 const Container = styled.div`
     grid-column: center-start / center-end;
 
     margin: 8rem 0;
+    position: relative;
     display: grid;
     grid-template-columns: repeat(2, minmax(min-content, 1fr));
     grid-column-gap: 5rem;
     grid-row-gap: 2.5rem;
     align-content: start;
-    min-height: calc(100vh - 24rem);
+    min-height: calc(100vh - 56rem);
 `;
 
 const mapStateToProps = state => ({
-    product: selectors.getProduct(state)
+    product: selectors.getProduct(state),
+    isLoading: selectors.isProductLoading(state)
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -47,28 +42,33 @@ class Product extends Component {
     }
 
     render() {
-        const { product } = this.props;
-        if (!product) {
-            return <Loading>No Product</Loading>;
+        const { product, isLoading } = this.props;
+
+        if (!product && !isLoading) {
+            return <NoMatch />;
         }
-        const {
-            media: { url: imageUrl },
-            description: { media, main, tabs },
-            price,
-            title,
-            _id: ID
-        } = product;
 
         return (
             <Container>
-                <Media main={imageUrl} sub={media} />
-                <Description
-                    title={title}
-                    price={price}
-                    description={main}
-                    ID={ID}
-                />
-                <Tabs tabs={tabs} />
+                {!isLoading ? (
+                    <>
+                        <Media
+                            main={product.media.url}
+                            sub={product.description.media}
+                        />
+                        <Description
+                            title={product.title}
+                            price={product.price}
+                            description={product.description.main}
+                            ID={product._id}
+                        />
+                        {!!product.description.tabs.length && (
+                            <Tabs tabs={product.description.tabs} />
+                        )}
+                    </>
+                ) : (
+                    <Spinner />
+                )}
             </Container>
         );
     }

@@ -1,9 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { toDark } from 'utils/utils';
-
-import { color_primary, color_white, font_secondary } from 'styles/variables';
+import {
+    color_primary,
+    color_white,
+    color_secondary,
+    font_secondary
+} from 'styles/variables';
 
 const StyledButton = styled.button`
     background-color: ${color_primary};
@@ -21,7 +24,7 @@ const StyledButton = styled.button`
     }
 
     :hover {
-        background-color: ${toDark(color_primary)};
+        background-color: ${color_secondary};
     }
 `;
 

@@ -9,11 +9,12 @@ import { color_secondary } from 'styles/variables';
 
 const StyledCart = styled.div`
     grid-column: center-start/center-end;
+    margin-bottom: 8.5rem;
+    margin-top: 5rem;
 `;
 
 const CartHeader = styled.header`
     text-align: center;
-    margin-top: 5rem;
 `;
 const CartTitle = styled(H1)`
     font-weight: 300;
@@ -23,15 +24,11 @@ const CartTitle = styled(H1)`
 const mapDispatchToProps = dispatch => ({
     fetchProducts() {
         return dispatch(operations.fetchCartProducts());
-    },
-    initCart() {
-        return dispatch(operations.initCart());
     }
 });
 
 class Cart extends Component {
     componentDidMount() {
-        this.props.initCart();
         this.props.fetchProducts();
     }
 

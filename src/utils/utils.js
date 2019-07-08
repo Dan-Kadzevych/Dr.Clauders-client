@@ -9,8 +9,4 @@ export const toRgba = color => {
     );
 };
 
-export const toDark = color => {
-    return Color(color)
-        .darken(0.2)
-        .hex();
-};
+export default { toRgba };

@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
-import { connect } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import styled from 'styled-components';
 
-import Header from './layout/Header';
-import Footer from './layout/Footer';
-import { Home, Cart, Product, Products } from 'pages';
-
-import { operations } from 'duck';
-import { initCart } from 'pages/Cart/duck/operations';
+import { Home, Cart, Product, Products, NoMatch } from 'pages';
+import { isAppLoading } from 'duck';
+import { Footer, Header } from 'layout';
+import { Spinner } from 'blocks';
 
 import GlobalStyles from './styles/GlobalStyles';
 import { gridTemplate } from 'styles/mixins';
@@ -29,23 +27,13 @@ const PageContainer = styled.div`
     padding: 20rem;
 `;
 
-const mapDispatchToProps = dispatch => ({
-    fetchAppConfig() {
-        return dispatch(operations.fetchAppConfig());
-    },
-    initCart() {
-        return dispatch(initCart());
-    }
+const mapStateToProps = state => ({
+    isLoading: isAppLoading(state)
 });
 
 class App extends Component {
-    componentDidMount() {
-        this.props.fetchAppConfig();
-        this.props.initCart();
-    }
-
     render() {
-        return (
+        return !this.props.isLoading ? (
             <Container>
                 <GlobalStyles />
                 <ConnectedRouter history={this.props.history}>
@@ -81,15 +69,15 @@ class App extends Component {
                                 <PageContainer>Contact</PageContainer>
                             )}
                         />
+                        <Route component={NoMatch} />
                     </Switch>
                     <Footer />
                 </ConnectedRouter>
             </Container>
+        ) : (
+            <Spinner />
         );
     }
 }
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(App);
+export default connect(mapStateToProps)(App);

@@ -1,10 +1,10 @@
 import types from './types';
 
 export const requestProduct = () => ({
-    type: types.REQUEST_PRODUCT
+    type: types.GET_PRODUCT_REQUEST
 });
 
 export const receiveProduct = product => ({
-    type: types.RECEIVE_PRODUCT,
+    type: types.GET_PRODUCT_SUCCESS,
     product
 });

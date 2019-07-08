@@ -1,11 +1,11 @@
 import types from './types';
 
 export const requestAppConfig = () => ({
-    type: types.REQUEST_APP_CONFIG
+    type: types.GET_APP_CONFIG_REQUEST
 });
 
 export const receiveAppConfig = config => ({
-    type: types.RECEIVE_APP_CONFIG,
+    type: types.GET_APP_CONFIG_SUCCESS,
     config
 });
 

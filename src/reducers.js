@@ -6,6 +6,7 @@ import { productsReducer } from 'pages/Products/duck';
 import { productReducer } from 'pages/Product/duck';
 import { cartReducer } from 'pages/Cart/duck';
 import { appConfigReducer } from './duck';
+import { loadingReducer } from './loading';
 
 export default history =>
     combineReducers({
@@ -13,6 +14,7 @@ export default history =>
         productPage: productReducer,
         cartPage: cartReducer,
         appConfig: appConfigReducer,
+        loading: loadingReducer,
         form: formReducer,
         router: connectRouter(history)
     });

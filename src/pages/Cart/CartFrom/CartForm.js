@@ -9,21 +9,17 @@ import { A, _Base } from 'elements/index';
 import { successNotification } from 'notifications/index';
 import Spinner from 'blocks/Spinner/index';
 import { color_secondary, color_primary } from 'styles/variables';
-import {
-    getCartProducts,
-    getInitialValues,
-    getIsLoading,
-    getCartProductIDs
-} from '../duck/selectors';
+import selectors from '../duck/selectors';
 import { operations } from '../duck/index';
 import { getTotalPrice, getNewCart } from '../duck/utils';
 import { Row, Image, RemoveButton, Footer, Quantity, HeaderRow } from './index';
-import Notification from '../Notification';
+import { Notification, EmptyCart } from '../index';
 
 const emptyObj = {};
 const StyledForm = styled(Form)`
     margin: 2rem 0;
     position: relative;
+    min-height: 10rem;
 `;
 
 const Title = styled(A)`
@@ -46,15 +42,16 @@ const formConfig = {
 };
 
 const mapStateToProps = state => {
-    const initialValues = getInitialValues(state);
+    const initialValues = selectors.getInitialValues(state);
     const formValues = getFormValues(FORM_NAME)(state) || emptyObj;
 
     return {
-        products: getCartProducts(state),
-        productIDs: getCartProductIDs(state),
+        products: selectors.getCartProducts(state),
+        productIDs: selectors.getCartProductIDs(state),
         initialValues,
         formValues,
-        isLoading: getIsLoading(state),
+        isUpdating: selectors.isCartUpdating(state),
+        isLoading: selectors.isCartLoading(state),
         isEqual: isEqual(initialValues, formValues)
     };
 };
@@ -106,39 +103,51 @@ class CartForm extends _Base {
         const { addToCart } = this.props;
         addToCart(productID, quantity);
     }
-
     render() {
         const {
             handleSubmit,
             products,
             formValues,
             isEqual,
+            isUpdating,
             isLoading,
             productIDs
         } = this.props;
 
         return productIDs.length ? (
             <StyledForm onSubmit={handleSubmit(this.onSubmit)}>
-                <HeaderRow />
-                {products.map(({ slug, title, media: { url }, _id, price }) => (
-                    <Row key={_id}>
-                        <RemoveButton
-                            type="button"
-                            handleClick={() => this.handleRemove(_id, title)}
-                        />
-                        <Image slug={slug} url={url} />
-                        <Title to={slug}>{title}</Title>
-                        <span>{price}</span>
-                        <Quantity _id={_id} />
+                {!isLoading ? (
+                    <>
+                        <HeaderRow />
+                        {products.map(
+                            ({ slug, title, media: { url }, _id, price }) => (
+                                <Row key={_id}>
+                                    <RemoveButton
+                                        type="button"
+                                        handleClick={() =>
+                                            this.handleRemove(_id, title)
+                                        }
+                                    />
+                                    <Image slug={slug} url={url} />
+                                    <Title to={slug}>{title}</Title>
+                                    <span>{price}</span>
+                                    <Quantity _id={_id} />
 
-                        <span>{getTotalPrice(price, formValues[_id])}</span>
-                    </Row>
-                ))}
-                <Footer isEqual={isEqual} />
-                {isLoading && <Spinner />}
+                                    <span>
+                                        {getTotalPrice(price, formValues[_id])}
+                                    </span>
+                                </Row>
+                            )
+                        )}
+                        <Footer isEqual={isEqual} />
+                        {isUpdating && <Spinner />}
+                    </>
+                ) : (
+                    <Spinner />
+                )}
             </StyledForm>
         ) : (
-            <div>Empty cart</div>
+            <EmptyCart />
         );
     }
 }

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import Hero from './Hero';
 import ProductsGrid from './ProductsGrid';
+import { NoMatch } from 'pages';
 import { operations, selectors, utils } from './duck';
 import { addToCart } from 'pages/Cart/duck/operations';
 import {
@@ -37,7 +38,8 @@ const mapStateToProps = state => {
         categoryID: utils.getCategoryID(category),
         categoryMedia: utils.getCategoryMedia(category),
         isProductRequestedFunc: getIsProductRequestedFunc(state),
-        isProductAddedFunc: getIsProductAddedFunc(state)
+        isProductAddedFunc: getIsProductAddedFunc(state),
+        isLoading: selectors.isLoading(state)
     };
 };
 
@@ -51,10 +53,17 @@ const mapDispatchToProps = (dispatch, { match: { url } }) => ({
 });
 
 class Products extends Component {
+    componentDidMount() {
+        const { categoryID } = this.props;
+
+        if (categoryID) {
+            this.props.fetchProducts(categoryID);
+        }
+    }
     componentDidUpdate({ categoryID: prevCategoryId }) {
         const { categoryID } = this.props;
 
-        if (prevCategoryId !== categoryID) {
+        if (categoryID && prevCategoryId !== categoryID) {
             this.props.fetchProducts(categoryID);
         }
     }
@@ -66,20 +75,25 @@ class Products extends Component {
             categoryMedia,
             addToCart,
             isProductAddedFunc,
-            isProductRequestedFunc
+            isProductRequestedFunc,
+            isLoading,
+            categoryID
         } = this.props;
 
-        return (
+        return categoryID ? (
             <Container>
                 <Hero title={categoryName} media={categoryMedia} />
                 <Results>Showing all {products.length} results</Results>
                 <ProductsGrid
+                    isLoading={isLoading}
                     products={products}
                     addToCart={addToCart}
                     isAdded={isProductAddedFunc}
                     isRequested={isProductRequestedFunc}
                 />
             </Container>
+        ) : (
+            <NoMatch />
         );
     }
 }

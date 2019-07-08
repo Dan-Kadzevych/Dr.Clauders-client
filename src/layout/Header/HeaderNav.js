@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 import { color_primary, font_tertiary } from 'styles/variables';
-import { getSubmenuDelays, getNavConfig } from './duck/utils';
+import { getSubmenuDelays } from './duck/utils';
+import { getNavConfig } from 'duck/selectors';
 import HeaderSubMenu from './HeaderSubMenu';
 import NavLink from './NavLink';
 

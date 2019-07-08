@@ -102,7 +102,6 @@ class CartFrom extends Component {
     renderInput = ({ input, type }) => {
         return (
             <CartInput
-                title="Hello"
                 {...input}
                 required
                 min="1"

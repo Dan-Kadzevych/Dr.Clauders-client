@@ -9,14 +9,13 @@ const initialState = {
     productIDs: [],
     products: [],
     quantityByID: {},
-    isLoading: false,
     requestedIDs: []
 };
 
 const productIDs = (state = initialState.productIDs, action) => {
     switch (action.type) {
         case types.UPDATE_CART_SUCCESS:
-        case types.INIT_CART:
+        case types.INIT_CART_SUCCESS:
             const {
                 cart: { productIDs }
             } = action;
@@ -44,7 +43,7 @@ const productIDs = (state = initialState.productIDs, action) => {
 const quantityByID = (state = initialState.quantityByID, action) => {
     switch (action.type) {
         case types.UPDATE_CART_SUCCESS:
-        case types.INIT_CART:
+        case types.INIT_CART_SUCCESS:
             const {
                 cart: { quantityByID }
             } = action;
@@ -72,29 +71,12 @@ const products = (state = initialState.products, action) => {
     switch (action.type) {
         case types.UPDATE_CART_SUCCESS:
             return action.cart.products;
-        case types.RECEIVE_CART_PRODUCTS:
+        case types.GET_CART_PRODUCTS_SUCCESS:
             return action.products;
-        case types.RECEIVE_CART_PRODUCT:
+        case types.GET_CART_PRODUCT_SUCCESS:
             return [...state, action.product];
         case types.REMOVE_FROM_CART_SUCCESS:
             return state.filter(el => !action.productIDs.includes(el._id));
-        default:
-            return state;
-    }
-};
-
-const isLoading = (state = initialState.isLoading, action) => {
-    switch (action.type) {
-        case types.RECEIVE_CART_PRODUCTS:
-        case types.RECEIVE_CART_PRODUCT:
-        case types.REMOVE_FROM_CART_SUCCESS:
-        case types.UPDATE_CART_SUCCESS:
-            return false;
-        case types.REMOVE_FROM_CART_REQUEST:
-        case types.REQUEST_CART_PRODUCTS:
-        case types.REQUEST_CART_PRODUCT:
-        case types.UPDATE_CART_REQUEST:
-            return true;
         default:
             return state;
     }
@@ -119,6 +101,5 @@ export default combineReducers({
     productIDs,
     quantityByID,
     products,
-    isLoading,
     requestedIDs
 });

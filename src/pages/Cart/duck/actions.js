@@ -9,8 +9,12 @@ export const updateCartSuccess = cart => ({
     cart
 });
 
+export const initCartRequest = () => ({
+    type: types.INIT_CART_REQUEST
+});
+
 export const initCartSuccess = cart => ({
-    type: types.INIT_CART,
+    type: types.INIT_CART_SUCCESS,
     cart
 });
 
@@ -34,19 +38,19 @@ export const removeFromCartSuccess = productIDs => ({
 });
 
 export const requestCartProducts = () => ({
-    type: types.REQUEST_CART_PRODUCTS
+    type: types.GET_CART_PRODUCTS_REQUEST
 });
 
 export const receiveCartProducts = products => ({
-    type: types.RECEIVE_CART_PRODUCTS,
+    type: types.GET_CART_PRODUCTS_SUCCESS,
     products
 });
 
 export const requestCartProduct = () => ({
-    type: types.REQUEST_CART_PRODUCT
+    type: types.GET_CART_PRODUCT_REQUEST
 });
 
 export const receiveCartProduct = product => ({
-    type: types.RECEIVE_CART_PRODUCT,
+    type: types.GET_CART_PRODUCT_SUCCESS,
     product
 });

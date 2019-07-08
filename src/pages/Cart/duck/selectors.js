@@ -3,10 +3,30 @@ import get from 'lodash/get';
 import includes from 'lodash/includes';
 import mapValues from 'lodash/mapValues';
 
+import { createLoadingSelector } from 'loading';
+import {
+    INIT_CART,
+    REMOVE_FROM_CART,
+    GET_CART_PRODUCT,
+    GET_CART_PRODUCTS,
+    ADD_TO_CART,
+    UPDATE_CART
+} from './types';
+
 const emptyArr = [];
 const emptyObj = {};
 
-export const getIsLoading = state => get(state, 'cartPage.isLoading');
+export const getIsCartLoading = createLoadingSelector([
+    INIT_CART,
+    GET_CART_PRODUCTS
+]);
+export const isCartUpdating = createLoadingSelector([
+    REMOVE_FROM_CART,
+    ADD_TO_CART,
+    GET_CART_PRODUCT,
+    UPDATE_CART
+]);
+
 export const getCartRequestedIDs = state =>
     get(state, 'cartPage.requestedIDs', emptyArr);
 export const getCartProductIDs = state =>
@@ -31,4 +51,17 @@ export const getInitialValues = createSelector(
     quantityByID => mapValues(quantityByID, String)
 );
 
-export default { getIsProductRequestedFunc, getIsProductAddedFunc };
+export const isCartLoading = createSelector(
+    [getIsCartLoading, getCartProducts],
+    (isLoading, products) => isLoading || !products.length
+);
+
+export default {
+    getIsProductRequestedFunc,
+    getIsProductAddedFunc,
+    isCartLoading,
+    isCartUpdating,
+    getCartProducts,
+    getInitialValues,
+    getCartProductIDs
+};

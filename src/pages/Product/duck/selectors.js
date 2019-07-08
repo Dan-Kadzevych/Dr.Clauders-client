@@ -1,5 +1,9 @@
 import get from 'lodash/get';
 
-export const getProduct = state => get(state, 'productPage.product');
+import { createLoadingSelector } from 'loading';
+import { GET_PRODUCT } from './types';
 
-export default { getProduct };
+export const getProduct = state => get(state, 'productPage.product');
+export const isProductLoading = createLoadingSelector([GET_PRODUCT]);
+
+export default { getProduct, isProductLoading };

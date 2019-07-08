@@ -1,16 +1,15 @@
 import types from './types';
 
 const initialState = {
-    products: [],
-    isLoading: false
+    products: []
 };
 
 const productsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case types.REQUEST_PRODUCTS:
-            return { ...state, products: [], isLoading: true };
-        case types.RECEIVE_PRODUCTS:
-            return { ...state, products: action.products, isLoading: false };
+        case types.GET_PRODUCTS_REQUEST:
+            return { ...state, products: [] };
+        case types.GET_PRODUCTS_SUCCESS:
+            return { ...state, products: action.products };
         default:
             return state;
     }

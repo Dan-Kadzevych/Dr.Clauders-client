@@ -1,6 +1,6 @@
 import { requestProduct, receiveProduct } from './actions';
 import { getProduct } from 'utils/requests';
-import { getCurrentLocation } from 'utils/redux/location';
+import { getCurrentLocation } from 'duck/selectors';
 
 const fetchProduct = slug => async (dispatch, getState) => {
     try {
@@ -8,6 +8,9 @@ const fetchProduct = slug => async (dispatch, getState) => {
         const { data } = await getProduct({ slug });
 
         if (slug === getCurrentLocation(getState())) {
+            if (data.error) {
+                return;
+            }
             return dispatch(receiveProduct(data));
         }
     } catch (e) {

@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import { getProduct } from 'utils/requests';
 import {
+    initCartRequest,
     initCartSuccess,
     addToCartRequest,
     addToCartSuccess,
@@ -32,6 +33,7 @@ export const syncCart = () => (dispatch, getState) => {
 
 export const initCart = () => dispatch => {
     try {
+        dispatch(initCartRequest());
         if (!isLoggedIn) {
             const cart = getCartFromLc();
 
