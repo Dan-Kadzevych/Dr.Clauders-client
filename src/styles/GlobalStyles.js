@@ -6,6 +6,7 @@ import {
     color_tertiary,
     color_white,
     color_black,
+    color_grey_dark_2,
     font_primary
 } from './variables';
 
@@ -29,6 +30,7 @@ const GlobalStyles = createGlobalStyle`
         box-sizing: border-box;
         line-height: 2.7rem;
         font-weight: 400;
+        color: ${color_grey_dark_2};
     }
     
     

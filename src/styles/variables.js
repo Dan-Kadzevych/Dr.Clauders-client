@@ -9,7 +9,7 @@ const color_white = '#fff';
 const color_black = '#000';
 
 const color_grey_dark = '#777';
-const color_grey_dark_2 = '#999';
+const color_grey_dark_2 = '#2b2b2b';
 const color_grey_dark_3 = '#333';
 const color_grey_light = '#bfbfbf';
 const color_grey_light_2 = '#ebe9eb';

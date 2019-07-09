@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import ReactMarkdown from 'react-markdown';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import {
@@ -86,6 +87,11 @@ const CustomTab = styled(Tab)`
 
 const CTabPanel = styled(TabPanel)`
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    p {
+        &:not(:last-child) {
+            margin-bottom: 1.5rem;
+        }
+    }
 `;
 CustomTab.tabsRole = 'Tab';
 CTabList.tabsRole = 'TabList';
@@ -103,7 +109,9 @@ const CTabs = ({ tabs }) => (
         </CTabList>
 
         {tabs.map(({ content }, i) => (
-            <CTabPanel key={i}>{content}</CTabPanel>
+            <CTabPanel key={i}>
+                <ReactMarkdown source={content} />
+            </CTabPanel>
         ))}
     </StyledCTabs>
 );

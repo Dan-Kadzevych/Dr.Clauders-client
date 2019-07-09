@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import ReactMarkdown from 'react-markdown';
 
 import { H1 } from 'elements';
 import AddToCartForm from './AddToCartForm';
@@ -20,15 +21,21 @@ const Price = styled.span`
     margin-top: 1rem;
     display: block;
 `;
-const DescriptionText = styled.div`
+const DescriptionText = styled(ReactMarkdown)`
     margin-top: 2rem;
+
+    p {
+        &:not(:last-child) {
+            margin-bottom: 1.5rem;
+        }
+    }
 `;
 
 const Description = ({ title, price, description, ID }) => (
     <StyledDescription>
         <Title>{title}</Title>
         <Price>{price}</Price>
-        <DescriptionText>{description}</DescriptionText>
+        <DescriptionText source={description} />
         <AddToCartForm ID={ID} title={title} />
     </StyledDescription>
 );
