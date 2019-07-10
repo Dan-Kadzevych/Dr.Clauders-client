@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
 
 import { H1 } from 'elements';
+import { toUAH } from 'utils/currencyFormatters';
 import AddToCartForm from './AddToCartForm';
 import { color_secondary } from 'styles/variables';
 
@@ -34,7 +35,7 @@ const DescriptionText = styled(ReactMarkdown)`
 const Description = ({ title, price, description, ID }) => (
     <StyledDescription>
         <Title>{title}</Title>
-        <Price>{price}</Price>
+        <Price>{toUAH(price)}</Price>
         <DescriptionText source={description} />
         <AddToCartForm ID={ID} title={title} />
     </StyledDescription>

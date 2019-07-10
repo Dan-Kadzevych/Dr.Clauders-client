@@ -7,19 +7,21 @@ import isEqual from 'lodash/isEqual';
 
 import { A, _Base } from 'elements/index';
 import { successNotification } from 'notifications/index';
-import Spinner from 'blocks/Spinner/index';
-import { color_secondary, color_primary } from 'styles/variables';
+import { Spinner } from 'blocks';
+import { toUAH } from 'utils/currencyFormatters';
 import selectors from '../duck/selectors';
 import { operations } from '../duck/index';
 import { getTotalPrice, getNewCart } from '../duck/utils';
 import { Row, Image, RemoveButton, Footer, Quantity, HeaderRow } from './index';
 import { Notification, EmptyCart } from '../index';
+import { color_secondary, color_primary } from 'styles/variables';
 
 const emptyObj = {};
 const StyledForm = styled(Form)`
     margin: 2rem 0;
     position: relative;
     min-height: 10rem;
+    grid-column: 1 / -1;
 `;
 
 const Title = styled(A)`
@@ -50,8 +52,6 @@ const mapStateToProps = state => {
         productIDs: selectors.getCartProductIDs(state),
         initialValues,
         formValues,
-        isUpdating: selectors.isCartUpdating(state),
-        isLoading: selectors.isCartLoading(state),
         isEqual: isEqual(initialValues, formValues)
     };
 };
@@ -130,11 +130,16 @@ class CartForm extends _Base {
                                     />
                                     <Image slug={slug} url={url} />
                                     <Title to={slug}>{title}</Title>
-                                    <span>{price}</span>
+                                    <span>{toUAH(price)}</span>
                                     <Quantity _id={_id} />
 
                                     <span>
-                                        {getTotalPrice(price, formValues[_id])}
+                                        {toUAH(
+                                            getTotalPrice(
+                                                price,
+                                                formValues[_id]
+                                            )
+                                        )}
                                     </span>
                                 </Row>
                             )
