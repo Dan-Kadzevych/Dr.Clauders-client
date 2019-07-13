@@ -29,7 +29,7 @@ const CartTitle = styled(H1)`
 const mapStateToProps = state => ({
     cartTotal: selectors.getCartTotal(state),
     isUpdating: selectors.isCartUpdating(state),
-    isLoading: selectors.isCartLoading(state)
+    isLoading: selectors.isCartLoadingOrEmpty(state)
 });
 
 const mapDispatchToProps = dispatch => ({

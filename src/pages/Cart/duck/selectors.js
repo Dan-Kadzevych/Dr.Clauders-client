@@ -51,7 +51,7 @@ export const getInitialValues = createSelector(
     quantityByID => mapValues(quantityByID, String)
 );
 
-export const isCartLoading = createSelector(
+export const isCartLoadingOrEmpty = createSelector(
     [getIsCartLoading, getCartProducts],
     (isLoading, products) => isLoading || !products.length
 );
@@ -70,7 +70,7 @@ export const getCartTotal = createSelector(
 export default {
     getIsProductRequestedFunc,
     getIsProductAddedFunc,
-    isCartLoading,
+    isCartLoadingOrEmpty,
     isCartUpdating,
     getCartProducts,
     getInitialValues,

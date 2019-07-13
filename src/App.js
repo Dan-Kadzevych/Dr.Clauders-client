@@ -5,7 +5,7 @@ import { ConnectedRouter } from 'connected-react-router';
 import { ToastContainer } from 'react-toastify';
 import styled from 'styled-components';
 
-import { Home, Cart, Product, Products, NoMatch } from 'pages';
+import { Home, Cart, Product, Products, NoMatch, Checkout } from 'pages';
 import { isAppLoading } from 'duck';
 import { Footer, Header } from 'layout';
 import { Spinner } from 'blocks';
@@ -57,6 +57,11 @@ class App extends Component {
                                 component={Product}
                             />
                             <Route exact path="/cart" component={Cart} />
+                            <Route
+                                exact
+                                path="/checkout"
+                                component={Checkout}
+                            />
                             <Route
                                 path="/about-us"
                                 exact

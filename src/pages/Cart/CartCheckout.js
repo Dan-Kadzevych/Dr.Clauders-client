@@ -4,11 +4,14 @@ import styled from 'styled-components';
 import { ButtonAlt, H2, A } from 'elements';
 import { Spinner } from 'blocks';
 import { toUAH } from 'utils/currencyFormatters';
+import { toRgba } from 'utils/utils';
+
+import { color_grey_dark_2 } from 'styles/variables';
 
 const StyledCheckout = styled.div`
     grid-column: 2/-1;
 
-    background-color: rgba(43, 43, 43, 0.1);
+    background-color: rgba(${toRgba(color_grey_dark_2)} 0.1);
     padding: 1.5rem;
     display: flex;
     flex-direction: column;
