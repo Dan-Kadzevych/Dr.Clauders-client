@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 
 import {
@@ -28,8 +27,4 @@ const StyledButton = styled.button`
     }
 `;
 
-const Button = props => (
-    <StyledButton {...props}>{props.children}</StyledButton>
-);
-
-export default Button;
+export default StyledButton;

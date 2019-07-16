@@ -54,7 +54,7 @@ const ProductCart = ({
             <Card.Price>{toUAH(price)}</Card.Price>
         </Card.Body>
 
-        <Card.Button onClick={handleAdd} loading={loading} added={added}>
+        <Card.Button onClick={handleAdd} isLoading={loading} added={added}>
             Add to Cart
             {added && !loading && <AddedIcon icon="check" />}
             {loading && <LoadingIcon icon="refresh" />}

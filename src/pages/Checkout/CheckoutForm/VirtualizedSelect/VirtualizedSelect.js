@@ -55,13 +55,16 @@ const Select = styled(AsyncSelect)`
     }
 `;
 
-const VirtualizedSelect = ({ input, onChange, loadOptions }) => {
+const VirtualizedSelect = ({ input, handleChange, loadOptions }) => {
     return (
         <Select
             {...input}
             components={{ DropdownIndicator, MenuList }}
             classNamePrefix="Select"
-            onChange={input.onChange}
+            onChange={value => {
+                input.onChange(value);
+                handleChange(value);
+            }}
             onBlur={() => input.onBlur(input.value)}
             cacheOptions
             defaultOptions

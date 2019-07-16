@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { _Base, H3 } from 'elements';
 import { required, cyrillic, email, phone } from 'utils/redux/validationRules';
 import { formatPhone } from 'utils/phone';
-import { operations } from '../duck';
+import { operations, selectors, constants } from '../duck';
 import VirtualizedSelect from './VirtualizedSelect';
 import { font_quaternary } from 'styles/variables';
 
@@ -18,7 +18,9 @@ const formConfig = {
         fullName: '',
         email: '',
         phone: '',
-        city: null
+        city: null,
+        delivery: null,
+        payment: null
     },
     enableReinitialize: true
 };
@@ -45,6 +47,11 @@ const InputLabel = styled.div`
     margin-bottom: 5px;
 `;
 
+const RadioContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
 const Input = styled.input`
     line-height: 2.8rem;
 
@@ -58,10 +65,28 @@ const Input = styled.input`
     }
 `;
 
-const mapStateToProps = state => ({});
-const mapDispatchToProps = dispatch => ({});
+const mapStateToProps = state => ({
+    deliveryOptions: selectors.getDeliveryOptions(state),
+    paymentOptions: selectors.getPaymentOptions(state)
+});
+const mapDispatchToProps = dispatch => ({
+    fetchDelivery(cityID) {
+        return dispatch(operations.fetchDeliveryMethods(cityID));
+    },
+    fetchPayment(deliveryID) {
+        return dispatch(operations.fetchPaymentMethods(deliveryID));
+    },
+    resetOptions(options) {
+        return dispatch(operations.resetOptions(options));
+    }
+});
 
 class CheckoutForm extends _Base {
+    componentWillUnmount() {
+        const { resetOptions } = this.props;
+
+        resetOptions(Object.values(constants.opitons));
+    }
     renderInput = ({ input, type, label, meta, placeholder }) => (
         <InputContainer>
             <InputLabel> {label} </InputLabel>
@@ -69,17 +94,37 @@ class CheckoutForm extends _Base {
         </InputContainer>
     );
 
-    renderSelect({ input, label, meta }) {
-        return (
-            <div>
-                <InputLabel> {label} </InputLabel>
-                <VirtualizedSelect
-                    input={input}
-                    loadOptions={this.getCitiesOptions}
-                />
-            </div>
-        );
-    }
+    renderSelect = ({ input, label, handleChange, meta }) => (
+        <div>
+            <InputLabel> {label} </InputLabel>
+            <VirtualizedSelect
+                input={input}
+                loadOptions={this.getCitiesOptions}
+                handleChange={handleChange}
+            />
+        </div>
+    );
+
+    RadioGroup = ({ input, options, label, handleChange }) => (
+        <RadioContainer>
+            <InputLabel>{label}</InputLabel>
+            {options.map(({ value, label }) => (
+                <label key={value}>
+                    <input
+                        type="radio"
+                        {...input}
+                        value={value}
+                        checked={value === input.value}
+                        onChange={e => {
+                            input.onChange(e);
+                            handleChange && handleChange(e);
+                        }}
+                    />
+                    {label}
+                </label>
+            ))}
+        </RadioContainer>
+    );
 
     getCitiesOptions = async value => {
         const { data } = await operations.getCities(value);
@@ -91,8 +136,23 @@ class CheckoutForm extends _Base {
         return data.map(el => ({ value: el.ID, label: el.text }));
     };
 
+    handleCityChange = ({ value }) => {
+        const { fetchDelivery, resetOptions } = this.props;
+        resetOptions(Object.values(constants.opitons));
+        this.props.change('delivery', null);
+        this.props.change('payment', null);
+        fetchDelivery(value);
+    };
+
+    handleDeliveryChange = e => {
+        const { fetchPayment, resetOptions } = this.props;
+        resetOptions(Object.values([constants.opitons.payment]));
+        this.props.change('payment', null);
+        fetchPayment(e.target.value);
+    };
+
     render() {
-        const { handleSubmit } = this.props;
+        const { handleSubmit, deliveryOptions, paymentOptions } = this.props;
 
         return (
             <Form onSubmit={handleSubmit}>
@@ -127,10 +187,27 @@ class CheckoutForm extends _Base {
                     <Field
                         name="city"
                         label="City"
-                        cacheOptions
-                        defaultOptions
                         loadOptions={this.loadOptions}
                         component={this.renderSelect}
+                        handleChange={this.handleCityChange}
+                    />
+                    <Field
+                        name="delivery"
+                        label="Delivery Methods"
+                        options={deliveryOptions}
+                        component={this.RadioGroup}
+                        handleChange={this.handleDeliveryChange}
+                        format={Number}
+                    />
+                </div>
+                <div>
+                    <Title>Payment</Title>
+                    <Field
+                        name="payment"
+                        label="Payment Methods"
+                        options={paymentOptions}
+                        component={this.RadioGroup}
+                        format={Number}
                     />
                 </div>
             </Form>

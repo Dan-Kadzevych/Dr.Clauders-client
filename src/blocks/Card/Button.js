@@ -12,8 +12,8 @@ const CardButton = styled(ButtonAlt)`
         background-color: ${color_secondary};
     }
 
-    ${({ loading }) => {
-        if (loading) {
+    ${({ isLoading }) => {
+        if (isLoading) {
             return css`
                 opacity: 0.3;
             `;
