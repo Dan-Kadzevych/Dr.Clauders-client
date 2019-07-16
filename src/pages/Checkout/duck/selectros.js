@@ -20,4 +20,4 @@ const getPaymentOptions = createSelector(
     byID => normalizeDeliveryOptions(byID)
 );
 
-export default { getDeliveryOptions, getPaymentOptions };
+export default { getDeliveryOptions, getPaymentOptions, getDeliveryByID };

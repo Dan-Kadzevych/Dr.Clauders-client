@@ -38,6 +38,10 @@ const GlobalStyles = createGlobalStyle`
         font-size: 62.5%;
     }
     
+    .d-none {
+       display: none;
+    }
+    
     .mt-md {
         margin-top: 3rem;
     }

@@ -36,8 +36,8 @@ const Checkout = () => (
             <Title>Checkout</Title>
         </Header>
         <StyledCheckout>
-            <CheckoutCart />
             <CheckoutForm />
+            <CheckoutCart />
         </StyledCheckout>
     </Container>
 );

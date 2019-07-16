@@ -2,7 +2,7 @@ import React from 'react';
 import { components } from 'react-select';
 import styled from 'styled-components';
 
-import { Icon } from 'elements';
+import { Icon } from 'elements/index';
 import { color_grey_dark_4 } from 'styles/variables';
 
 const DropdownArrow = styled(Icon)`

@@ -6,6 +6,7 @@ import { VirtualizedList as MenuList, DropdownIndicator } from './index';
 import { font_quaternary } from 'styles/variables';
 
 const Select = styled(AsyncSelect)`
+    margin-bottom: 6px;
     & .Select {
         &__control {
             line-height: 2.8rem;
