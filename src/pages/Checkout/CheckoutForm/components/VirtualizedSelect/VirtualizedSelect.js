@@ -1,19 +1,20 @@
 import React from 'react';
 import AsyncSelect from 'react-select/async';
+import AsyncCreatableSelect from 'react-select/async-creatable';
 import styled from 'styled-components';
 
 import { VirtualizedList as MenuList, DropdownIndicator } from './index';
 import { font_quaternary } from 'styles/variables';
 
 const Select = styled(AsyncSelect)`
-    margin-bottom: 6px;
     & .Select {
         &__control {
             line-height: 2.8rem;
 
             ${font_quaternary};
             font-size: 1.5rem;
-            padding: 1.2rem 1.5rem;
+            padding: ${({ small }) =>
+                small ? '0.6rem 0.8rem' : '1.2rem 1.5rem'};
             border: 1px solid rgba(0, 0, 0, 0.13);
 
             &--is-focused {
@@ -37,6 +38,9 @@ const Select = styled(AsyncSelect)`
         &__indicator-separator {
             display: none;
         }
+        &__clear-indicator {
+            display: none;
+        }
 
         &__menu {
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
@@ -56,19 +60,30 @@ const Select = styled(AsyncSelect)`
     }
 `;
 
-const VirtualizedSelect = ({ input, handleChange, loadOptions }) => {
+const VirtualizedSelect = ({
+    input,
+    placeholder,
+    handleChange,
+    small,
+    loadOptions,
+    creatable
+}) => {
     return (
         <Select
+            as={creatable ? AsyncCreatableSelect : AsyncSelect}
+            isClearable
             {...input}
+            placeholder={placeholder}
             components={{ DropdownIndicator, MenuList }}
             classNamePrefix="Select"
             onChange={value => {
                 input.onChange(value);
-                handleChange(value);
+                handleChange && handleChange(value);
             }}
             onBlur={() => input.onBlur(input.value)}
             cacheOptions
             defaultOptions
+            small={small}
             loadOptions={loadOptions}
         />
     );

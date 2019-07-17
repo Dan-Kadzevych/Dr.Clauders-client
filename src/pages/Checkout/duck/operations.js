@@ -13,12 +13,22 @@ const getCities = search =>
         params: { search }
     });
 
-const fetchDeliveryMethods = ID => async dispatch => {
+const getDepartments = params =>
+    axios.get('/api/checkout/departments', {
+        params
+    });
+
+const getStreets = params =>
+    axios.get('/api/checkout/streets', {
+        params
+    });
+
+const fetchDeliveryMethods = cityID => async dispatch => {
     try {
         dispatch(requestDeliveryMethods());
 
         const { data } = await axios.get('/api/checkout/delivery', {
-            params: { ID }
+            params: { cityID }
         });
 
         if (data.error) {
@@ -51,6 +61,8 @@ const fetchPaymentMethods = ID => async dispatch => {
 
 export default {
     getCities,
+    getDepartments,
+    getStreets,
     fetchDeliveryMethods,
     fetchPaymentMethods,
     resetOptions

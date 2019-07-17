@@ -9,6 +9,7 @@ import { NextBtn } from '../elements';
 const Delivery = ({
     deliveryOptions,
     loadCityOptions,
+    loadAddressOptions,
     handleDeliveryChange,
     handleCityChange,
     previousPage,
@@ -31,7 +32,8 @@ const Delivery = ({
                 options={deliveryOptions}
                 component={RadioGroup}
                 handleChange={handleDeliveryChange}
-                format={Number}
+                loadAddressOptions={loadAddressOptions}
+                normalize={Number}
                 validate={required}
             />
         )}

@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import get from 'lodash/get';
 
-import { normalizeDeliveryOptions } from './utils';
+import { normalizeDeliveryOptions, normalizePaymentOptions } from './utils';
 
 const emptyObj = {};
 
@@ -17,7 +17,7 @@ const getDeliveryOptions = createSelector(
 
 const getPaymentOptions = createSelector(
     getPaymentByID,
-    byID => normalizeDeliveryOptions(byID)
+    byID => normalizePaymentOptions(byID)
 );
 
 export default { getDeliveryOptions, getPaymentOptions, getDeliveryByID };

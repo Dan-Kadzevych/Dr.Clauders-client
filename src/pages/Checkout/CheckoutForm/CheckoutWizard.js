@@ -71,6 +71,7 @@ class CheckoutWizard extends _Base {
                         city={formValues.city}
                         loadCityOptions={this.getCitiesOptions}
                         deliveryOptions={deliveryOptions}
+                        loadAddressOptions={this.getAddressOptions}
                         handleCityChange={this.handleCityChange}
                         handleDeliveryChange={this.handleDeliveryChange}
                         onSubmit={this.nextStep}
@@ -102,18 +103,77 @@ class CheckoutWizard extends _Base {
             return [];
         }
 
-        return data.map(el => ({ value: el.ID, label: el.text }));
+        return data.map(el => ({ value: el.ID, label: el.name }));
     };
 
-    handleCityChange = ({ value }) => {
-        const { fetchDelivery, resetOptions } = this.props;
-        const { options, fields } = constants;
+    getAddressOptions = async value => {
+        const { formValues } = this.props;
+        const deliveryID = get(formValues, constants.fields.DELIVERY);
 
-        resetOptions(Object.values(options));
-        this.props.change(fields.DELIVERY, null);
-        this.props.change(fields.PAYMENT, null);
+        switch (deliveryID) {
+            case 1:
+                return await this.getDepartmentsOptions(value);
+            case 2:
+                return await this.getStreetOptions(value);
+            default:
+                return [];
+        }
+    };
 
-        fetchDelivery(value);
+    getDepartmentsOptions = async value => {
+        const { formValues } = this.props;
+        const cityID = get(formValues, `${constants.fields.CITY}.value`);
+        const deliveryID = get(formValues, constants.fields.DELIVERY);
+
+        const { data } = await operations.getDepartments({
+            cityID,
+            deliveryID,
+            search: value
+        });
+
+        if (data.error) {
+            return [];
+        }
+
+        return data.map(el => ({
+            value: el.ID,
+            label: el.name
+        }));
+    };
+
+    getStreetOptions = async value => {
+        const { formValues } = this.props;
+        const cityID = get(formValues, 'city.value');
+
+        const { data } = await operations.getStreets({
+            cityID,
+            search: value
+        });
+
+        if (data.error) {
+            return [];
+        }
+
+        return data.map(el => ({
+            value: el.name,
+            label: el.name
+        }));
+    };
+
+    handleCityChange = option => {
+        const value = get(option, 'value');
+
+        if (value) {
+            const { fetchDelivery, resetOptions } = this.props;
+            const { options, fields } = constants;
+
+            resetOptions(Object.values(options));
+            this.props.change(fields.DELIVERY, null);
+            this.props.change(fields.ADDRESS, null);
+            this.props.change(fields.PAYMENT, null);
+
+            fetchDelivery(value);
+        }
     };
 
     handleDeliveryChange = e => {
@@ -121,6 +181,7 @@ class CheckoutWizard extends _Base {
         const { options, fields } = constants;
 
         resetOptions(Object.values([options.PAYMENT]));
+        this.props.change(fields.ADDRESS, null);
         this.props.change(fields.PAYMENT, null);
 
         fetchPayment(e.target.value);

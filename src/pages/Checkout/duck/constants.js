@@ -18,6 +18,7 @@ const fields = {
     PHONE: 'phone',
     CITY: 'city',
     DELIVERY: 'delivery',
+    ADDRESS: 'address',
     PAYMENT: 'payment'
 };
 
@@ -30,6 +31,7 @@ export const formConfig = {
         [fields.PHONE]: '',
         [fields.CITY]: null,
         [fields.DELIVERY]: null,
+        [fields.ADDRESS]: null,
         [fields.PAYMENT]: null
     }
 };
