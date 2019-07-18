@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import { VirtualizedList as MenuList, DropdownIndicator } from './index';
 import { font_quaternary } from 'styles/variables';
+import { borderError } from 'styles/mixins';
 
 const Select = styled(AsyncSelect)`
     & .Select {
@@ -16,6 +17,12 @@ const Select = styled(AsyncSelect)`
             padding: ${({ small }) =>
                 small ? '0.6rem 0.8rem' : '1.2rem 1.5rem'};
             border: 1px solid rgba(0, 0, 0, 0.13);
+            ${borderError};
+
+            :hover {
+                border: 1px solid rgba(0, 0, 0, 0.13);
+                ${borderError};
+            }
 
             &--is-focused {
                 outline: none;
@@ -66,13 +73,14 @@ const VirtualizedSelect = ({
     handleChange,
     small,
     loadOptions,
-    creatable
+    creatable,
+    error
 }) => {
     return (
         <Select
+            {...input}
             as={creatable ? AsyncCreatableSelect : AsyncSelect}
             isClearable
-            {...input}
             placeholder={placeholder}
             components={{ DropdownIndicator, MenuList }}
             classNamePrefix="Select"
@@ -85,6 +93,7 @@ const VirtualizedSelect = ({
             defaultOptions
             small={small}
             loadOptions={loadOptions}
+            error={error}
         />
     );
 };

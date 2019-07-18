@@ -1,4 +1,6 @@
-const isEmptyString = value => value === '';
+const isEmptyString = value => {
+    return typeof value === 'string' ? value.trim() === '' : false;
+};
 
 const isEmptyArrayOrObject = value =>
     !(value instanceof Set) &&

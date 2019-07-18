@@ -1,10 +1,10 @@
+import deliveryConfig from '../CheckoutForm/steps/Delivery/deliveryConfig';
+
 export const normalizeDeliveryOptions = byID =>
     Object.values(byID).map(el => ({
         value: el.ID,
         label: el.name,
-        placeholder: el.ID === 1 ? 'Выберите отделение' : 'Выберите улицу',
-        type: el.ID === 2 && 'street',
-        needAddress: true
+        ...deliveryConfig[el.ID]
     }));
 
 export const normalizePaymentOptions = byID =>

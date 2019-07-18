@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { InputLabel } from '../elements/index';
+import { ErrorMessage } from 'elements';
+import { InputLabel } from '../elements';
 import { font_quaternary } from 'styles/variables';
+import { borderError } from 'styles/mixins';
 
 const InputContainer = styled.div`
     display: flex;
@@ -24,12 +26,27 @@ const StyledInput = styled.input`
     :focus {
         outline: none;
     }
+
+    ${borderError};
 `;
 
-const Input = ({ input, type, label, meta, placeholder }) => (
+const Input = ({
+    input,
+    type,
+    label,
+    meta: { touched, error },
+    placeholder
+}) => (
     <InputContainer>
         <InputLabel> {label} </InputLabel>
-        <StyledInput {...input} placeholder={placeholder} type={type} />
+        <StyledInput
+            {...input}
+            error={touched && error}
+            touched={touched && !error}
+            placeholder={placeholder}
+            type={type}
+        />
+        {touched && error && <ErrorMessage>{error}</ErrorMessage>}
     </InputContainer>
 );
 

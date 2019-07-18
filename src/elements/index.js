@@ -10,6 +10,7 @@ import P from './P.js';
 import Icon from './Icon.js';
 import _Base from './_Base.js';
 import ScrollToTop from './ScrollToTop.js';
+import ErrorMessage from './ErrorMessage.js';
 
 export {
     A,
@@ -23,5 +24,6 @@ export {
     P,
     Icon,
     _Base,
-    ScrollToTop
+    ScrollToTop,
+    ErrorMessage
 };

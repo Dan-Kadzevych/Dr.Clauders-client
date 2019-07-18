@@ -1,8 +1,9 @@
 import React from 'react';
 import { Field, Form, reduxForm } from 'redux-form';
 
+import { required } from 'utils/redux/validationRules';
 import { RadioGroup } from '../components';
-import { stepFormConfig } from 'pages/Checkout/duck/constants';
+import { stepFormConfig } from '../formConfig';
 
 const Payment = ({ handleSubmit, paymentOptions }) => (
     <Form onSubmit={handleSubmit}>
@@ -12,6 +13,7 @@ const Payment = ({ handleSubmit, paymentOptions }) => (
             options={paymentOptions}
             component={RadioGroup}
             format={Number}
+            validate={[required]}
         />
     </Form>
 );

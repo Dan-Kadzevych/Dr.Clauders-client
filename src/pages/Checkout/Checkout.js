@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { H1 } from 'elements';
-import CheckoutCart from './CheckoutCart';
+import CartSummary from './CartSummary';
 import CheckoutForm from './CheckoutForm';
 import { toRgba } from 'utils/utils';
 import { color_grey_dark_2 } from 'styles/variables';
@@ -16,7 +16,7 @@ const Container = styled.div`
 
 const StyledCheckout = styled.div`
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1.5fr 1fr;
     padding: 3rem;
     background-color: rgba(${toRgba(color_grey_dark_2)} 0.1);
 `;
@@ -37,7 +37,7 @@ const Checkout = () => (
         </Header>
         <StyledCheckout>
             <CheckoutForm />
-            <CheckoutCart />
+            <CartSummary />
         </StyledCheckout>
     </Container>
 );

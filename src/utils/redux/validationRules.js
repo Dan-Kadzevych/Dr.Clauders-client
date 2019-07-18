@@ -4,7 +4,7 @@ import isFieldEmpty from 'utils/redux/isFieldEmpty';
 import { phoneMask } from 'utils/phone';
 
 export const required = value => {
-    return isFieldEmpty(value) ? 'Required' : null;
+    return isFieldEmpty(value) ? 'Обязательное поле' : null;
 };
 export const number = value => {
     if (!isFieldEmpty(value) && Number.isNaN(Number(value))) {
@@ -12,17 +12,9 @@ export const number = value => {
     }
 };
 
-const fullNamePattern = /^[a-zA-Zа-яА-Я ]{2,100}$/;
-
-export const cyrillic = value => {
-    if (!isFieldEmpty(value) && !fullNamePattern.test(value)) {
-        return `Must contain only cyrillic symbols`;
-    }
-};
-
 export const email = value => {
     if (!isFieldEmpty(value) && !validator.isEmail(value)) {
-        return `Please, use the correct format`;
+        return `Пожалуйста, изпользуйте прваильный формат`;
     }
 };
 
@@ -32,7 +24,7 @@ export const phone = value => {
         !isFieldEmpty(value) &&
         !validator.isMobilePhone(phoneMask.unmaskedValue, 'uk-UA')
     ) {
-        return `Please, use the correct format`;
+        return `Пожалуйста, изпользуйте прваильный формат`;
     }
 };
 

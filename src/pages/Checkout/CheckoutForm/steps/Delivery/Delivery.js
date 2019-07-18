@@ -2,9 +2,9 @@ import { Field, Form, reduxForm } from 'redux-form';
 import React from 'react';
 
 import { required } from 'utils/redux/validationRules';
-import { stepFormConfig } from 'pages/Checkout/duck/constants';
-import { Select, RadioGroup } from '../components';
-import { NextBtn } from '../elements';
+import { stepFormConfig } from '../../formConfig';
+import { Select, RadioGroup } from '../../components/index';
+import { NextBtn } from '../../elements/index';
 
 const Delivery = ({
     deliveryOptions,

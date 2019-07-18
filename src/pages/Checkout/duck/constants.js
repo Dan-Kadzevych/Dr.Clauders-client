@@ -4,7 +4,7 @@ export const options = {
 };
 
 // Wizard form
-const FORM_NAME = 'checkout';
+export const FORM_NAME = 'checkout';
 
 export const steps = {
     USER_INFO: 'userInfo',
@@ -12,7 +12,7 @@ export const steps = {
     PAYMENT: 'payment'
 };
 
-const fields = {
+export const fields = {
     FULL_NAME: 'fullName',
     EMAIL: 'email',
     PHONE: 'phone',
@@ -22,24 +22,4 @@ const fields = {
     PAYMENT: 'payment'
 };
 
-export const formConfig = {
-    form: FORM_NAME,
-    enableReinitialize: true,
-    initialValues: {
-        [fields.FULL_NAME]: '',
-        [fields.EMAIL]: '',
-        [fields.PHONE]: '',
-        [fields.CITY]: null,
-        [fields.DELIVERY]: null,
-        [fields.ADDRESS]: null,
-        [fields.PAYMENT]: null
-    }
-};
-
-export const stepFormConfig = {
-    form: FORM_NAME,
-    destroyOnUnmount: false,
-    forceUnregisterOnUnmount: true
-};
-
-export default { options, formConfig, stepFormConfig, fields, FORM_NAME };
+export default { options, fields, FORM_NAME };

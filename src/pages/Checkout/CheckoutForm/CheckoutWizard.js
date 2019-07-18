@@ -7,6 +7,7 @@ import get from 'lodash/get';
 import { WizardElement } from 'blocks';
 import { _Base } from 'elements';
 import { operations, selectors, constants } from '../duck';
+import { formConfig } from './formConfig';
 import { UserInfo, Delivery, Payment } from './steps';
 
 const formValuesSelector = getFormValues(constants.FORM_NAME);
@@ -51,11 +52,9 @@ class CheckoutWizard extends _Base {
             paymentOptions,
             deliveryByID
         } = this.props;
-        const city = get(formValues, 'city.label');
-        const delivery = get(deliveryByID, `${[formValues.delivery]}.name`);
-        const fullName = get(formValues, `fullName`);
-        const email = get(formValues, `email`);
-        const phone = get(formValues, `phone`);
+        const { fullName, email, phone, delivery, city } = formValues;
+        const deliveryName = get(deliveryByID, `${[delivery]}.name`);
+        const cityName = get(city, `label`);
 
         return [
             {
@@ -77,7 +76,7 @@ class CheckoutWizard extends _Base {
                         onSubmit={this.nextStep}
                     />
                 ),
-                summary: `${city}, ${delivery}`,
+                summary: `${cityName}, ${deliveryName}`,
                 ID: 2
             },
             {
@@ -161,17 +160,17 @@ class CheckoutWizard extends _Base {
     };
 
     handleCityChange = option => {
+        const { fetchDelivery, resetOptions, change } = this.props;
+        const { options, fields } = constants;
         const value = get(option, 'value');
 
+        change(fields.DELIVERY, null);
+        change(fields.ADDRESS, null);
+        change(fields.PAYMENT, null);
+
+        resetOptions(Object.values(options));
+
         if (value) {
-            const { fetchDelivery, resetOptions } = this.props;
-            const { options, fields } = constants;
-
-            resetOptions(Object.values(options));
-            this.props.change(fields.DELIVERY, null);
-            this.props.change(fields.ADDRESS, null);
-            this.props.change(fields.PAYMENT, null);
-
             fetchDelivery(value);
         }
     };
@@ -229,5 +228,5 @@ export default compose(
         mapStateToProps,
         mapDispatchToProps
     ),
-    reduxForm(constants.formConfig)
+    reduxForm(formConfig)
 )(CheckoutWizard);

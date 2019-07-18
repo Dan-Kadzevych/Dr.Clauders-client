@@ -1,7 +1,11 @@
 import { createSelector } from 'reselect';
+import { getFormSyncErrors } from 'redux-form';
 import get from 'lodash/get';
 
 import { normalizeDeliveryOptions, normalizePaymentOptions } from './utils';
+import { FORM_NAME } from './constants';
+
+const getCheckoutErrors = getFormSyncErrors(FORM_NAME);
 
 const emptyObj = {};
 
@@ -20,4 +24,14 @@ const getPaymentOptions = createSelector(
     byID => normalizePaymentOptions(byID)
 );
 
-export default { getDeliveryOptions, getPaymentOptions, getDeliveryByID };
+export const getIsFormValid = createSelector(
+    getCheckoutErrors,
+    errors => !Object.keys(errors).length
+);
+
+export default {
+    getDeliveryOptions,
+    getPaymentOptions,
+    getDeliveryByID,
+    getIsFormValid
+};

@@ -7,6 +7,7 @@ const Summary = styled.div`
     font-size: 1.3rem;
     display: flex;
     justify-content: space-between;
+    align-items: start;
 `;
 
 export default Summary;

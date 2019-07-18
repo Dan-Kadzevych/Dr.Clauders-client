@@ -1,5 +1,7 @@
 import { css } from 'styled-components';
 
+import { color_red } from './variables';
+
 export const gridTemplate = css`
     display: grid;
 
@@ -16,4 +18,9 @@ export const subGridTemplate = css`
     display: grid;
 
     grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+`;
+
+export const borderError = css`
+    border-bottom: ${({ error }) =>
+        error ? `2px solid ${color_red}` : '1px solid rgba(0, 0, 0, 0.13)'};
 `;
