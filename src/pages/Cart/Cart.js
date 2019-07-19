@@ -27,7 +27,7 @@ const CartTitle = styled(H1)`
 `;
 
 const mapStateToProps = state => ({
-    cartTotal: selectors.getCartTotal(state),
+    cartSummary: selectors.getCartSummary(state),
     isUpdating: selectors.isCartUpdating(state),
     isLoading: selectors.isCartLoadingOrEmpty(state)
 });
@@ -44,7 +44,7 @@ class Cart extends Component {
     }
 
     render() {
-        const { cartTotal, isUpdating, isLoading } = this.props;
+        const { cartSummary, isUpdating, isLoading } = this.props;
 
         return (
             <StyledCart>
@@ -53,7 +53,10 @@ class Cart extends Component {
                 </CartHeader>
                 <CartForm isUpdating={isUpdating} isLoading={isLoading} />
                 {!isLoading && (
-                    <CartCheckout total={cartTotal} isUpdating={isUpdating} />
+                    <CartCheckout
+                        totalPrice={cartSummary.price}
+                        isUpdating={isUpdating}
+                    />
                 )}
             </StyledCart>
         );

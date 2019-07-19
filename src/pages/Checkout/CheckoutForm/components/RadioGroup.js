@@ -1,13 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { Spinner } from 'blocks';
 import { InputLabel } from '../elements';
 import CustomRadio from './CustomRadio';
-import { font_quaternary } from 'styles/variables';
+import { font_quaternary, color_grey_dark } from 'styles/variables';
 
 const GroupContainer = styled.div`
     display: flex;
     flex-direction: column;
+    position: relative;
+    min-height: 10rem;
     :not(:first-child) {
         margin-top: 2rem;
     }
@@ -34,16 +37,22 @@ const RadioLabel = styled.label`
     }
 `;
 
+const Price = styled.div`
+    color: ${color_grey_dark};
+`;
+
 const RadioGroup = ({
     input,
     options,
     label,
     handleChange,
-    loadAddressOptions
+    loadAddressOptions,
+    loading
 }) => (
     <GroupContainer>
         <InputLabel>{label}</InputLabel>
-        {options.map(({ value, label, renderSection }) => {
+        {loading && <Spinner background={'transparent'} />}
+        {options.map(({ value, label, priceDescription, renderSection }) => {
             return (
                 <RadioContainer key={value}>
                     <RadioLabel>
@@ -57,11 +66,20 @@ const RadioGroup = ({
                                 handleChange && handleChange(e);
                             }}
                         />
-                        {label}
+                        <div>
+                            {label}
+                            {priceDescription && (
+                                <Price>
+                                    Стоимость доставки: {priceDescription}
+                                </Price>
+                            )}
+                        </div>
                     </RadioLabel>
                     {value === input.value &&
                         renderSection &&
-                        renderSection({ loadOptions: loadAddressOptions })}
+                        renderSection({
+                            loadOptions: loadAddressOptions
+                        })}
                 </RadioContainer>
             );
         })}

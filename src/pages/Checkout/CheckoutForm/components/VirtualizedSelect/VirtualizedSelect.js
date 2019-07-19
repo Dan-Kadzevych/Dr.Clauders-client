@@ -81,7 +81,7 @@ const VirtualizedSelect = ({
             {...input}
             as={creatable ? AsyncCreatableSelect : AsyncSelect}
             isClearable
-            placeholder={placeholder}
+            placeholder={placeholder || ''}
             components={{ DropdownIndicator, MenuList }}
             classNamePrefix="Select"
             onChange={value => {
@@ -94,6 +94,9 @@ const VirtualizedSelect = ({
             small={small}
             loadOptions={loadOptions}
             error={error}
+            formatCreateLabel={val => 'Выбрать ' + val}
+            noOptionsMessage={() => 'Ничего не найдено'}
+            loadingMessage={() => 'Поиск...'}
         />
     );
 };

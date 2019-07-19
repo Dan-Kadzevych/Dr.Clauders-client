@@ -7,6 +7,7 @@ import { Select, RadioGroup } from '../../components/index';
 import { NextBtn } from '../../elements/index';
 
 const Delivery = ({
+    deliveryLoading,
     deliveryOptions,
     loadCityOptions,
     loadAddressOptions,
@@ -23,13 +24,14 @@ const Delivery = ({
             loadOptions={loadCityOptions}
             component={Select}
             handleChange={handleCityChange}
-            validate={required}
+            placeholder="Выберите город"
         />
         {city && (
             <Field
                 name="delivery"
                 label="Delivery Methods"
                 options={deliveryOptions}
+                loading={deliveryLoading}
                 component={RadioGroup}
                 handleChange={handleDeliveryChange}
                 loadAddressOptions={loadAddressOptions}

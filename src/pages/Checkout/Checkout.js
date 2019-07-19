@@ -17,6 +17,7 @@ const Container = styled.div`
 const StyledCheckout = styled.div`
     display: grid;
     grid-template-columns: 1.5fr 1fr;
+    grid-column-gap: 5rem;
     padding: 3rem;
     background-color: rgba(${toRgba(color_grey_dark_2)} 0.1);
 `;

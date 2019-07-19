@@ -56,15 +56,17 @@ export const isCartLoadingOrEmpty = createSelector(
     (isLoading, products) => isLoading || !products.length
 );
 
-export const getCartTotal = createSelector(
+export const getCartSummary = createSelector(
     [getCartProducts, getQuantityByID],
-    (products, quantityByID) =>
-        products.reduce((acc, product) => {
+    (products, quantityByID) => ({
+        price: products.reduce((acc, product) => {
             const { price, _id } = product;
             const quantity = get(quantityByID, _id);
 
             return acc + price * quantity;
-        }, 0)
+        }, 0),
+        quantity: Object.values(quantityByID).reduce((acc, el) => acc + el, 0)
+    })
 );
 
 export default {
@@ -75,5 +77,5 @@ export default {
     getCartProducts,
     getInitialValues,
     getCartProductIDs,
-    getCartTotal
+    getCartSummary
 };

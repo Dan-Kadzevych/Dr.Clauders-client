@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { reduxForm, getFormValues } from 'redux-form';
+import { reduxForm, getFormValues, getFormSyncErrors } from 'redux-form';
 import get from 'lodash/get';
 
 import { WizardElement } from 'blocks';
@@ -11,12 +11,17 @@ import { formConfig } from './formConfig';
 import { UserInfo, Delivery, Payment } from './steps';
 
 const formValuesSelector = getFormValues(constants.FORM_NAME);
+const formSyncErrorsSelector = getFormSyncErrors(constants.FORM_NAME);
 
 const mapStateToProps = state => ({
     formValues: formValuesSelector(state) || {},
+    formErrors: formSyncErrorsSelector(state) || {},
     deliveryOptions: selectors.getDeliveryOptions(state),
     deliveryByID: selectors.getDeliveryByID(state),
-    paymentOptions: selectors.getPaymentOptions(state)
+    paymentByID: selectors.getPaymentByID(state),
+    paymentOptions: selectors.getPaymentOptions(state),
+    deliveryLoading: selectors.isDeliveryLoading(state),
+    paymentLoading: selectors.isPaymentLoading(state)
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -34,8 +39,14 @@ const mapDispatchToProps = dispatch => ({
 class CheckoutWizard extends _Base {
     constructor(props) {
         super(props);
+
         this.state = {
-            step: 1
+            step: constants.stepIDs[constants.steps.USER_INFO]
+        };
+
+        this.addressRequestConfig = {
+            1: this.getDepartmentOptions,
+            2: this.getStreetOptions
         };
     }
 
@@ -50,18 +61,30 @@ class CheckoutWizard extends _Base {
             formValues,
             deliveryOptions,
             paymentOptions,
-            deliveryByID
+            deliveryByID,
+            paymentByID,
+            deliveryLoading,
+            paymentLoading
         } = this.props;
-        const { fullName, email, phone, delivery, city } = formValues;
-        const deliveryName = get(deliveryByID, `${[delivery]}.name`);
+        const { stepIDs, steps } = constants;
+        const { fullName, email, phone, delivery, city, payment } = formValues;
+        const deliveryName = get(deliveryByID, `${delivery}.name`);
+        const paymentName = get(paymentByID, `${payment}.name`);
         const cityName = get(city, `label`);
 
         return [
             {
                 title: 'User Info',
-                body: <UserInfo onSubmit={this.nextStep} />,
+                body: (
+                    <UserInfo
+                        onSubmit={() =>
+                            this.changeStep(stepIDs[steps.DELIVERY])
+                        }
+                    />
+                ),
+                completed: this.isStepCompleted(stepIDs[steps.USER_INFO]),
                 summary: `${fullName}, ${email}, ${phone}`,
-                ID: 1
+                ID: stepIDs[steps.USER_INFO]
             },
             {
                 title: 'Delivery',
@@ -70,25 +93,31 @@ class CheckoutWizard extends _Base {
                         city={formValues.city}
                         loadCityOptions={this.getCitiesOptions}
                         deliveryOptions={deliveryOptions}
+                        deliveryLoading={deliveryLoading}
                         loadAddressOptions={this.getAddressOptions}
                         handleCityChange={this.handleCityChange}
                         handleDeliveryChange={this.handleDeliveryChange}
-                        onSubmit={this.nextStep}
+                        onSubmit={() => this.changeStep(stepIDs[steps.PAYMENT])}
                     />
                 ),
+                completed: this.isStepCompleted(stepIDs[steps.DELIVERY]),
                 summary: `${cityName}, ${deliveryName}`,
-                ID: 2
+                ID: stepIDs[steps.DELIVERY]
             },
             {
                 title: 'Payment',
-                body: <Payment paymentOptions={paymentOptions} />,
-                ID: 3
+                body: (
+                    <Payment
+                        paymentLoading={paymentLoading}
+                        onLoad={this.onPaymentsLoad}
+                        paymentOptions={paymentOptions}
+                    />
+                ),
+                completed: this.isStepCompleted(stepIDs[steps.PAYMENT]),
+                summary: paymentName,
+                ID: stepIDs[steps.PAYMENT]
             }
         ];
-    }
-
-    nextStep() {
-        this.setState({ step: this.state.step + 1 });
     }
 
     changeStep(n) {
@@ -109,17 +138,14 @@ class CheckoutWizard extends _Base {
         const { formValues } = this.props;
         const deliveryID = get(formValues, constants.fields.DELIVERY);
 
-        switch (deliveryID) {
-            case 1:
-                return await this.getDepartmentsOptions(value);
-            case 2:
-                return await this.getStreetOptions(value);
-            default:
-                return [];
+        if (!this.addressRequestConfig[deliveryID]) {
+            return [];
         }
+
+        return await this.addressRequestConfig[deliveryID](value);
     };
 
-    getDepartmentsOptions = async value => {
+    getDepartmentOptions = async value => {
         const { formValues } = this.props;
         const cityID = get(formValues, `${constants.fields.CITY}.value`);
         const deliveryID = get(formValues, constants.fields.DELIVERY);
@@ -134,9 +160,11 @@ class CheckoutWizard extends _Base {
             return [];
         }
 
-        return data.map(el => ({
-            value: el.ID,
-            label: el.name
+        return data.map(({ ID, name, schedule, phone }) => ({
+            value: ID,
+            label: name,
+            phone: phone,
+            schedule: schedule
         }));
     };
 
@@ -164,26 +192,62 @@ class CheckoutWizard extends _Base {
         const { options, fields } = constants;
         const value = get(option, 'value');
 
-        change(fields.DELIVERY, null);
-        change(fields.ADDRESS, null);
-        change(fields.PAYMENT, null);
+        this.clearFields([fields.DELIVERY, fields.ADDRESS, fields.PAYMENT]);
+        this.untouchAddressFields();
 
         resetOptions(Object.values(options));
 
         if (value) {
+            change(fields.DELIVERY, 1);
             fetchDelivery(value);
         }
     };
 
-    handleDeliveryChange = e => {
-        const { fetchPayment, resetOptions } = this.props;
+    handleDeliveryChange = () => {
+        const { resetOptions } = this.props;
         const { options, fields } = constants;
 
-        resetOptions(Object.values([options.PAYMENT]));
-        this.props.change(fields.ADDRESS, null);
-        this.props.change(fields.PAYMENT, null);
+        this.clearFields([fields.ADDRESS, fields.PAYMENT]);
 
-        fetchPayment(e.target.value);
+        this.untouchAddressFields();
+
+        resetOptions(Object.values([options.PAYMENT]));
+    };
+
+    onPaymentsLoad = () => {
+        const { fetchPayment, formValues, change } = this.props;
+        const { fields } = constants;
+
+        if (!formValues[fields.PAYMENT]) {
+            change(fields.PAYMENT, 1);
+        }
+
+        fetchPayment(formValues[fields.DELIVERY]);
+    };
+
+    untouchAddressFields = () => {
+        const { untouch } = this.props;
+        const { fields } = constants;
+
+        untouch(
+            `${fields.ADDRESS}.department`,
+            `${fields.ADDRESS}.street`,
+            `${fields.ADDRESS}.house`,
+            `${fields.ADDRESS}.apartment`
+        );
+    };
+
+    clearFields = fields => {
+        const { change } = this.props;
+        fields.forEach(filed => change(filed, null));
+    };
+
+    isStepCompleted = ID => {
+        const { formErrors } = this.props;
+
+        return !Object.keys(formErrors).some(key =>
+            constants.stepFields[ID].includes(key)
+        );
     };
 
     render() {
@@ -191,33 +255,35 @@ class CheckoutWizard extends _Base {
 
         return (
             <div>
-                {this.getSteps().map(({ title, body, summary, ID }) => (
-                    <WizardElement key={ID}>
-                        <WizardElement.Badge>
-                            {step > ID ? (
-                                <WizardElement.CheckedIcon icon="check" />
-                            ) : (
-                                ID
+                {this.getSteps().map(
+                    ({ title, body, summary, ID, completed }) => (
+                        <WizardElement key={ID}>
+                            <WizardElement.Badge>
+                                {completed ? (
+                                    <WizardElement.CheckedIcon icon="check" />
+                                ) : (
+                                    ID
+                                )}
+                            </WizardElement.Badge>
+                            <WizardElement.Title>{title}</WizardElement.Title>
+                            <WizardElement.Line />
+                            {step === ID && (
+                                <WizardElement.Body>{body}</WizardElement.Body>
                             )}
-                        </WizardElement.Badge>
-                        <WizardElement.Title>{title}</WizardElement.Title>
-                        <WizardElement.Line />
-                        {step === ID && (
-                            <WizardElement.Body>{body}</WizardElement.Body>
-                        )}
-                        {step > ID && summary && (
-                            <WizardElement.Summary>
-                                {summary}
-                                <WizardElement.Edit
-                                    onClick={() => this.changeStep(ID)}
-                                >
-                                    <WizardElement.EditIcon icon="edit" />
-                                    Изменить
-                                </WizardElement.Edit>
-                            </WizardElement.Summary>
-                        )}
-                    </WizardElement>
-                ))}
+                            {completed && step !== ID && (
+                                <WizardElement.Summary>
+                                    {summary}
+                                    <WizardElement.Edit
+                                        onClick={() => this.changeStep(ID)}
+                                    >
+                                        <WizardElement.EditIcon icon="edit" />
+                                        Изменить
+                                    </WizardElement.Edit>
+                                </WizardElement.Summary>
+                            )}
+                        </WizardElement>
+                    )
+                )}
             </div>
         );
     }

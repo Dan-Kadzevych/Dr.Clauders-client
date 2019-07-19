@@ -1,21 +1,32 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { Field, Form, reduxForm } from 'redux-form';
 
-import { required } from 'utils/redux/validationRules';
 import { RadioGroup } from '../components';
 import { stepFormConfig } from '../formConfig';
 
-const Payment = ({ handleSubmit, paymentOptions }) => (
-    <Form onSubmit={handleSubmit}>
-        <Field
-            name="payment"
-            label="Payment Methods"
-            options={paymentOptions}
-            component={RadioGroup}
-            format={Number}
-            validate={[required]}
-        />
-    </Form>
-);
+class Payment extends PureComponent {
+    componentWillMount() {
+        const { onLoad } = this.props;
+
+        onLoad();
+    }
+
+    render() {
+        const { handleSubmit, paymentOptions, paymentLoading } = this.props;
+
+        return (
+            <Form onSubmit={handleSubmit}>
+                <Field
+                    name="payment"
+                    label="Payment Methods"
+                    options={paymentOptions}
+                    component={RadioGroup}
+                    loading={paymentLoading}
+                    format={Number}
+                />
+            </Form>
+        );
+    }
+}
 
 export default reduxForm(stepFormConfig)(Payment);

@@ -6,7 +6,7 @@ import { Spinner } from 'blocks';
 import { toUAH } from 'utils/currencyFormatters';
 import { toRgba } from 'utils/utils';
 
-import { color_grey_dark_2 } from 'styles/variables';
+import { color_grey_dark_2, color_secondary } from 'styles/variables';
 
 const StyledCheckout = styled.div`
     grid-column: 2/-1;
@@ -32,17 +32,18 @@ const StyledH2 = styled(H2)`
 const TotalPrice = styled.span`
     font-size: 1.8rem;
     font-weight: 700;
+    color: ${color_secondary};
 `;
 
 const CheckoutBtn = styled(ButtonAlt)`
     width: 100%;
 `;
 
-const CartCheckout = ({ total, isUpdating }) => (
+const CartCheckout = ({ totalPrice, isUpdating }) => (
     <StyledCheckout>
         <CartTotal>
             <StyledH2>Cart Total:</StyledH2>
-            <TotalPrice>{toUAH(total)}</TotalPrice>
+            <TotalPrice>{toUAH(totalPrice)}</TotalPrice>
         </CartTotal>
 
         <A to="/checkout">

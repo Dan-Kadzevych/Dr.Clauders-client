@@ -9,6 +9,7 @@ const Select = ({
     label,
     handleChange,
     loadOptions,
+    placeholder,
     meta: { touched, error }
 }) => (
     <div>
@@ -18,6 +19,7 @@ const Select = ({
             error={touched && error}
             loadOptions={loadOptions}
             handleChange={handleChange}
+            placeholder={placeholder}
         />
         {touched && error && <ErrorMessage>{error}</ErrorMessage>}
     </div>

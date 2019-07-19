@@ -15,6 +15,7 @@ const Select = ({
     input,
     placeholder,
     loadOptions,
+    description,
     meta: { touched, error }
 }) => (
     <div>
@@ -30,7 +31,7 @@ const Select = ({
     </div>
 );
 
-const DepartmentSection = ({ loadOptions }) => (
+const DepartmentSection = ({ loadOptions, description }) => (
     <FormSection name="address">
         <Department>
             <Field
@@ -39,6 +40,7 @@ const DepartmentSection = ({ loadOptions }) => (
                 component={Select}
                 loadOptions={loadOptions}
                 validate={[required]}
+                description={description}
             />
         </Department>
     </FormSection>

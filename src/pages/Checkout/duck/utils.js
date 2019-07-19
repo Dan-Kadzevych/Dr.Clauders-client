@@ -4,6 +4,7 @@ export const normalizeDeliveryOptions = byID =>
     Object.values(byID).map(el => ({
         value: el.ID,
         label: el.name,
+        priceDescription: el.deliveryPrice && el.deliveryPrice.description,
         ...deliveryConfig[el.ID]
     }));
 

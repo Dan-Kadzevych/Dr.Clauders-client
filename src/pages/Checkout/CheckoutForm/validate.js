@@ -22,8 +22,8 @@ const getError = (rules, value) => {
 const validate = values => {
     const errors = {};
 
-    each(validations, (rules, key) => {
-        const error = getError(rules, values[key]);
+    each(values, (value, key) => {
+        const error = getError(validations[key], value);
 
         if (error) {
             errors[key] = error;

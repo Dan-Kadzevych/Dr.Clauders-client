@@ -9,7 +9,8 @@ const StyledSpinner = styled.div`
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: rgba(${toRgba(color_white)} 0.7);
+    background-color: ${({ background }) => background};
+    z-index: 1000;
     bottom: 0;
     top: 0;
     left: 0;
@@ -20,8 +21,8 @@ const StyledSpinner = styled.div`
     align-items: center;
 `;
 
-const Spinner = () => (
-    <StyledSpinner>
+const Spinner = ({ background = `rgba${toRgba(color_white)} 0.7` }) => (
+    <StyledSpinner background={background}>
         <BounceLoader
             sizeUnit={'px'}
             size={40}
