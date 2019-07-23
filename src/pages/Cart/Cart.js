@@ -6,12 +6,11 @@ import { H1 } from 'elements';
 import CartForm from './CartFrom';
 import CartCheckout from './CartCheckout';
 import { operations, selectors } from './duck';
-import { color_secondary } from 'styles/variables';
 
 const StyledCart = styled.div`
     grid-column: center-start/center-end;
     margin-bottom: 8.5rem;
-    margin-top: 5rem;
+    margin-top: 4rem;
 
     display: grid;
     grid-template-columns: 1fr 30rem;
@@ -20,10 +19,10 @@ const StyledCart = styled.div`
 const CartHeader = styled.header`
     text-align: center;
     grid-column: 1 / -1;
+    margin: 1rem 0;
 `;
 const CartTitle = styled(H1)`
     font-weight: 300;
-    color: ${color_secondary};
 `;
 
 const mapStateToProps = state => ({

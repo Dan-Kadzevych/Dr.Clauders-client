@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ErrorMessage } from 'elements';
 import VirtualizedSelect from './VirtualizedSelect';
-import { InputLabel } from '../elements';
+import { InputLabel } from 'elements';
 
 const Select = ({
     input,

@@ -50,11 +50,13 @@ const fetchPaymentMethods = ID => async dispatch => {
         });
 
         if (data.error) {
+            // Todo add error handler
             return [];
         }
 
         return dispatch(receivePaymentMethods(data));
     } catch (e) {
+        // Todo add error handler
         return [];
     }
 };

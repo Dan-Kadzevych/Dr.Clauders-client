@@ -13,3 +13,13 @@ export const formatPhone = value => {
 
     return phoneMask.resolve(value);
 };
+
+export const normalizePhone = value => {
+    if (isFieldEmpty(value)) {
+        return value;
+    }
+
+    phoneMask.resolve(value);
+
+    return phoneMask.unmaskedValue;
+};

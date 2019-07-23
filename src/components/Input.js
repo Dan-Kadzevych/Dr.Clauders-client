@@ -1,17 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { ErrorMessage } from 'elements';
-import { InputLabel } from '../elements';
+import { ErrorMessage, InputLabel } from 'elements';
+
 import { font_quaternary } from 'styles/variables';
 import { borderError } from 'styles/mixins';
 
 const InputContainer = styled.div`
     display: flex;
     flex-direction: column;
-    padding: 3px;
+    padding: 3px 0;
+
     :not(:first-child) {
-        margin-top: 2rem;
+        margin-top: 1rem;
     }
 `;
 

@@ -18,12 +18,19 @@ export const email = value => {
     }
 };
 
-export const phone = value => {
+export const phone = (value = '') => {
     phoneMask.resolve(value);
+
     if (
         !isFieldEmpty(value) &&
         !validator.isMobilePhone(phoneMask.unmaskedValue, 'uk-UA')
     ) {
+        return `Пожалуйста, изпользуйте прваильный формат`;
+    }
+};
+
+export const password = value => {
+    if (!isFieldEmpty(value) && value.length < 8) {
         return `Пожалуйста, изпользуйте прваильный формат`;
     }
 };

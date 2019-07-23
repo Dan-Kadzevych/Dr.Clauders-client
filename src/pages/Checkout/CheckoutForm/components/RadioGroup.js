@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Spinner } from 'blocks';
-import { InputLabel } from '../elements';
+import { InputLabel } from 'elements';
 import CustomRadio from './CustomRadio';
 import { font_quaternary, color_grey_dark } from 'styles/variables';
 

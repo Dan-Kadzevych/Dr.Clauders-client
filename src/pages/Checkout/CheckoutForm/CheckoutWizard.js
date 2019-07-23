@@ -270,7 +270,7 @@ class CheckoutWizard extends _Base {
                             {step === ID && (
                                 <WizardElement.Body>{body}</WizardElement.Body>
                             )}
-                            {completed && step !== ID && (
+                            {completed && step > ID && (
                                 <WizardElement.Summary>
                                     {summary}
                                     <WizardElement.Edit

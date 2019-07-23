@@ -2,9 +2,9 @@ import { Field, Form, reduxForm } from 'redux-form';
 import React from 'react';
 
 import { required } from 'utils/redux/validationRules';
+import { SubmitBtn } from 'elements';
 import { stepFormConfig } from '../../formConfig';
 import { Select, RadioGroup } from '../../components/index';
-import { NextBtn } from '../../elements/index';
 
 const Delivery = ({
     deliveryLoading,
@@ -40,7 +40,7 @@ const Delivery = ({
             />
         )}
 
-        <NextBtn type="submit">Next</NextBtn>
+        <SubmitBtn type="submit">Next</SubmitBtn>
     </Form>
 );
 

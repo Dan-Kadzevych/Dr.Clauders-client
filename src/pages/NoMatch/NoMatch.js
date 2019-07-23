@@ -9,6 +9,7 @@ const Container = styled.div`
     grid-column: center-start / center-end;
     text-align: center;
     margin: 3rem 0;
+    height: calc(100vh - 14rem);
 `;
 const Image = styled.img`
     margin-top: 1.5rem;
