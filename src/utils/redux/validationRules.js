@@ -4,8 +4,11 @@ import isFieldEmpty from 'utils/redux/isFieldEmpty';
 import { phoneMask } from 'utils/phone';
 
 export const required = value => {
-    return isFieldEmpty(value) ? 'Обязательное поле' : null;
+    if (isFieldEmpty(value)) {
+        return 'Обязательное поле';
+    }
 };
+
 export const number = value => {
     if (!isFieldEmpty(value) && Number.isNaN(Number(value))) {
         return 'Must be a number';
@@ -14,7 +17,7 @@ export const number = value => {
 
 export const email = value => {
     if (!isFieldEmpty(value) && !validator.isEmail(value)) {
-        return `Пожалуйста, изпользуйте прваильный формат`;
+        return `Пожалуйста, изпользуйте правильный формат`;
     }
 };
 

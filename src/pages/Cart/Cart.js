@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-import { H1 } from 'elements';
+import { H1, PageHeader } from 'elements';
 import CartForm from './CartFrom';
 import CartCheckout from './CartCheckout';
 import { operations, selectors } from './duck';
@@ -16,11 +16,6 @@ const StyledCart = styled.div`
     grid-template-columns: 1fr 30rem;
 `;
 
-const CartHeader = styled.header`
-    text-align: center;
-    grid-column: 1 / -1;
-    margin: 1rem 0;
-`;
 const CartTitle = styled(H1)`
     font-weight: 300;
 `;
@@ -47,9 +42,9 @@ class Cart extends Component {
 
         return (
             <StyledCart>
-                <CartHeader>
+                <PageHeader>
                     <CartTitle>Cart</CartTitle>
-                </CartHeader>
+                </PageHeader>
                 <CartForm isUpdating={isUpdating} isLoading={isLoading} />
                 {!isLoading && (
                     <CartCheckout

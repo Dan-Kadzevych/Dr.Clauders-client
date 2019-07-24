@@ -8,7 +8,7 @@ export const phoneMask = IMask.createMask({
 
 export const formatPhone = value => {
     if (isFieldEmpty(value)) {
-        return value;
+        return '';
     }
 
     return phoneMask.resolve(value);

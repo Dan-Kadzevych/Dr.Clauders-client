@@ -1,10 +1,18 @@
 import types from './types';
 
-export const registrationRequest = () => ({
-    type: types.REGISTER_REQUEST
+export const getMyProfileRequest = () => ({
+    type: types.GET_MY_PROFILE_REQUEST
 });
 
-export const registrationSuccess = user => ({
-    type: types.REGISTER_SUCCESS,
+export const getMyProfileSuccess = user => ({
+    type: types.GET_MY_PROFILE_SUCCESS,
     payload: user
+});
+
+export const logoutRequest = () => ({
+    type: types.LOGOUT_REQUEST
+});
+
+export const logoutSuccess = () => ({
+    type: types.LOGOUT_SUCCESS
 });

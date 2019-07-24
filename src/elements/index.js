@@ -13,6 +13,7 @@ import ScrollToTop from './ScrollToTop.js';
 import ErrorMessage from './ErrorMessage.js';
 import InputLabel from './InputLabel.js';
 import SubmitBtn from './SubmitBtn.js';
+import PageHeader from './PageHeader.js';
 
 export {
     A,
@@ -29,5 +30,6 @@ export {
     ScrollToTop,
     ErrorMessage,
     InputLabel,
-    SubmitBtn
+    SubmitBtn,
+    PageHeader
 };

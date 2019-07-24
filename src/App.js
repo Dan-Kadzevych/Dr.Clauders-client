@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import { ToastContainer } from 'react-toastify';
 import styled from 'styled-components';
 
 import {
+    Auth,
     Home,
     Cart,
     Product,
@@ -18,6 +19,7 @@ import { isAppLoading } from 'duck';
 import { Footer, Header } from 'layout';
 import { Spinner } from 'blocks';
 import { ScrollToTop } from 'elements';
+import { PrivateRoute } from 'components';
 
 import GlobalStyles from './styles/GlobalStyles';
 import { gridTemplate } from 'styles/mixins';
@@ -50,6 +52,7 @@ class App extends Component {
                         <ToastContainer />
                         <Route component={Header} />
                         <Switch>
+                            <Route path="/auth" component={Auth} />
                             <Route path="/" exact component={Home} />
                             <Route
                                 path={[
@@ -70,7 +73,7 @@ class App extends Component {
                                 path="/checkout"
                                 component={Checkout}
                             />
-                            <Route exact path="/account" component={Account} />
+                            <PrivateRoute path="/account" component={Account} />
                             <Route
                                 path="/about-us"
                                 exact
@@ -85,7 +88,8 @@ class App extends Component {
                                     <PageContainer>Contact</PageContainer>
                                 )}
                             />
-                            <Route component={NoMatch} />
+                            <Route exact path="/404" component={NoMatch} />
+                            <Redirect to="/404" />
                         </Switch>
                         <Footer />
                     </ScrollToTop>

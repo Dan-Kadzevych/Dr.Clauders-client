@@ -1,23 +1,59 @@
-import axios from 'axios';
+import { push } from 'connected-react-router';
 
-import { registrationRequest, registrationSuccess } from './actions';
-import { storeTokenToLC } from './utils';
+import { getTokenFromLC, removeTokenFromLC } from 'utils/localStorage';
+import withToken from 'utils/withToken';
+import {
+    getMyProfileRequest,
+    getMyProfileSuccess,
+    logoutRequest,
+    logoutSuccess
+} from './actions';
 
-const registerUser = user => async dispatch => {
+const logout = () => async dispatch => {
     try {
-        dispatch(registrationRequest());
+        const token = getTokenFromLC();
 
-        const { data } = await axios.post('api/user', user);
-
-        if (data.error) {
-            return {};
+        if (!token) {
+            return;
         }
 
-        dispatch(registrationSuccess(data.user));
-        return storeTokenToLC(data.token);
+        dispatch(logoutRequest());
+
+        const { data } = await withToken.get('/api/auth/logout');
+
+        if (data.error) {
+            throw new Error();
+        }
+
+        dispatch(logoutSuccess());
+        dispatch(push('/'));
+
+        return removeTokenFromLC();
     } catch (e) {
-        return {};
+        return null;
     }
 };
 
-export default { registerUser };
+export const getMyProfile = () => async dispatch => {
+    try {
+        const token = getTokenFromLC();
+
+        if (!token) {
+            return;
+        }
+
+        dispatch(getMyProfileRequest());
+
+        const { data } = await withToken.get('/api/user/me');
+
+        if (data.error) {
+            throw new Error();
+        }
+
+        return dispatch(getMyProfileSuccess(data.user));
+    } catch (e) {
+        return null;
+    }
+};
+
+export default { getMyProfile, logout };

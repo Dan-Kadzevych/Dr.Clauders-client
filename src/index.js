@@ -9,6 +9,7 @@ import thunk from 'redux-thunk';
 import createRootReducer from './reducers';
 import App from './App';
 import { operations } from 'duck';
+import { getMyProfile } from 'pages/Account/duck/operations';
 import { initCart } from 'pages/Cart/duck/operations';
 
 export const history = createBrowserHistory();
@@ -21,6 +22,7 @@ const store = createStore(
             window.__REDUX_DEVTOOLS_EXTENSION__()
     )
 );
+store.dispatch(getMyProfile());
 store.dispatch(operations.fetchAppConfig());
 store.dispatch(initCart());
 

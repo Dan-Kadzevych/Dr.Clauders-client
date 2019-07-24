@@ -1,10 +1,10 @@
 import React from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-import { H1, H2 } from 'elements';
-import { RegistrationForm } from './index';
-
-import { color_grey_light } from 'styles/variables';
+import { H1, ButtonAlt, PageHeader } from 'elements';
+import { operations } from './duck';
 
 const Container = styled.div`
     grid-column: center-start / center-end;
@@ -17,43 +17,54 @@ const Container = styled.div`
     align-items: start;
 `;
 
-const Header = styled.header`
-    text-align: center;
-    grid-column: 1 / -1;
-    margin: 1rem 0;
-`;
-
 const Title = styled(H1)`
     font-weight: 300;
 `;
 
-const FormTitle = styled(H2)`
-    font-size: 2.6rem;
-`;
+const mapDispatchToProps = dispatch => ({
+    logout() {
+        return dispatch(operations.logout());
+    }
+});
 
-const StyledForm = styled.div`
-    background-color: rgba(168, 168, 168, 0.2);
-    padding: 3rem;
-    border: 1px solid ${color_grey_light};
-    margin: 3rem 0;
-    border-radius: 5px;
-`;
+const Account = ({ match, logout }) => {
+    return (
+        <Container>
+            <PageHeader>
+                <Title>Account</Title>
+            </PageHeader>
+            <ul>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>
+                    <ButtonAlt onClick={logout}>Logout</ButtonAlt>
+                </li>
+            </ul>
+            <Switch>
+                <Route
+                    exact
+                    path={`${match.path}`}
+                    component={() => <div>Main</div>}
+                />
+                <Route
+                    exact
+                    path={`${match.path}/orders`}
+                    component={() => <div>'orders'</div>}
+                />
+                <Route
+                    exact
+                    path={`${match.path}/discount`}
+                    component={() => <div>'orders'</div>}
+                />
+                <Redirect to="/404" />
+            </Switch>
+        </Container>
+    );
+};
 
-const Account = () => (
-    <Container>
-        <Header>
-            <Title>Account</Title>
-        </Header>
-        <div>
-            <FormTitle>Login</FormTitle>
-            <StyledForm></StyledForm>
-        </div>
-
-        <div>
-            <FormTitle>Register</FormTitle>
-            <RegistrationForm />
-        </div>
-    </Container>
-);
-
-export default Account;
+export default connect(
+    null,
+    mapDispatchToProps
+)(Account);
