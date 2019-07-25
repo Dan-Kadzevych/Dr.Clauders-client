@@ -1,1 +1,1 @@
-export const phonePlaceholder = '+38 (0__) ___-__-__';
+export const phonePlaceholder = '+38 (___) ___-__-__';

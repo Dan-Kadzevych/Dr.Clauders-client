@@ -1,7 +1,5 @@
 import validator from 'validator';
-
 import isFieldEmpty from 'utils/redux/isFieldEmpty';
-import { phoneMask } from 'utils/phone';
 
 export const required = value => {
     if (isFieldEmpty(value)) {
@@ -22,12 +20,7 @@ export const email = value => {
 };
 
 export const phone = (value = '') => {
-    phoneMask.resolve(value);
-
-    if (
-        !isFieldEmpty(value) &&
-        !validator.isMobilePhone(phoneMask.unmaskedValue, 'uk-UA')
-    ) {
+    if (!isFieldEmpty(value) && !validator.isMobilePhone(value, 'uk-UA')) {
         return `Пожалуйста, изпользуйте прваильный формат`;
     }
 };

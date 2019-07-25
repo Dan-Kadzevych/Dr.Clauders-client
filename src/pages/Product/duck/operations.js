@@ -1,10 +1,11 @@
-import { requestProduct, receiveProduct } from './actions';
+import { requestProduct, receiveProduct, removeProduct } from './actions';
 import { getProduct } from 'utils/requests';
 import { getCurrentLocation } from 'duck/selectors';
 
 const fetchProduct = slug => async (dispatch, getState) => {
     try {
         dispatch(requestProduct());
+
         const { data } = await getProduct({ slug });
 
         if (slug === getCurrentLocation(getState())) {
@@ -18,4 +19,4 @@ const fetchProduct = slug => async (dispatch, getState) => {
     }
 };
 
-export default { fetchProduct };
+export default { fetchProduct, removeProduct };

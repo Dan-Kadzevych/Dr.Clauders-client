@@ -8,3 +8,7 @@ export const receiveProduct = product => ({
     type: types.GET_PRODUCT_SUCCESS,
     product
 });
+
+export const removeProduct = () => ({
+    type: types.REMOVE_PRODUCT
+});

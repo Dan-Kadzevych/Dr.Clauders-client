@@ -1,7 +1,6 @@
 import React from 'react';
 import { Field, Form, reduxForm } from 'redux-form';
 
-import { formatPhone } from 'utils/phone';
 import { phonePlaceholder } from 'duck/constants';
 import { Input } from 'components';
 import { SubmitBtn } from 'elements';
@@ -17,7 +16,7 @@ const UserInfo = ({ handleSubmit }) => (
             label="Phone Number"
             placeholder={phonePlaceholder}
             component={Input}
-            format={formatPhone}
+            mask="phone"
         />
         <SubmitBtn type="submit">Next</SubmitBtn>
     </Form>

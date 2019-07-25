@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 
-import { SubmitBtn, _Base } from 'elements';
+import { SubmitBtn, GlobalError, _Base } from 'elements';
 import { Input } from 'components';
 import { email, required, password } from 'utils/redux/validationRules';
 import { StyledForm } from './elements';
@@ -18,10 +18,11 @@ const formConfig = {
 
 class SignInForm extends _Base {
     render() {
-        const { handleSubmit } = this.props;
+        const { handleSubmit, error } = this.props;
 
         return (
             <StyledForm onSubmit={handleSubmit}>
+                {error && <GlobalError source={error} />}
                 <Field
                     type="email"
                     name="email"

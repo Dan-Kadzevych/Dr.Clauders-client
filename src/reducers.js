@@ -9,6 +9,7 @@ import { checkoutReducer } from 'pages/Checkout/duck';
 import { accountReducer } from 'pages/Account/duck';
 import { appConfigReducer } from './duck';
 import { loadingReducer } from './loading';
+import { errorReducer } from './error';
 
 export default history =>
     combineReducers({
@@ -19,6 +20,7 @@ export default history =>
         checkoutPage: checkoutReducer,
         accountPage: accountReducer,
         loading: loadingReducer,
+        error: errorReducer,
         form: formReducer,
         router: connectRouter(history)
     });

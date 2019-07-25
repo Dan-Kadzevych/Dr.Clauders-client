@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { SubmissionError } from 'redux-form';
 
 import {
     signUpRequest,
@@ -14,14 +15,10 @@ export const signUp = user => async dispatch => {
 
         const { data } = await axios.post('/api/user', user);
 
-        if (data.error) {
-            throw new Error(data.error);
-        }
-
         dispatch(signUpSuccess(data.user));
         return storeTokenToLC(data.token);
     } catch (e) {
-        return;
+        throw new SubmissionError({ _error: e.response.data.error });
     }
 };
 
@@ -38,7 +35,7 @@ export const signIn = credentials => async dispatch => {
         dispatch(signInSuccess(data.user));
         return storeTokenToLC(data.token);
     } catch (e) {
-        return;
+        throw new SubmissionError({ _error: e.response.data.error });
     }
 };
 

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import Hero from './Hero';
 import ProductsGrid from './ProductsGrid';
-import { NoMatch } from 'pages';
+import { RouteNotFound } from 'components';
 import { operations, selectors, utils } from './duck';
 import { addToCart } from 'pages/Cart/duck/operations';
 import {
@@ -93,7 +93,7 @@ class Products extends Component {
                 />
             </Container>
         ) : (
-            <NoMatch />
+            <RouteNotFound />
         );
     }
 }

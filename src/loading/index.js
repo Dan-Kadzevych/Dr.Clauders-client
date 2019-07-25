@@ -1,2 +1,2 @@
 export { default as loadingReducer } from './reducer';
-export { createLoadingSelector } from './selectors';
+export { default as createLoadingSelector } from './selectors';

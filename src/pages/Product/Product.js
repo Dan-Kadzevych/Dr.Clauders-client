@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 import { Spinner } from 'blocks';
+import { _Base } from 'elements';
 import Media from './Media';
 import Description from './Description';
 import Tabs from './Tabs';
@@ -30,15 +31,26 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     fetchProduct(slug) {
         return dispatch(operations.fetchProduct(slug));
+    },
+    removeProduct() {
+        return dispatch(operations.removeProduct());
     }
 });
 
-class Product extends Component {
+class Product extends _Base {
     componentDidMount() {
         const {
-            match: { url }
+            match: { url },
+            fetchProduct
         } = this.props;
-        this.props.fetchProduct(url);
+
+        fetchProduct(url);
+    }
+
+    componentWillUnmount() {
+        const { removeProduct } = this.props;
+
+        removeProduct();
     }
 
     render() {

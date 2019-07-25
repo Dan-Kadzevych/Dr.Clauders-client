@@ -1,9 +1,8 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 
-import { SubmitBtn, _Base } from 'elements';
+import { SubmitBtn, GlobalError, _Base } from 'elements';
 import { Input } from 'components';
-import { formatPhone, normalizePhone } from 'utils/phone';
 import { phonePlaceholder } from 'duck/constants';
 import { email, phone, required, password } from 'utils/redux/validationRules';
 import { StyledForm } from './elements';
@@ -22,10 +21,11 @@ const formConfig = {
 
 class SignUpForm extends _Base {
     render() {
-        const { handleSubmit } = this.props;
+        const { handleSubmit, error } = this.props;
 
         return (
             <StyledForm onSubmit={handleSubmit}>
+                {error && <GlobalError>{error}</GlobalError>}
                 <Field
                     type="text"
                     name="name"
@@ -41,14 +41,13 @@ class SignUpForm extends _Base {
                     validate={[email, required]}
                 />
                 <Field
-                    type="text"
+                    type="tel"
                     name="phone"
                     label="Phone Number"
                     placeholder={phonePlaceholder}
                     component={Input}
-                    format={formatPhone}
-                    normalize={normalizePhone}
                     validate={[phone, required]}
+                    mask="phone"
                 />
                 <Field
                     type="password"

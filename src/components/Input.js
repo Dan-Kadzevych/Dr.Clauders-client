@@ -1,4 +1,5 @@
 import React from 'react';
+import NumberFormat from 'react-number-format';
 import styled from 'styled-components';
 
 import { ErrorMessage, InputLabel } from 'elements';
@@ -16,7 +17,13 @@ const InputContainer = styled.div`
     }
 `;
 
-const StyledInput = styled.input`
+const StyledInput = styled(({ error, touched, phone, ...params }) =>
+    phone ? (
+        <NumberFormat {...params} format="+38 (###) ###-##-##" mask="_" />
+    ) : (
+        <input {...params} />
+    )
+)`
     line-height: 2.8rem;
 
     ${font_quaternary};
@@ -36,19 +43,28 @@ const Input = ({
     type,
     label,
     meta: { touched, error },
-    placeholder
-}) => (
-    <InputContainer>
-        <InputLabel> {label} </InputLabel>
-        <StyledInput
-            {...input}
-            error={touched && error}
-            touched={touched && !error}
-            placeholder={placeholder}
-            type={type}
-        />
-        {touched && error && <ErrorMessage>{error}</ErrorMessage>}
-    </InputContainer>
-);
+    placeholder,
+    mask
+}) => {
+    if (mask === 'phone') {
+    }
+
+    return (
+        <InputContainer>
+            <InputLabel> {label} </InputLabel>
+
+            <StyledInput
+                {...input}
+                error={touched && error}
+                touched={touched && !error}
+                placeholder={placeholder}
+                type={type}
+                phone={mask === 'phone'}
+            />
+
+            {touched && error && <ErrorMessage>{error}</ErrorMessage>}
+        </InputContainer>
+    );
+};
 
 export default Input;

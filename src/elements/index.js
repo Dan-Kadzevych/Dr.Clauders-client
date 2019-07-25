@@ -11,6 +11,7 @@ import Icon from './Icon.js';
 import _Base from './_Base.js';
 import ScrollToTop from './ScrollToTop.js';
 import ErrorMessage from './ErrorMessage.js';
+import GlobalError from './GlobalError.js';
 import InputLabel from './InputLabel.js';
 import SubmitBtn from './SubmitBtn.js';
 import PageHeader from './PageHeader.js';
@@ -31,5 +32,6 @@ export {
     ErrorMessage,
     InputLabel,
     SubmitBtn,
-    PageHeader
+    PageHeader,
+    GlobalError
 };

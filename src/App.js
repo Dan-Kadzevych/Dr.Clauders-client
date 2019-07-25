@@ -1,25 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import { ToastContainer } from 'react-toastify';
 import styled from 'styled-components';
 
-import {
-    Auth,
-    Home,
-    Cart,
-    Product,
-    Products,
-    NoMatch,
-    Checkout,
-    Account
-} from 'pages';
+import { Auth, Home, Cart, Product, Products, Checkout, Account } from 'pages';
 import { isAppLoading } from 'duck';
 import { Footer, Header } from 'layout';
 import { Spinner } from 'blocks';
 import { ScrollToTop } from 'elements';
-import { PrivateRoute } from 'components';
+import { PrivateRoute, CaptureNotFound, RouteNotFound } from 'components';
 
 import GlobalStyles from './styles/GlobalStyles';
 import { gridTemplate } from 'styles/mixins';
@@ -51,46 +42,50 @@ class App extends Component {
                     <ScrollToTop>
                         <ToastContainer />
                         <Route component={Header} />
-                        <Switch>
-                            <Route path="/auth" component={Auth} />
-                            <Route path="/" exact component={Home} />
-                            <Route
-                                path={[
-                                    '/pet-supplements/:pet/:category',
-                                    '/pet-supplements/:pet'
-                                ]}
-                                exact
-                                component={Products}
-                            />
-                            <Route
-                                path="/shop/:pet/:category/:productName"
-                                exact
-                                component={Product}
-                            />
-                            <Route exact path="/cart" component={Cart} />
-                            <Route
-                                exact
-                                path="/checkout"
-                                component={Checkout}
-                            />
-                            <PrivateRoute path="/account" component={Account} />
-                            <Route
-                                path="/about-us"
-                                exact
-                                component={() => (
-                                    <PageContainer>About Us</PageContainer>
-                                )}
-                            />
-                            <Route
-                                path="/contact-us"
-                                exact
-                                component={() => (
-                                    <PageContainer>Contact</PageContainer>
-                                )}
-                            />
-                            <Route exact path="/404" component={NoMatch} />
-                            <Redirect to="/404" />
-                        </Switch>
+                        <CaptureNotFound>
+                            <Switch>
+                                <Route path="/" exact component={Home} />
+                                <Route path="/auth" component={Auth} />
+                                <Route
+                                    path={[
+                                        '/pet-supplements/:pet/:category',
+                                        '/pet-supplements/:pet'
+                                    ]}
+                                    exact
+                                    component={Products}
+                                />
+                                <Route
+                                    path="/shop/:pet/:category/:productName"
+                                    exact
+                                    component={Product}
+                                />
+                                <Route exact path="/cart" component={Cart} />
+                                <Route
+                                    exact
+                                    path="/checkout"
+                                    component={Checkout}
+                                />
+                                <PrivateRoute
+                                    path="/account"
+                                    component={Account}
+                                />
+                                <Route
+                                    path="/about-us"
+                                    exact
+                                    component={() => (
+                                        <PageContainer>About Us</PageContainer>
+                                    )}
+                                />
+                                <Route
+                                    path="/contact-us"
+                                    exact
+                                    component={() => (
+                                        <PageContainer>Contact</PageContainer>
+                                    )}
+                                />
+                                <RouteNotFound />
+                            </Switch>
+                        </CaptureNotFound>
                         <Footer />
                     </ScrollToTop>
                 </ConnectedRouter>

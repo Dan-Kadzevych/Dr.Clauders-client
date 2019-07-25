@@ -3,7 +3,7 @@ import IMask from 'imask';
 import isFieldEmpty from 'utils/redux/isFieldEmpty';
 
 export const phoneMask = IMask.createMask({
-    mask: '+{38} ({\\0}00) 000 00 00'
+    mask: '+{38} ({\\0}00) 000-00-00'
 });
 
 export const formatPhone = value => {
@@ -19,7 +19,5 @@ export const normalizePhone = value => {
         return value;
     }
 
-    phoneMask.resolve(value);
-
-    return phoneMask.unmaskedValue;
+    return value;
 };
