@@ -4,9 +4,14 @@ import get from 'lodash/get';
 
 import { createLoadingSelector } from 'loading';
 import { getCartSummary } from 'pages/Cart/duck/selectors';
-import { normalizeDeliveryOptions, normalizePaymentOptions } from './utils';
+import { getIsAuthorized, getUser } from 'pages/Account/duck/selectors';
+import {
+    normalizeDeliveryOptions,
+    normalizePaymentOptions,
+    mapUserToInitialValues
+} from './utils';
 import { GET_DELIVERY_METHODS, GET_PAYMENT_METHODS } from './types';
-import { FORM_NAME, fields } from './constants';
+import { FORM_NAME, fields, initialValues } from './constants';
 
 const isDeliveryLoading = createLoadingSelector([GET_DELIVERY_METHODS]);
 const isPaymentLoading = createLoadingSelector([GET_PAYMENT_METHODS]);
@@ -53,6 +58,12 @@ export const getDeliveryPriceDescription = createSelector(
     deliveryPrice => get(deliveryPrice, 'description')
 );
 
+export const getInitialValues = createSelector(
+    [getIsAuthorized, getUser],
+    (isAuthorized, user) =>
+        isAuthorized ? mapUserToInitialValues(user) : initialValues
+);
+
 export default {
     getDeliveryOptions,
     getPaymentOptions,
@@ -62,5 +73,6 @@ export default {
     isDeliveryLoading,
     isPaymentLoading,
     getTotalPrice,
-    getDeliveryPriceDescription
+    getDeliveryPriceDescription,
+    getInitialValues
 };

@@ -21,7 +21,8 @@ const mapStateToProps = state => ({
     paymentByID: selectors.getPaymentByID(state),
     paymentOptions: selectors.getPaymentOptions(state),
     deliveryLoading: selectors.isDeliveryLoading(state),
-    paymentLoading: selectors.isPaymentLoading(state)
+    paymentLoading: selectors.isPaymentLoading(state),
+    initialValues: selectors.getInitialValues(state)
 });
 
 const mapDispatchToProps = dispatch => ({

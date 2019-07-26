@@ -34,4 +34,22 @@ export const stepFields = {
     [stepIDs[steps.PAYMENT]]: [fields.PAYMENT]
 };
 
-export default { options, fields, FORM_NAME, stepFields, steps, stepIDs };
+export const initialValues = {
+    [fields.FULL_NAME]: '',
+    [fields.EMAIL]: '',
+    [fields.PHONE]: '',
+    [fields.CITY]: null,
+    [fields.DELIVERY]: null,
+    [fields.ADDRESS]: null,
+    [fields.PAYMENT]: null
+};
+
+export default {
+    options,
+    fields,
+    FORM_NAME,
+    stepFields,
+    steps,
+    stepIDs,
+    initialValues
+};

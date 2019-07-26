@@ -1,17 +1,20 @@
 import axios from 'axios';
 import { SubmissionError } from 'redux-form';
 
+import { storeTokenToLC } from 'utils/localStorage';
 import {
     signUpRequest,
     signUpSuccess,
     signInRequest,
     signInSuccess
 } from './actions';
-import { storeTokenToLC } from 'utils/localStorage';
+import { normalizeValues } from './utils';
 
-export const signUp = user => async dispatch => {
+export const signUp = values => async dispatch => {
     try {
         dispatch(signUpRequest());
+
+        const user = normalizeValues(values);
 
         const { data } = await axios.post('/api/user', user);
 

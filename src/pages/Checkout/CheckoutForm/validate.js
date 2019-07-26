@@ -13,7 +13,7 @@ const validations = {
     [fields.PAYMENT]: [required]
 };
 
-const getError = (rules, value) => {
+const getError = (rules = [], value) => {
     const rule = rules.find(rule => rule(value));
 
     return rule ? rule(value) : null;
@@ -22,8 +22,8 @@ const getError = (rules, value) => {
 const validate = values => {
     const errors = {};
 
-    each(values, (value, key) => {
-        const error = getError(validations[key], value);
+    each(validations, (rules, key) => {
+        const error = getError(rules, values[key]);
 
         if (error) {
             errors[key] = error;

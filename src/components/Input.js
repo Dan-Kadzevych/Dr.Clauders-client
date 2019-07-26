@@ -3,6 +3,7 @@ import NumberFormat from 'react-number-format';
 import styled from 'styled-components';
 
 import { ErrorMessage, InputLabel } from 'elements';
+import { phoneFormat } from 'duck/constants';
 
 import { font_quaternary } from 'styles/variables';
 import { borderError } from 'styles/mixins';
@@ -19,7 +20,7 @@ const InputContainer = styled.div`
 
 const StyledInput = styled(({ error, touched, phone, ...params }) =>
     phone ? (
-        <NumberFormat {...params} format="+38 (###) ###-##-##" mask="_" />
+        <NumberFormat {...params} format={phoneFormat} mask="_" />
     ) : (
         <input {...params} />
     )

@@ -1,23 +1,15 @@
 import IMask from 'imask';
 
-import isFieldEmpty from 'utils/redux/isFieldEmpty';
-
-export const phoneMask = IMask.createMask({
-    mask: '+{38} ({\\0}00) 000-00-00'
-});
-
-export const formatPhone = value => {
-    if (isFieldEmpty(value)) {
-        return '';
-    }
-
-    return phoneMask.resolve(value);
+const maskOptions = {
+    mask: '+{38} (000) 000-00-00'
 };
 
 export const normalizePhone = value => {
-    if (isFieldEmpty(value)) {
-        return value;
-    }
+    return value.replace(/[_ ()-]/g, '');
+};
 
-    return value;
+export const formatPhone = value => {
+    const masked = IMask.createMask(maskOptions);
+
+    return masked.resolve(value);
 };

@@ -15,7 +15,8 @@ import {
     updateCartRequest,
     updateCartSuccess
 } from './actions';
-import { syncCartWithLc, getCartFromLc, normalizeValue } from './utils';
+import { normalizeProducIDs } from './utils';
+import { syncCartWithLc, getCartFromLc } from 'utils/localStorage';
 import { getCartProductIDs } from './selectors';
 
 const isLoggedIn = false;
@@ -89,7 +90,7 @@ export const addToCart = (productID, quantity = 1) => async dispatch => {
 
 export const removeFromCart = value => async dispatch => {
     try {
-        const productIDs = normalizeValue(value);
+        const productIDs = normalizeProducIDs(value);
 
         dispatch(removeFromCartRequest());
 

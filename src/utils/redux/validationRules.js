@@ -1,5 +1,7 @@
 import validator from 'validator';
+
 import isFieldEmpty from 'utils/redux/isFieldEmpty';
+import { normalizePhone } from 'utils/phone';
 
 export const required = value => {
     if (isFieldEmpty(value)) {
@@ -20,7 +22,10 @@ export const email = value => {
 };
 
 export const phone = (value = '') => {
-    if (!isFieldEmpty(value) && !validator.isMobilePhone(value, 'uk-UA')) {
+    if (
+        !isFieldEmpty(value) &&
+        !validator.isMobilePhone(normalizePhone(value), 'uk-UA')
+    ) {
         return `Пожалуйста, изпользуйте прваильный формат`;
     }
 };

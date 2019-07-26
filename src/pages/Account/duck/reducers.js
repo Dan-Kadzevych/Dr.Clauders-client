@@ -1,16 +1,21 @@
 import createReducer from 'utils/redux/createReducer';
 
-import types from './types';
 import { SIGN_UP_SUCCESS, SIGN_IN_SUCCESS } from 'pages/Auth/duck/types';
+import types from './types';
+import { normalizeUser } from './utils';
 
 const initialState = {
     user: null
 };
 
-const insertUser = (state = {}, { payload: user }) => ({
-    ...state,
-    user
-});
+const insertUser = (state = {}, { payload: user }) => {
+    const normalizedUser = normalizeUser(user);
+
+    return {
+        ...state,
+        user: normalizedUser
+    };
+};
 
 const logout = () => initialState;
 
