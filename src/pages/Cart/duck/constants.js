@@ -1,1 +1,1 @@
-export const CART_FIELDS_TO_STORE = ['productIDs', 'quantityByID'];
+export const CART_TO_SYNC = ['productIDs', 'quantityByID'];

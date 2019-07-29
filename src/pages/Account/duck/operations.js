@@ -1,17 +1,19 @@
 import { push } from 'connected-react-router';
 
-import { getTokenFromLC, removeTokenFromLC } from 'utils/localStorage';
+import { getTokenFromLS, removeTokenFromLS } from 'utils/localStorage';
 import withToken from 'utils/withToken';
 import {
     getMyProfileRequest,
     getMyProfileSuccess,
+    getMyProfileFailure,
     logoutRequest,
     logoutSuccess
 } from './actions';
+import { initCart } from 'pages/Cart/duck/operations';
 
 const logout = () => async dispatch => {
     try {
-        const token = getTokenFromLC();
+        const token = getTokenFromLS();
 
         if (!token) {
             return;
@@ -28,7 +30,7 @@ const logout = () => async dispatch => {
         dispatch(logoutSuccess());
         dispatch(push('/'));
 
-        return removeTokenFromLC();
+        return removeTokenFromLS();
     } catch (e) {
         return null;
     }
@@ -36,23 +38,21 @@ const logout = () => async dispatch => {
 
 export const getMyProfile = () => async dispatch => {
     try {
-        const token = getTokenFromLC();
+        const token = getTokenFromLS();
 
         if (!token) {
-            return;
+            throw new Error();
         }
 
         dispatch(getMyProfileRequest());
 
         const { data } = await withToken.get('/api/user/me');
 
-        if (data.error) {
-            throw new Error();
-        }
-
-        return dispatch(getMyProfileSuccess(data.user));
+        dispatch(getMyProfileSuccess(data.user));
+        return dispatch(initCart(data.cart));
     } catch (e) {
-        return null;
+        dispatch(getMyProfileFailure());
+        return dispatch(initCart());
     }
 };
 

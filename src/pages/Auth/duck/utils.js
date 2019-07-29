@@ -1,6 +1,6 @@
 import { normalizePhone } from 'utils/phone';
 
-export const normalizeValues = values => ({
+export const normalizeUser = values => ({
     ...values,
     phone: normalizePhone(values.phone)
 });

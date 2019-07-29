@@ -1,18 +1,14 @@
-import pick from 'lodash/pick';
-import { CART_FIELDS_TO_STORE } from 'pages/Cart/duck/constants';
+export const storeTokenToLS = token => localStorage.setItem('authToken', token);
 
-export const storeTokenToLC = token => localStorage.setItem('authToken', token);
+export const getTokenFromLS = () => localStorage.getItem('authToken');
 
-export const getTokenFromLC = () => localStorage.getItem('authToken');
+export const removeTokenFromLS = () => localStorage.removeItem('authToken');
 
-export const removeTokenFromLC = () => localStorage.removeItem('authToken');
-
-export const syncCartWithLc = cart => {
-    const cartToStore = JSON.stringify(pick(cart, CART_FIELDS_TO_STORE));
-    localStorage.setItem('cart', cartToStore);
+export const syncCartWithLS = cart => {
+    localStorage.setItem('cart', JSON.stringify(cart));
 };
 
-export const getCartFromLc = () => {
+export const getCartFromLS = () => {
     const cart = JSON.parse(localStorage.getItem('cart'));
     return cart || {};
 };

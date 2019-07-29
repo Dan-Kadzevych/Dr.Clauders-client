@@ -2,6 +2,7 @@ import { createSelector } from 'reselect';
 import { createLoadingSelector } from 'loading';
 import { GET_APP_CONFIG } from './types';
 import { GET_MY_PROFILE } from 'pages/Account/duck/types';
+import { INIT_CART } from 'pages/Cart/duck/types';
 import get from 'lodash/get';
 import { normalizeLocations } from './utils';
 
@@ -9,7 +10,8 @@ const emptyArr = [];
 
 export const isAppLoading = createLoadingSelector([
     GET_APP_CONFIG,
-    GET_MY_PROFILE
+    GET_MY_PROFILE,
+    INIT_CART
 ]);
 export const getNavConfig = state =>
     get(state, 'appConfig.navConfig') || emptyArr;

@@ -1,25 +1,29 @@
 import axios from 'axios';
 import { SubmissionError } from 'redux-form';
+import { getCartFromLS } from 'utils/localStorage';
 
-import { storeTokenToLC } from 'utils/localStorage';
+import { storeTokenToLS } from 'utils/localStorage';
 import {
     signUpRequest,
     signUpSuccess,
     signInRequest,
     signInSuccess
 } from './actions';
-import { normalizeValues } from './utils';
+import { initCart } from 'pages/Cart/duck/operations';
+import { normalizeUser } from './utils';
 
 export const signUp = values => async dispatch => {
     try {
         dispatch(signUpRequest());
 
-        const user = normalizeValues(values);
+        const user = normalizeUser(values);
+        const cart = getCartFromLS();
 
-        const { data } = await axios.post('/api/user', user);
+        const { data } = await axios.post('/api/user', { user, cart });
 
         dispatch(signUpSuccess(data.user));
-        return storeTokenToLC(data.token);
+        dispatch(initCart(data.cart));
+        return storeTokenToLS(data.token);
     } catch (e) {
         throw new SubmissionError({ _error: e.response.data.error });
     }
@@ -28,15 +32,20 @@ export const signUp = values => async dispatch => {
 export const signIn = credentials => async dispatch => {
     try {
         dispatch(signInRequest());
+        const cart = getCartFromLS();
 
-        const { data } = await axios.post('/api/auth/login', credentials);
+        const { data } = await axios.post('/api/auth/login', {
+            credentials,
+            cart
+        });
 
         if (data.error) {
             throw new Error(data.error);
         }
 
         dispatch(signInSuccess(data.user));
-        return storeTokenToLC(data.token);
+        dispatch(initCart(data.cart));
+        return storeTokenToLS(data.token);
     } catch (e) {
         throw new SubmissionError({ _error: e.response.data.error });
     }

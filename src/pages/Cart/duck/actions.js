@@ -18,6 +18,24 @@ export const initCartSuccess = cart => ({
     cart
 });
 
+export const initCartFailure = error => ({
+    type: types.INIT_CART_FAILURE,
+    payload: { error }
+});
+
+export const syncCartRequest = () => ({
+    type: types.SYNC_CART_REQUEST
+});
+
+export const syncCartSuccess = () => ({
+    type: types.SYNC_CART_SUCCESS
+});
+
+export const syncCartFailure = error => ({
+    type: types.SYNC_CART_FAILURE,
+    payload: { error }
+});
+
 export const addToCartRequest = productID => ({
     type: types.ADD_TO_CART_REQUEST,
     productID

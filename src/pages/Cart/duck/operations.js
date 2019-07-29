@@ -1,9 +1,14 @@
 import axios from 'axios';
+import pick from 'lodash/pick';
 
 import { getProduct } from 'utils/requests';
 import {
     initCartRequest,
     initCartSuccess,
+    initCartFailure,
+    syncCartRequest,
+    syncCartSuccess,
+    syncCartFailure,
     addToCartRequest,
     addToCartSuccess,
     removeFromCartRequest,
@@ -15,33 +20,47 @@ import {
     updateCartRequest,
     updateCartSuccess
 } from './actions';
-import { normalizeProducIDs } from './utils';
-import { syncCartWithLc, getCartFromLc } from 'utils/localStorage';
+import { normalizeProductIDs } from './utils';
+import { syncCartWithLS, getCartFromLS } from 'utils/localStorage';
+import withToken from 'utils/withToken';
 import { getCartProductIDs } from './selectors';
+import { CART_TO_SYNC } from './constants';
+import { getIsAuthorized } from 'pages/Account/duck/selectors';
 
-const isLoggedIn = false;
-
-export const syncCart = () => (dispatch, getState) => {
+export const syncCart = () => async (dispatch, getState) => {
     try {
-        const { cartPage: cart } = getState();
-        if (!isLoggedIn) {
-            return syncCartWithLc(cart);
+        dispatch(syncCartRequest());
+        const { cartPage } = getState();
+        const cart = pick(cartPage, CART_TO_SYNC);
+        const isAuthorized = getIsAuthorized(getState());
+
+        if (isAuthorized) {
+            await withToken.post('/api/user/sync_cart', {
+                cart
+            });
         }
+
+        syncCartWithLS(cart);
+
+        return dispatch(syncCartSuccess());
     } catch (e) {
-        return e;
+        return dispatch(syncCartFailure());
     }
 };
 
-export const initCart = () => dispatch => {
+export const initCart = cartP => async (dispatch, getState) => {
     try {
         dispatch(initCartRequest());
-        if (!isLoggedIn) {
-            const cart = getCartFromLc();
 
-            dispatch(initCartSuccess(cart));
-        }
+        const isAuthorized = getIsAuthorized(getState());
+
+        const cart = isAuthorized && cartP ? cartP : getCartFromLS();
+
+        dispatch(initCartSuccess(cart));
+
+        return dispatch(syncCart());
     } catch (e) {
-        return e;
+        return dispatch(initCartFailure());
     }
 };
 
@@ -78,38 +97,26 @@ export const fetchCartProduct = _id => async dispatch => {
 };
 
 export const addToCart = (productID, quantity = 1) => async dispatch => {
-    try {
-        dispatch(addToCartRequest(productID));
+    dispatch(addToCartRequest(productID));
 
-        dispatch(addToCartSuccess(productID, quantity));
-        return dispatch(syncCart());
-    } catch (e) {
-        return e;
-    }
+    dispatch(addToCartSuccess(productID, quantity));
+    return dispatch(syncCart());
 };
 
 export const removeFromCart = value => async dispatch => {
-    try {
-        const productIDs = normalizeProducIDs(value);
+    const productIDs = normalizeProductIDs(value);
 
-        dispatch(removeFromCartRequest());
+    dispatch(removeFromCartRequest());
 
-        dispatch(removeFromCartSuccess(productIDs));
-        return dispatch(syncCart());
-    } catch (e) {
-        return e;
-    }
+    dispatch(removeFromCartSuccess(productIDs));
+    return dispatch(syncCart());
 };
 
-export const updateCart = cart => async dispatch => {
-    try {
-        dispatch(updateCartRequest());
+export const updateCart = cart => dispatch => {
+    dispatch(updateCartRequest());
 
-        dispatch(updateCartSuccess(cart));
-        return dispatch(syncCart());
-    } catch (e) {
-        return e;
-    }
+    dispatch(updateCartSuccess(cart));
+    return dispatch(syncCart());
 };
 
 export default {

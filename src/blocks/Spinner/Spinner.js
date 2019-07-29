@@ -21,7 +21,7 @@ const StyledSpinner = styled.div`
     align-items: center;
 `;
 
-const Spinner = ({ background = `rgba${toRgba(color_white)} 0.7` }) => (
+const Spinner = ({ background = `rgba(${toRgba(color_white)} 0.7)` }) => (
     <StyledSpinner background={background}>
         <BounceLoader
             sizeUnit={'px'}

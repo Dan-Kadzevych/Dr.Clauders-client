@@ -10,8 +10,9 @@ export const minValue0 = minValue(0);
 export const getTotalPrice = (price, quantity) =>
     quantity > 0 ? quantity * price : 0;
 
-export const normalizeProducIDs = value =>
+export const normalizeProductIDs = value =>
     Array.isArray(value) ? value : [value];
+
 export const normalizeFormValues = values => mapValues(values, Number);
 export const getNewCart = (productIDs, products, formValues) => {
     const quantityByID = normalizeFormValues(formValues);

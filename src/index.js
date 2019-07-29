@@ -10,7 +10,6 @@ import createRootReducer from './reducers';
 import App from './App';
 import { operations } from 'duck';
 import { getMyProfile } from 'pages/Account/duck/operations';
-import { initCart } from 'pages/Cart/duck/operations';
 
 export const history = createBrowserHistory();
 
@@ -24,7 +23,6 @@ const store = createStore(
 );
 store.dispatch(getMyProfile());
 store.dispatch(operations.fetchAppConfig());
-store.dispatch(initCart());
 
 ReactDOM.render(
     <Provider store={store}>

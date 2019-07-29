@@ -27,14 +27,14 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchProducts() {
+    fetchCartProducts() {
         return dispatch(operations.fetchCartProducts());
     }
 });
 
 class Cart extends Component {
     componentDidMount() {
-        this.props.fetchProducts();
+        this.props.fetchCartProducts();
     }
 
     render() {
