@@ -23,7 +23,8 @@ const CartTitle = styled(H1)`
 const mapStateToProps = state => ({
     cartSummary: selectors.getCartSummary(state),
     isUpdating: selectors.isCartUpdating(state),
-    isLoading: selectors.isCartLoadingOrEmpty(state)
+    isLoading: selectors.getIsCartLoading(state),
+    isEmpty: selectors.getIsCartEmpty(state)
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -38,15 +39,19 @@ class Cart extends Component {
     }
 
     render() {
-        const { cartSummary, isUpdating, isLoading } = this.props;
+        const { cartSummary, isUpdating, isLoading, isEmpty } = this.props;
 
         return (
             <StyledCart>
                 <PageHeader>
                     <CartTitle>Cart</CartTitle>
                 </PageHeader>
-                <CartForm isUpdating={isUpdating} isLoading={isLoading} />
-                {!isLoading && (
+                <CartForm
+                    isUpdating={isUpdating}
+                    isLoading={isLoading}
+                    isEmpty={isEmpty}
+                />
+                {!isLoading && !isEmpty && (
                     <CartCheckout
                         totalPrice={cartSummary.price}
                         isUpdating={isUpdating}

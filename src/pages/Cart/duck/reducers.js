@@ -70,6 +70,10 @@ const quantityByID = (state = initialState.quantityByID, action) => {
 const products = (state = initialState.products, action) => {
     switch (action.type) {
         case types.UPDATE_CART_SUCCESS:
+            if (!action.cart.products) {
+                return initialState.products;
+            }
+
             return action.cart.products;
         case types.GET_CART_PRODUCTS_SUCCESS:
             return action.products;

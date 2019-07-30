@@ -9,6 +9,11 @@ export const updateCartSuccess = cart => ({
     cart
 });
 
+export const updateCartFailure = error => ({
+    type: types.UPDATE_CART_FAILURE,
+    payload: { error }
+});
+
 export const initCartRequest = () => ({
     type: types.INIT_CART_REQUEST
 });
@@ -64,6 +69,11 @@ export const receiveCartProducts = products => ({
     products
 });
 
+export const getCartProductsFailure = error => ({
+    type: types.GET_CART_PRODUCTS_FAILURE,
+    payload: { error }
+});
+
 export const requestCartProduct = () => ({
     type: types.GET_CART_PRODUCT_REQUEST
 });
@@ -71,4 +81,9 @@ export const requestCartProduct = () => ({
 export const receiveCartProduct = product => ({
     type: types.GET_CART_PRODUCT_SUCCESS,
     product
+});
+
+export const getCartProductFailure = error => ({
+    type: types.GET_CART_PRODUCT_FAILURE,
+    payload: { error }
 });

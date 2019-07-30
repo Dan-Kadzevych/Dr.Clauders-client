@@ -4,7 +4,7 @@ export const getTokenFromLS = () => localStorage.getItem('authToken');
 
 export const removeTokenFromLS = () => localStorage.removeItem('authToken');
 
-export const syncCartWithLS = cart => {
+export const syncLSWithCart = cart => {
     localStorage.setItem('cart', JSON.stringify(cart));
 };
 

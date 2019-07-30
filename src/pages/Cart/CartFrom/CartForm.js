@@ -107,14 +107,14 @@ class CartForm extends _Base {
         const {
             handleSubmit,
             products,
+            isEmpty,
             formValues,
             isEqual,
             isUpdating,
-            isLoading,
-            productIDs
+            isLoading
         } = this.props;
 
-        return productIDs.length ? (
+        return !isEmpty ? (
             <StyledForm onSubmit={handleSubmit(this.onSubmit)}>
                 {!isLoading ? (
                     <>
