@@ -11,13 +11,15 @@ import {
     syncCartFailure,
     addToCartRequest,
     addToCartSuccess,
+    addToCartFailure,
     removeFromCartRequest,
     removeFromCartSuccess,
-    requestCartProducts,
-    receiveCartProducts,
+    removeFromCartFailure,
+    getCartProductsRequest,
+    getCartProductsSuccess,
     getCartProductsFailure,
-    requestCartProduct,
-    receiveCartProduct,
+    getCartProductRequest,
+    getCartProductSuccess,
     getCartProductFailure,
     updateCartRequest,
     updateCartSuccess,
@@ -71,17 +73,19 @@ export const fetchCartProducts = () => async (dispatch, getState) => {
     try {
         const productIDs = getCartProductIDs(getState());
 
-        if (productIDs.length) {
-            dispatch(requestCartProducts());
-
-            const { data } = await axios.get('/api/product/get_cart_products', {
-                params: {
-                    productIDs
-                }
-            });
-
-            return dispatch(receiveCartProducts(data));
+        if (!productIDs.length) {
+            return;
         }
+
+        dispatch(getCartProductsRequest());
+
+        const { data } = await axios.get('/api/product/get_cart_products', {
+            params: {
+                productIDs
+            }
+        });
+
+        return dispatch(getCartProductsSuccess(data));
     } catch (e) {
         return dispatch(getCartProductsFailure(e.message));
     }
@@ -89,50 +93,80 @@ export const fetchCartProducts = () => async (dispatch, getState) => {
 
 export const fetchCartProduct = _id => async dispatch => {
     try {
-        dispatch(requestCartProduct());
+        dispatch(getCartProductRequest());
 
         const { data } = await getProduct({ _id });
 
-        return dispatch(receiveCartProduct(data));
+        return dispatch(getCartProductSuccess(data));
     } catch (e) {
         return dispatch(getCartProductFailure(e.message));
     }
 };
 
-export const addToCart = (productID, quantity = 1) => async dispatch => {
-    dispatch(addToCartRequest(productID));
+export const addToCart = (productID, quantity = 1) => async (
+    dispatch,
+    getState
+) => {
+    try {
+        dispatch(addToCartRequest(productID));
 
-    dispatch(addToCartSuccess(productID, quantity));
-    return dispatch(syncCart());
+        const isAuthorized = getIsAuthorized(getState());
+
+        if (isAuthorized) {
+            const { data } = await withToken.patch('/api/cart', {
+                productID,
+                quantity
+            });
+
+            syncLSWithCart(pick(data, CART_TO_SYNC));
+        }
+
+        dispatch(addToCartSuccess(productID, quantity));
+    } catch (e) {
+        return dispatch(addToCartFailure(e.message, productID));
+    }
 };
 
-export const removeFromCart = value => async dispatch => {
-    const productIDs = normalizeProductIDs(value);
+export const removeFromCart = value => async (dispatch, getState) => {
+    try {
+        const productIDs = normalizeProductIDs(value);
 
-    dispatch(removeFromCartRequest());
+        dispatch(removeFromCartRequest());
 
-    dispatch(removeFromCartSuccess(productIDs));
-    return dispatch(syncCart());
+        const isAuthorized = getIsAuthorized(getState());
+
+        if (isAuthorized) {
+            const { data } = await withToken.delete('/api/cart', {
+                data: { productIDs }
+            });
+
+            syncLSWithCart(pick(data, CART_TO_SYNC));
+        }
+
+        return dispatch(removeFromCartSuccess(productIDs));
+    } catch (e) {
+        return dispatch(removeFromCartFailure(e.message));
+    }
 };
 
 export const updateCart = cart => async (dispatch, getState) => {
     try {
         let newCart = cart;
-        let cartToSync = pick(newCart, CART_TO_SYNC);
 
         dispatch(updateCartRequest());
 
         const isAuthorized = getIsAuthorized(getState());
 
         if (isAuthorized) {
-            const { data } = await withToken.post('/api/cart/update', {
-                cart: cartToSync
+            const { data } = await withToken.put('/api/cart', {
+                cart: pick(newCart, CART_TO_SYNC)
             });
 
             newCart = data;
         }
 
-        syncLSWithCart(cartToSync);
+        syncLSWithCart(pick(newCart, CART_TO_SYNC));
+
         return dispatch(updateCartSuccess(newCart));
     } catch (e) {
         return dispatch(updateCartFailure(e.message));

@@ -4,7 +4,12 @@ import { connect } from 'react-redux';
 import { Field, Form, reduxForm } from 'redux-form';
 import styled from 'styled-components';
 
+import { AddProductBtn } from 'components';
 import { addToCart } from 'pages/Cart/duck/operations';
+import {
+    getIsProductAddedFunc,
+    getIsProductRequestedFunc
+} from 'pages/Cart/duck/selectors';
 import { formatQuantityValue } from 'utils/redux/helpers';
 import { minValue1 } from './duck/utils';
 import { number, required } from 'utils/redux/validationRules';
@@ -13,7 +18,7 @@ import {
     color_secondary,
     color_primary
 } from 'styles/variables';
-import { ButtonAlt, Icon, A } from 'elements';
+import { Icon, A } from 'elements';
 import successNotification from 'notifications/success';
 
 const Cart = styled(Form)`
@@ -38,12 +43,6 @@ const CartInput = styled.input`
 
     :focus {
         outline: none;
-    }
-`;
-
-const SubmitBtn = styled(ButtonAlt)`
-    :hover {
-        background-color: ${color_secondary};
     }
 `;
 
@@ -78,6 +77,16 @@ const initialValues = {
 const formConfig = {
     form: 'addToCart',
     initialValues
+};
+
+const mapStateToProps = (state, { ID }) => {
+    const isProductRequestedFunc = getIsProductRequestedFunc(state);
+    const isProductAddedFunc = getIsProductAddedFunc(state);
+
+    return {
+        isLoading: isProductRequestedFunc(ID),
+        isAdded: isProductAddedFunc(ID)
+    };
 };
 
 const mapDispatchToProps = (dispatch, { ID, title }) => ({
@@ -118,7 +127,7 @@ class CartFrom extends Component {
     };
 
     render() {
-        const { handleSubmit } = this.props;
+        const { handleSubmit, isLoading, isAdded } = this.props;
 
         return (
             <Cart onSubmit={handleSubmit(this.onSubmit)}>
@@ -132,7 +141,14 @@ class CartFrom extends Component {
                     />
                 </CartInputBox>
 
-                <SubmitBtn type="submit">Add to cart</SubmitBtn>
+                <AddProductBtn
+                    type="submit"
+                    isLoading={isLoading}
+                    disabled={isLoading}
+                    isAdded={isAdded}
+                >
+                    Add to cart
+                </AddProductBtn>
             </Cart>
         );
     }
@@ -140,7 +156,7 @@ class CartFrom extends Component {
 
 export default compose(
     connect(
-        null,
+        mapStateToProps,
         mapDispatchToProps
     ),
     reduxForm(formConfig)

@@ -2,9 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Card } from 'blocks';
-import { A, Icon } from 'elements';
+import { A } from 'elements';
+import { AddProductBtn } from 'components';
 import { toUAH } from 'utils/currencyFormatters';
-import { color_primary, color_white } from 'styles/variables';
+import { color_primary } from 'styles/variables';
 
 const CartLink = styled(A)`
     :link,
@@ -23,20 +24,6 @@ const CartLink = styled(A)`
     }
 `;
 
-const AddedIcon = styled(Icon)`
-    height: 1.5rem;
-    width: 1.5rem;
-    fill: ${color_white};
-    margin-left: 0.7rem;
-`;
-
-const LoadingIcon = styled(Icon)`
-    height: 1.5rem;
-    width: 1.5rem;
-    fill: ${color_white};
-    margin-left: 0.7rem;
-`;
-
 const ProductCart = ({
     ID,
     slug,
@@ -53,12 +40,14 @@ const ProductCart = ({
             <Card.Title>{title}</Card.Title>
             <Card.Price>{toUAH(price)}</Card.Price>
         </Card.Body>
-
-        <Card.Button onClick={handleAdd} isLoading={loading} added={added}>
+        <AddProductBtn
+            onClick={handleAdd}
+            isLoading={loading}
+            disabled={loading}
+            isAdded={added}
+        >
             Add to Cart
-            {added && !loading && <AddedIcon icon="check" />}
-            {loading && <LoadingIcon icon="refresh" />}
-        </Card.Button>
+        </AddProductBtn>
         {added && <CartLink to="/cart">View cart</CartLink>}
     </Card>
 );

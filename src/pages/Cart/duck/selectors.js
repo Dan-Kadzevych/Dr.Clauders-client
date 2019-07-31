@@ -20,7 +20,7 @@ export const getIsCartLoading = createLoadingSelector([
     INIT_CART,
     GET_CART_PRODUCTS
 ]);
-export const isCartUpdating = createLoadingSelector([
+export const getIsCartUpdating = createLoadingSelector([
     REMOVE_FROM_CART,
     ADD_TO_CART,
     GET_CART_PRODUCT,
@@ -67,6 +67,12 @@ export const getCartSummary = createSelector(
 export const getIsCartEmpty = createSelector(
     getCartProducts,
     products => !products.length
+);
+
+// Quick fix for add many updating state
+export const isCartUpdating = createSelector(
+    [getIsCartUpdating, getCartRequestedIDs],
+    (isUpdating, requestedIDs) => isUpdating || !!requestedIDs.length
 );
 
 export default {

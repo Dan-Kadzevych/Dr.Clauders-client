@@ -58,7 +58,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
     addToCart(productID, quantity) {
-        return dispatch(operations.addToCart(productID, quantity)).then(
+        return dispatch(operations.addToCart(productID, quantity)).then(() =>
             dispatch(operations.fetchCartProduct(productID))
         );
     },
@@ -103,6 +103,7 @@ class CartForm extends _Base {
         const { addToCart } = this.props;
         addToCart(productID, quantity);
     }
+
     render() {
         const {
             handleSubmit,

@@ -43,28 +43,38 @@ export const syncCartFailure = error => ({
 
 export const addToCartRequest = productID => ({
     type: types.ADD_TO_CART_REQUEST,
-    productID
+    payload: { productID }
 });
 
 export const addToCartSuccess = (productID, quantity = 1) => ({
     type: types.ADD_TO_CART_SUCCESS,
-    productID,
-    quantity
+    payload: { productID, quantity }
+});
+
+export const addToCartFailure = (error, productID) => ({
+    type: types.ADD_TO_CART_FAILURE,
+    payload: { error, productID }
 });
 
 export const removeFromCartRequest = () => ({
     type: types.REMOVE_FROM_CART_REQUEST
 });
+
 export const removeFromCartSuccess = productIDs => ({
     type: types.REMOVE_FROM_CART_SUCCESS,
     productIDs
 });
 
-export const requestCartProducts = () => ({
+export const removeFromCartFailure = error => ({
+    type: types.REMOVE_FROM_CART_FAILURE,
+    payload: { error }
+});
+
+export const getCartProductsRequest = () => ({
     type: types.GET_CART_PRODUCTS_REQUEST
 });
 
-export const receiveCartProducts = products => ({
+export const getCartProductsSuccess = products => ({
     type: types.GET_CART_PRODUCTS_SUCCESS,
     products
 });
@@ -74,11 +84,11 @@ export const getCartProductsFailure = error => ({
     payload: { error }
 });
 
-export const requestCartProduct = () => ({
+export const getCartProductRequest = () => ({
     type: types.GET_CART_PRODUCT_REQUEST
 });
 
-export const receiveCartProduct = product => ({
+export const getCartProductSuccess = product => ({
     type: types.GET_CART_PRODUCT_SUCCESS,
     product
 });

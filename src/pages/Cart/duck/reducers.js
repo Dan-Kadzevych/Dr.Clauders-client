@@ -26,7 +26,7 @@ const productIDs = (state = initialState.productIDs, action) => {
 
             return productIDs;
         case types.ADD_TO_CART_SUCCESS:
-            const { productID } = action;
+            const { productID } = action.payload;
 
             if (includes(state, productID)) {
                 return state;
@@ -54,7 +54,7 @@ const quantityByID = (state = initialState.quantityByID, action) => {
 
             return quantityByID;
         case types.ADD_TO_CART_SUCCESS:
-            const { productID, quantity } = action;
+            const { productID, quantity } = action.payload;
 
             return {
                 ...state,
@@ -86,16 +86,17 @@ const products = (state = initialState.products, action) => {
     }
 };
 
-const requestedIDs = (state = initialState.requestedIDs, action) => {
-    switch (action.type) {
+const requestedIDs = (state = initialState.requestedIDs, { type, payload }) => {
+    switch (type) {
         case types.ADD_TO_CART_REQUEST:
-            if (includes(state, action.productID)) {
+            if (includes(state, payload.productID)) {
                 return state;
             }
 
-            return [...state, action.productID];
+            return [...state, payload.productID];
         case types.ADD_TO_CART_SUCCESS:
-            return state.filter(el => el !== action.productID);
+        case types.ADD_TO_CART_FAILURE:
+            return state.filter(el => el !== payload.productID);
         default:
             return state;
     }
