@@ -1,7 +1,6 @@
 import axios from 'axios';
 import pick from 'lodash/pick';
 
-import { getProduct } from 'utils/requests';
 import {
     initCartRequest,
     initCartSuccess,
@@ -15,12 +14,6 @@ import {
     removeFromCartRequest,
     removeFromCartSuccess,
     removeFromCartFailure,
-    getCartProductsRequest,
-    getCartProductsSuccess,
-    getCartProductsFailure,
-    getCartProductRequest,
-    getCartProductSuccess,
-    getCartProductFailure,
     updateCartRequest,
     updateCartSuccess,
     updateCartFailure
@@ -28,7 +21,7 @@ import {
 import { normalizeProductIDs } from './utils';
 import { syncLSWithCart, getCartFromLS } from 'utils/localStorage';
 import withToken from 'utils/withToken';
-import { getCartProductIDs } from './selectors';
+import { getCartProductsByID } from './selectors';
 import { CART_TO_SYNC } from './constants';
 import { getIsAuthorized } from 'pages/Account/duck/selectors';
 
@@ -54,45 +47,21 @@ export const initCart = cartP => async (dispatch, getState) => {
 
         const cart = isAuthorized && cartP ? cartP : getCartFromLS();
 
+        if (!isAuthorized) {
+            const { data } = await axios.get('/api/product/get_cart_products', {
+                params: {
+                    productIDs: cart.productIDs
+                }
+            });
+
+            cart.products = data;
+        }
+
         dispatch(initCartSuccess(cart));
 
         return dispatch(syncCart());
     } catch (e) {
-        return dispatch(initCartFailure());
-    }
-};
-
-export const fetchCartProducts = () => async (dispatch, getState) => {
-    try {
-        const productIDs = getCartProductIDs(getState());
-
-        if (!productIDs.length) {
-            return;
-        }
-
-        dispatch(getCartProductsRequest());
-
-        const { data } = await axios.get('/api/product/get_cart_products', {
-            params: {
-                productIDs
-            }
-        });
-
-        return dispatch(getCartProductsSuccess(data));
-    } catch (e) {
-        return dispatch(getCartProductsFailure(e.message));
-    }
-};
-
-export const fetchCartProduct = _id => async dispatch => {
-    try {
-        dispatch(getCartProductRequest());
-
-        const { data } = await getProduct({ _id });
-
-        return dispatch(getCartProductSuccess(data));
-    } catch (e) {
-        return dispatch(getCartProductFailure(e.message));
+        return dispatch(initCartFailure(e.message));
     }
 };
 
@@ -104,15 +73,25 @@ export const addToCart = (productID, quantity = 1) => async (
         dispatch(addToCartRequest(productID));
 
         const isAuthorized = getIsAuthorized(getState());
+        const productByID = getCartProductsByID(getState());
+        let product = {};
 
         if (isAuthorized) {
-            await withToken.patch('/api/cart', {
+            const { data } = await withToken.patch('/api/cart', {
                 productID,
                 quantity
             });
+
+            product = data.product;
+        } else if (!productByID[productID]) {
+            const { data } = await axios.get('/api/product/get_product', {
+                params: { _id: productID }
+            });
+
+            product = data;
         }
 
-        dispatch(addToCartSuccess(productID, quantity));
+        dispatch(addToCartSuccess(productID, quantity, product));
         return dispatch(syncCart());
     } catch (e) {
         return dispatch(addToCartFailure(e.message, productID));
@@ -165,9 +144,7 @@ export const updateCart = cart => async (dispatch, getState) => {
 
 export default {
     initCart,
-    fetchCartProducts,
     addToCart,
     removeFromCart,
-    updateCart,
-    fetchCartProduct
+    updateCart
 };

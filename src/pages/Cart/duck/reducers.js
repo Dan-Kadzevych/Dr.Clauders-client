@@ -3,6 +3,7 @@ import includes from 'lodash/includes';
 import omit from 'lodash/omit';
 import difference from 'lodash/difference';
 import keyBy from 'lodash/keyBy';
+import get from 'lodash/get';
 
 import types from './types';
 
@@ -18,7 +19,9 @@ const productIDs = (state = initialState.productIDs, action) => {
         case types.UPDATE_CART_SUCCESS:
         case types.INIT_CART_SUCCESS:
             const {
-                cart: { productIDs }
+                payload: {
+                    cart: { productIDs }
+                }
             } = action;
 
             if (!productIDs) {
@@ -46,7 +49,9 @@ const quantityByID = (state = initialState.quantityByID, action) => {
         case types.UPDATE_CART_SUCCESS:
         case types.INIT_CART_SUCCESS:
             const {
-                cart: { quantityByID }
+                payload: {
+                    cart: { quantityByID }
+                }
             } = action;
 
             if (!quantityByID) {
@@ -71,15 +76,17 @@ const quantityByID = (state = initialState.quantityByID, action) => {
 const productsByID = (state = initialState.productsByID, action) => {
     switch (action.type) {
         case types.UPDATE_CART_SUCCESS:
-            if (!action.cart.products) {
-                return initialState;
+        case types.INIT_CART_SUCCESS:
+            return keyBy(action.payload.cart.products, '_id');
+        case types.ADD_TO_CART_SUCCESS:
+            if (!get(action, 'payload.product._id')) {
+                return state;
             }
 
-            return keyBy(action.cart.products, '_id');
-        case types.GET_CART_PRODUCTS_SUCCESS:
-            return keyBy(action.products, '_id');
-        case types.GET_CART_PRODUCT_SUCCESS:
-            return { ...state, [action.product._id]: action.product };
+            return {
+                ...state,
+                [get(action, 'payload.product._id')]: action.payload.product
+            };
         case types.REMOVE_FROM_CART_SUCCESS:
             return omit(state, action.productIDs);
         default:

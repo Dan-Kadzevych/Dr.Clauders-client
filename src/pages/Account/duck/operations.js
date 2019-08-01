@@ -51,7 +51,7 @@ export const getMyProfile = () => async dispatch => {
         dispatch(getMyProfileSuccess(data.user));
         return dispatch(initCart(data.cart));
     } catch (e) {
-        dispatch(getMyProfileFailure());
+        dispatch(getMyProfileFailure(e.message));
         return dispatch(initCart());
     }
 };

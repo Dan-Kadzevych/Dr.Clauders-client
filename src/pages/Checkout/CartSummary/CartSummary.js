@@ -3,14 +3,12 @@ import { connect } from 'react-redux';
 import { submit } from 'redux-form';
 import styled from 'styled-components';
 
-import { _Base } from 'elements';
 import { Spinner } from 'blocks';
 import {
     getIsFormValid,
     getTotalPrice,
     getDeliveryPriceDescription
 } from '../duck/selectros';
-import { fetchCartProducts } from 'pages/Cart/duck/operations';
 import {
     getCartProducts,
     getQuantityByID,
@@ -26,6 +24,7 @@ const Cart = styled.div`
     position: relative;
     height: 100%;
     display: flex;
+    justify-content: space-between;
     flex-direction: column;
     padding-left: 2.5rem;
     border-left: 1px solid ${color_grey_light};
@@ -44,56 +43,39 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     submitCheckout() {
         return dispatch(submit('checkout'));
-    },
-    fetchCart() {
-        return dispatch(fetchCartProducts());
     }
 });
 
-class CartSummary extends _Base {
-    componentDidMount() {
-        const { fetchCart } = this.props;
-
-        fetchCart();
-    }
-
-    render() {
-        const {
-            isValid,
-            products,
-            quantityByID,
-            cartSummary,
-            totalPrice,
-            deliveryPrice,
-            isCartLoading
-        } = this.props;
-
-        return (
-            <div>
-                <Cart>
+const CartSummary = ({
+    isValid,
+    products,
+    quantityByID,
+    cartSummary,
+    totalPrice,
+    deliveryPrice,
+    isCartLoading,
+    submitCheckout
+}) => (
+    <Cart>
+        {!isCartLoading ? (
+            <>
+                <div>
                     <Title>Your Order</Title>
-                    {!isCartLoading ? (
-                        <>
-                            <Products
-                                products={products}
-                                quantityByID={quantityByID}
-                            />
-                            <Summary
-                                deliveryPrice={deliveryPrice}
-                                totalPrice={totalPrice}
-                                cartSummary={cartSummary}
-                                submit={this.props.submitCheckout}
-                                isValid={isValid}
-                            />
-                        </>
-                    ) : (
-                        <Spinner />
-                    )}
-                </Cart>
-            </div>
-        );
-    }
-}
+                    <Products products={products} quantityByID={quantityByID} />
+                </div>
+                <Summary
+                    deliveryPrice={deliveryPrice}
+                    totalPrice={totalPrice}
+                    cartSummary={cartSummary}
+                    submit={submitCheckout}
+                    isValid={isValid}
+                />
+            </>
+        ) : (
+            <Spinner />
+        )}
+    </Cart>
+);
 
 export default connect(
     mapStateToProps,

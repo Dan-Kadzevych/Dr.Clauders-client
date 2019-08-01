@@ -9,8 +9,9 @@ export const getMyProfileSuccess = user => ({
     payload: user
 });
 
-export const getMyProfileFailure = () => ({
-    type: types.GET_MY_PROFILE_FAILURE
+export const getMyProfileFailure = error => ({
+    type: types.GET_MY_PROFILE_FAILURE,
+    payload: { error }
 });
 
 export const logoutRequest = () => ({

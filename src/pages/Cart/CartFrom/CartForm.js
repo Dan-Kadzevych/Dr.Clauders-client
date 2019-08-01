@@ -58,9 +58,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
     addToCart(productID, quantity) {
-        return dispatch(operations.addToCart(productID, quantity)).then(() =>
-            dispatch(operations.fetchCartProduct(productID))
-        );
+        return dispatch(operations.addToCart(productID, quantity));
     },
     removeFormCart(productID, title, quantity, undo) {
         return dispatch(operations.removeFromCart(productID)).then(() =>
