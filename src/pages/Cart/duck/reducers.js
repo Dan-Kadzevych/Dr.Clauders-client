@@ -2,12 +2,13 @@ import { combineReducers } from 'redux';
 import includes from 'lodash/includes';
 import omit from 'lodash/omit';
 import difference from 'lodash/difference';
+import keyBy from 'lodash/keyBy';
 
 import types from './types';
 
 const initialState = {
     productIDs: [],
-    products: [],
+    productsByID: {},
     quantityByID: {},
     requestedIDs: []
 };
@@ -67,20 +68,20 @@ const quantityByID = (state = initialState.quantityByID, action) => {
     }
 };
 
-const products = (state = initialState.products, action) => {
+const productsByID = (state = initialState.productsByID, action) => {
     switch (action.type) {
         case types.UPDATE_CART_SUCCESS:
             if (!action.cart.products) {
-                return initialState.products;
+                return initialState;
             }
 
-            return action.cart.products;
+            return keyBy(action.cart.products, '_id');
         case types.GET_CART_PRODUCTS_SUCCESS:
-            return action.products;
+            return keyBy(action.products, '_id');
         case types.GET_CART_PRODUCT_SUCCESS:
-            return [...state, action.product];
+            return { ...state, [action.product._id]: action.product };
         case types.REMOVE_FROM_CART_SUCCESS:
-            return state.filter(el => !action.productIDs.includes(el._id));
+            return omit(state, action.productIDs);
         default:
             return state;
     }
@@ -105,6 +106,6 @@ const requestedIDs = (state = initialState.requestedIDs, { type, payload }) => {
 export default combineReducers({
     productIDs,
     quantityByID,
-    products,
+    productsByID,
     requestedIDs
 });

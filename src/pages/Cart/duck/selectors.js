@@ -2,6 +2,7 @@ import { createSelector } from 'reselect';
 import get from 'lodash/get';
 import includes from 'lodash/includes';
 import mapValues from 'lodash/mapValues';
+import compact from 'lodash/compact';
 
 import { createLoadingSelector } from 'loading';
 import {
@@ -31,10 +32,26 @@ export const getCartRequestedIDs = state =>
     get(state, 'cartPage.requestedIDs', emptyArr);
 export const getCartProductIDs = state =>
     get(state, 'cartPage.productIDs', emptyArr);
-export const getCartProducts = state =>
-    get(state, 'cartPage.products', emptyArr);
+export const getCartProductsByID = state =>
+    get(state, 'cartPage.productsByID', emptyObj);
 export const getQuantityByID = state =>
     get(state, 'cartPage.quantityByID', emptyObj);
+
+export const getIsCartEmpty = createSelector(
+    getCartProductsByID,
+    products => !Object.keys(products).length
+);
+
+export const getCartProducts = createSelector(
+    [getCartProductIDs, getCartProductsByID, getIsCartEmpty],
+    (productIDs, productsByID, isEmpty) => {
+        if (isEmpty) {
+            return [];
+        }
+
+        return compact(productIDs.map(id => productsByID[id]));
+    }
+);
 
 export const getIsProductRequestedFunc = createSelector(
     getCartRequestedIDs,
@@ -62,11 +79,6 @@ export const getCartSummary = createSelector(
         }, 0),
         quantity: Object.values(quantityByID).reduce((acc, el) => acc + el, 0)
     })
-);
-
-export const getIsCartEmpty = createSelector(
-    getCartProducts,
-    products => !products.length
 );
 
 // Quick fix for add many updating state
