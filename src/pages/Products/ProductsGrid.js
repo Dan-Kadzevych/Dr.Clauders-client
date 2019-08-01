@@ -33,6 +33,7 @@ const ProductsGrid = ({
                     image={url}
                     slug={slug}
                     price={price}
+                    title={title}
                     loading={isRequested(_id)}
                     added={isAdded(_id)}
                     handleAdd={() => addToCart(_id)}

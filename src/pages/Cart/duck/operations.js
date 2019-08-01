@@ -143,7 +143,6 @@ export const updateCart = cart => async (dispatch, getState) => {
 };
 
 export default {
-    initCart,
     addToCart,
     removeFromCart,
     updateCart

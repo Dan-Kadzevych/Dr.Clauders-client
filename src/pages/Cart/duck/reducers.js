@@ -39,6 +39,10 @@ const productIDs = (state = initialState.productIDs, action) => {
             return [...state, productID];
         case types.REMOVE_FROM_CART_SUCCESS:
             return difference(state, action.productIDs);
+        case types.UPDATE_CART_FAILURE:
+        case types.REMOVE_FROM_CART_REQUEST:
+        case types.ADD_TO_CART_FAILURE:
+            return initialState.productIDs;
         default:
             return state;
     }
@@ -68,6 +72,10 @@ const quantityByID = (state = initialState.quantityByID, action) => {
             };
         case types.REMOVE_FROM_CART_SUCCESS:
             return omit(state, action.productIDs);
+        case types.UPDATE_CART_FAILURE:
+        case types.REMOVE_FROM_CART_REQUEST:
+        case types.ADD_TO_CART_FAILURE:
+            return initialState.quantityByID;
         default:
             return state;
     }
@@ -89,6 +97,10 @@ const productsByID = (state = initialState.productsByID, action) => {
             };
         case types.REMOVE_FROM_CART_SUCCESS:
             return omit(state, action.productIDs);
+        case types.UPDATE_CART_FAILURE:
+        case types.REMOVE_FROM_CART_REQUEST:
+        case types.ADD_TO_CART_FAILURE:
+            return initialState.productsByID;
         default:
             return state;
     }
