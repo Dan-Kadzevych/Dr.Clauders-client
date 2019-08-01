@@ -40,7 +40,7 @@ const productIDs = (state = initialState.productIDs, action) => {
         case types.REMOVE_FROM_CART_SUCCESS:
             return difference(state, action.productIDs);
         case types.UPDATE_CART_FAILURE:
-        case types.REMOVE_FROM_CART_REQUEST:
+        case types.REMOVE_FROM_CART_FAILURE:
         case types.ADD_TO_CART_FAILURE:
             return initialState.productIDs;
         default:
@@ -73,7 +73,7 @@ const quantityByID = (state = initialState.quantityByID, action) => {
         case types.REMOVE_FROM_CART_SUCCESS:
             return omit(state, action.productIDs);
         case types.UPDATE_CART_FAILURE:
-        case types.REMOVE_FROM_CART_REQUEST:
+        case types.REMOVE_FROM_CART_FAILURE:
         case types.ADD_TO_CART_FAILURE:
             return initialState.quantityByID;
         default:
@@ -98,7 +98,7 @@ const productsByID = (state = initialState.productsByID, action) => {
         case types.REMOVE_FROM_CART_SUCCESS:
             return omit(state, action.productIDs);
         case types.UPDATE_CART_FAILURE:
-        case types.REMOVE_FROM_CART_REQUEST:
+        case types.REMOVE_FROM_CART_FAILURE:
         case types.ADD_TO_CART_FAILURE:
             return initialState.productsByID;
         default:
