@@ -22,14 +22,8 @@ const Button = styled(ButtonAlt)`
     }}
 `;
 
-const AddedIcon = styled(Icon)`
-    height: 1.5rem;
-    width: 1.5rem;
-    fill: ${color_white};
-    margin-left: 0.7rem;
-`;
-
-const LoadingIcon = styled(Icon)`
+const StyledIcon = styled(Icon)`
+    display: ${({ hidden }) => (hidden ? 'none' : 'inline-block')}
     height: 1.5rem;
     width: 1.5rem;
     fill: ${color_white};
@@ -52,8 +46,8 @@ const AddProductBtn = ({
         {...otherProps}
     >
         {children}
-        {isAdded && !isLoading && <AddedIcon icon="check" />}
-        {isLoading && <LoadingIcon icon="refresh" />}
+        <StyledIcon hidden={!isAdded || isLoading} icon="check" />
+        <StyledIcon hidden={!isLoading} icon="refresh" />
     </Button>
 );
 

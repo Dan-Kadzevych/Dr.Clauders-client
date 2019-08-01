@@ -37,13 +37,6 @@ export const syncCart = () => async (dispatch, getState) => {
         dispatch(syncCartRequest());
         const { cartPage } = getState();
         const cart = pick(cartPage, CART_TO_SYNC);
-        // const isAuthorized = getIsAuthorized(getState());
-        //
-        // if (isAuthorized) {
-        //     await withToken.post('/api/user/sync_cart', {
-        //         cart
-        //     });
-        // }
 
         syncLSWithCart(cart);
 
@@ -113,15 +106,14 @@ export const addToCart = (productID, quantity = 1) => async (
         const isAuthorized = getIsAuthorized(getState());
 
         if (isAuthorized) {
-            const { data } = await withToken.patch('/api/cart', {
+            await withToken.patch('/api/cart', {
                 productID,
                 quantity
             });
-
-            syncLSWithCart(pick(data, CART_TO_SYNC));
         }
 
         dispatch(addToCartSuccess(productID, quantity));
+        return dispatch(syncCart());
     } catch (e) {
         return dispatch(addToCartFailure(e.message, productID));
     }
@@ -136,14 +128,13 @@ export const removeFromCart = value => async (dispatch, getState) => {
         const isAuthorized = getIsAuthorized(getState());
 
         if (isAuthorized) {
-            const { data } = await withToken.delete('/api/cart', {
+            await withToken.delete('/api/cart', {
                 data: { productIDs }
             });
-
-            syncLSWithCart(pick(data, CART_TO_SYNC));
         }
 
-        return dispatch(removeFromCartSuccess(productIDs));
+        dispatch(removeFromCartSuccess(productIDs));
+        return dispatch(syncCart());
     } catch (e) {
         return dispatch(removeFromCartFailure(e.message));
     }
@@ -165,9 +156,8 @@ export const updateCart = cart => async (dispatch, getState) => {
             newCart = data;
         }
 
-        syncLSWithCart(pick(newCart, CART_TO_SYNC));
-
-        return dispatch(updateCartSuccess(newCart));
+        dispatch(updateCartSuccess(newCart));
+        return dispatch(syncCart());
     } catch (e) {
         return dispatch(updateCartFailure(e.message));
     }
