@@ -18,7 +18,7 @@ import {
     updateCartSuccess,
     updateCartFailure
 } from './actions';
-import { normalizeProductIDs } from './utils';
+import { normalizeProductIDs, normalizeCart } from './utils';
 import { syncLSWithCart, getCartFromLS } from 'utils/localStorage';
 import withToken from 'utils/withToken';
 import { getCartProductsByID } from './selectors';
@@ -30,8 +30,9 @@ export const syncCart = () => async (dispatch, getState) => {
         dispatch(syncCartRequest());
         const { cartPage } = getState();
         const cart = pick(cartPage, CART_TO_SYNC);
+        const normalizedCart = normalizeCart(cart);
 
-        syncLSWithCart(cart);
+        syncLSWithCart(normalizedCart);
 
         return dispatch(syncCartSuccess());
     } catch (e) {
