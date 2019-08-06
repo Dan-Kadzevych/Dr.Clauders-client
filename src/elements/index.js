@@ -8,13 +8,14 @@ import H4 from './H4.js';
 import H5 from './H5.js';
 import P from './P.js';
 import Icon from './Icon.js';
-import _Base from './_Base.js';
 import ScrollToTop from './ScrollToTop.js';
 import ErrorMessage from './ErrorMessage.js';
 import GlobalError from './GlobalError.js';
-import InputLabel from './InputLabel.js';
-import SubmitBtn from './SubmitBtn.js';
+import SubmitBtn from './form/SubmitBtn.js';
 import PageHeader from './PageHeader.js';
+import InputLabel from './form/InputLabel.js';
+import Select from './form/Select.js';
+import FormGroup from './form/FormGroup.js';
 
 export {
     A,
@@ -27,11 +28,12 @@ export {
     H5,
     P,
     Icon,
-    _Base,
     ScrollToTop,
     ErrorMessage,
-    InputLabel,
     SubmitBtn,
     PageHeader,
-    GlobalError
+    GlobalError,
+    InputLabel,
+    Select,
+    FormGroup
 };

@@ -3,7 +3,7 @@ import React from 'react';
 import { components } from 'react-select';
 import { List, CellMeasurer, CellMeasurerCache } from 'react-virtualized';
 
-import _Base from 'elements/_Base';
+import { _Base } from 'components';
 
 const cache = new CellMeasurerCache({
     fixedWidth: true

@@ -5,7 +5,8 @@ import { Form, reduxForm, getFormValues } from 'redux-form';
 import styled from 'styled-components';
 import isEqual from 'lodash/isEqual';
 
-import { A, _Base } from 'elements/index';
+import { A } from 'elements';
+import { _Base } from 'components';
 import { successNotification } from 'notifications/index';
 import { Spinner } from 'blocks';
 import { toUAH } from 'utils/currencyFormatters';

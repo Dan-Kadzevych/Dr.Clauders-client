@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 import { Spinner } from 'blocks';
-import { _Base } from 'elements';
+import { _Base } from 'components';
 import Media from './Media';
 import Description from './Description';
 import Tabs from './Tabs';

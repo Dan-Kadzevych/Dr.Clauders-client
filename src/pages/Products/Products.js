@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-import Hero from './Hero';
-import ProductsGrid from './ProductsGrid';
-import { RouteNotFound } from 'components';
-import { operations, selectors, utils } from './duck';
 import { addToCart } from 'pages/Cart/duck/operations';
 import {
     getIsProductAddedFunc,
     getIsProductRequestedFunc
 } from 'pages/Cart/duck/selectors';
+import { getCurrentLocation } from 'duck/selectors';
+import { RouteNotFound } from 'components';
+import { operations, selectors, utils } from './duck';
+import Hero from './Hero';
+import ProductsGrid from './ProductsGrid';
 
 import { gridTemplate } from 'styles/mixins';
 import { color_grey_light } from 'styles/variables';
@@ -39,13 +40,14 @@ const mapStateToProps = state => {
         categoryMedia: utils.getCategoryMedia(category),
         isProductRequestedFunc: getIsProductRequestedFunc(state),
         isProductAddedFunc: getIsProductAddedFunc(state),
-        isLoading: selectors.isLoading(state)
+        isLoading: selectors.isLoading(state),
+        location: getCurrentLocation(state)
     };
 };
 
-const mapDispatchToProps = (dispatch, { match: { url } }) => ({
-    fetchProducts(categoryID) {
-        return dispatch(operations.fetchProducts(categoryID, url));
+const mapDispatchToProps = dispatch => ({
+    fetchProducts(categoryID, filter) {
+        return dispatch(operations.fetchProducts(categoryID, filter));
     },
     addToCart(ID) {
         return dispatch(addToCart(ID));
@@ -54,17 +56,20 @@ const mapDispatchToProps = (dispatch, { match: { url } }) => ({
 
 class Products extends Component {
     componentDidMount() {
-        const { categoryID } = this.props;
+        const {
+            categoryID,
+            match: { url }
+        } = this.props;
 
         if (categoryID) {
-            this.props.fetchProducts(categoryID);
+            this.props.fetchProducts(categoryID, url);
         }
     }
-    componentDidUpdate({ categoryID: prevCategoryId }) {
-        const { categoryID } = this.props;
+    componentDidUpdate({ location: prevLocation }) {
+        const { categoryID, location } = this.props;
 
-        if (categoryID && prevCategoryId !== categoryID) {
-            this.props.fetchProducts(categoryID);
+        if (categoryID && location !== prevLocation) {
+            this.props.fetchProducts(categoryID, location);
         }
     }
 

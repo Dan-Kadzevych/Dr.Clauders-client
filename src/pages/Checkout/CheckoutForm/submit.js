@@ -1,5 +1,3 @@
-const submit = async values => {
-    // console.log(values);
-};
+const submit = async values => {};
 
 export default submit;

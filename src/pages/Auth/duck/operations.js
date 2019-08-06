@@ -6,8 +6,10 @@ import { storeTokenToLS } from 'utils/localStorage';
 import {
     signUpRequest,
     signUpSuccess,
+    signUpFailure,
     signInRequest,
-    signInSuccess
+    signInSuccess,
+    signInFailure
 } from './actions';
 import { initCart } from 'pages/Cart/duck/operations';
 import { normalizeUser } from './utils';
@@ -25,6 +27,7 @@ export const signUp = values => async dispatch => {
         dispatch(initCart(data.cart));
         return storeTokenToLS(data.token);
     } catch (e) {
+        dispatch(signUpFailure(e.message));
         throw new SubmissionError({ _error: e.response.data.error });
     }
 };
@@ -47,6 +50,7 @@ export const signIn = credentials => async dispatch => {
         dispatch(initCart(data.cart));
         return storeTokenToLS(data.token);
     } catch (e) {
+        dispatch(signInFailure(e.message));
         throw new SubmissionError({ _error: e.response.data.error });
     }
 };

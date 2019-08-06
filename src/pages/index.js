@@ -6,5 +6,16 @@ import Products from './Products';
 import NoMatch from './NoMatch';
 import Checkout from './Checkout';
 import Account from './Account';
+import Admin from './Admin';
 
-export { Auth, Home, Cart, Products, Product, NoMatch, Checkout, Account };
+export {
+    Auth,
+    Home,
+    Cart,
+    Products,
+    Product,
+    NoMatch,
+    Checkout,
+    Account,
+    Admin
+};

@@ -1,15 +1,18 @@
-import { GET_APP_CONFIG_REQUEST, GET_APP_CONFIG_SUCCESS } from './types';
+import keyBy from 'lodash/keyBy';
+
+import { GET_APP_CONFIG_SUCCESS } from './types';
 
 const initialState = {
-    navConfig: []
+    categoriesByID: {}
 };
 
 const appConfigReducer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_APP_CONFIG_REQUEST:
-            return { ...state };
         case GET_APP_CONFIG_SUCCESS:
-            return { ...state, ...action.config };
+            return {
+                ...state,
+                categoriesByID: keyBy(action.config.categories, '_id')
+            };
         default:
             return state;
     }

@@ -1,6 +1,6 @@
 import get from 'lodash/get';
 
-export const normalizeLocations = categories => {
+export const normalizeCategories = categories => {
     const normalizedCategories = [];
     categories.forEach(category => {
         const subCategories = get(category, 'subCategories');

@@ -5,7 +5,7 @@ import { reduxForm, getFormValues, getFormSyncErrors } from 'redux-form';
 import get from 'lodash/get';
 
 import { WizardElement } from 'blocks';
-import { _Base } from 'elements';
+import { _Base } from 'components';
 import { operations, selectors, constants } from '../duck';
 import { formConfig } from './formConfig';
 import { UserInfo, Delivery, Payment } from './steps';

@@ -4,12 +4,12 @@ import actions from './actions';
 
 export const fetchAppConfig = () => async dispatch => {
     try {
-        dispatch(actions.requestAppConfig());
+        dispatch(actions.getAppConfigRequest());
         const { data } = await axios.get('/api/app/get_config');
 
-        dispatch(actions.receiveAppConfig(data));
+        dispatch(actions.getAppConfigSuccess(data));
     } catch (e) {
-        return e;
+        dispatch(actions.getAppConfigFailure(e.message));
     }
 };
 

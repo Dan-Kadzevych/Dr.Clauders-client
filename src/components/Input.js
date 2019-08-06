@@ -18,7 +18,7 @@ const InputContainer = styled.div`
     }
 `;
 
-const StyledInput = styled(({ error, touched, phone, ...params }) =>
+const StyledInput = styled(({ error, touched, phone, small, ...params }) =>
     phone ? (
         <NumberFormat {...params} format={phoneFormat} mask="_" />
     ) : (
@@ -29,7 +29,7 @@ const StyledInput = styled(({ error, touched, phone, ...params }) =>
 
     ${font_quaternary};
     font-size: 1.5rem;
-    padding: 1.2rem 1.5rem;
+    padding: ${({ small }) => (small ? '0.6rem 0.8rem' : '1.2rem 1.5rem')};
     border: 1px solid rgba(0, 0, 0, 0.13);
 
     :focus {
@@ -45,27 +45,24 @@ const Input = ({
     label,
     meta: { touched, error },
     placeholder,
-    mask
-}) => {
-    if (mask === 'phone') {
-    }
+    mask,
+    small
+}) => (
+    <InputContainer>
+        <InputLabel> {label} </InputLabel>
 
-    return (
-        <InputContainer>
-            <InputLabel> {label} </InputLabel>
+        <StyledInput
+            {...input}
+            error={touched && error}
+            touched={touched && !error}
+            placeholder={placeholder}
+            type={type}
+            phone={mask === 'phone'}
+            small={small}
+        />
 
-            <StyledInput
-                {...input}
-                error={touched && error}
-                touched={touched && !error}
-                placeholder={placeholder}
-                type={type}
-                phone={mask === 'phone'}
-            />
-
-            {touched && error && <ErrorMessage>{error}</ErrorMessage>}
-        </InputContainer>
-    );
-};
+        {touched && error && <ErrorMessage>{error}</ErrorMessage>}
+    </InputContainer>
+);
 
 export default Input;
