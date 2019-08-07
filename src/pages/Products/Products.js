@@ -8,7 +8,7 @@ import {
     getIsProductRequestedFunc
 } from 'pages/Cart/duck/selectors';
 import { getCurrentLocation } from 'duck/selectors';
-import { RouteNotFound } from 'components';
+// import { RouteNotFound } from 'components';
 import { operations, selectors, utils } from './duck';
 import Hero from './Hero';
 import ProductsGrid from './ProductsGrid';
@@ -98,7 +98,7 @@ class Products extends Component {
                 />
             </Container>
         ) : (
-            <RouteNotFound />
+            <div>Not found</div>
         );
     }
 }

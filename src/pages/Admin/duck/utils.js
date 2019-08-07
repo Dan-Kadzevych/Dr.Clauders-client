@@ -8,12 +8,12 @@ export const formatCategories = categories =>
 
 export const normalizeCategory = values => {
     const normalizedCategory = {};
+    const parent = get(values, 'parent.value');
 
     normalizedCategory.name = values.name;
     normalizedCategory.slug = values.slug;
     normalizedCategory.pet = get(values, 'pet.label');
-    normalizedCategory.parent =
-        get(values, 'parent.value') === 0 ? null : get(values, 'parent.value');
+    normalizedCategory.parent = parent === 0 ? null : parent;
 
     return normalizedCategory;
 };

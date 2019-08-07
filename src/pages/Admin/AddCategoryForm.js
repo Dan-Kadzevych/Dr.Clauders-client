@@ -3,7 +3,7 @@ import { Form, Field, reduxForm } from 'redux-form';
 
 import { required } from 'utils/redux/validationRules';
 import { Input } from 'components';
-import { H4, SubmitBtn, FormGroup } from 'elements';
+import { H4, SubmitBtn, FormGroup, GlobalError } from 'elements';
 import Select from './Select';
 import { petOptions } from './duck/constants';
 
@@ -20,8 +20,9 @@ const formConfig = {
     }
 };
 
-const AddCategoryForm = ({ handleSubmit, parentCategories }) => (
+const AddCategoryForm = ({ handleSubmit, parentCategories, error }) => (
     <Form onSubmit={handleSubmit}>
+        {error && <GlobalError source={error} />}
         <H4>Добавить Категорию</H4>
         <Field
             type="text"

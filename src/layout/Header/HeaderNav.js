@@ -68,16 +68,26 @@ const HeaderNav = props => (
     <Nav>
         <List>
             {props.navConfig &&
-                props.navConfig.map(el => (
-                    <Element key={el.slug}>
-                        <NavLink link={el.slug} path={props.location.pathname}>
-                            {el.name}
-                        </NavLink>
-                        {el.subCategories && !!el.subCategories.length && (
-                            <HeaderSubMenu config={el.subCategories} />
-                        )}
-                    </Element>
-                ))}
+                props.navConfig.map(
+                    ({
+                        _id,
+                        name,
+                        subCategories,
+                        slug: { full: fullSlug }
+                    }) => (
+                        <Element key={fullSlug}>
+                            <NavLink
+                                link={fullSlug}
+                                path={props.location.pathname}
+                            >
+                                {name}
+                            </NavLink>
+                            {subCategories && !!subCategories.length && (
+                                <HeaderSubMenu config={subCategories} />
+                            )}
+                        </Element>
+                    )
+                )}
         </List>
     </Nav>
 );

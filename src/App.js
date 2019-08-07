@@ -19,7 +19,7 @@ import { isAppLoading } from 'duck';
 import { Footer, Header } from 'layout';
 import { Spinner } from 'blocks';
 import { ScrollToTop } from 'elements';
-import { PrivateRoute, CaptureNotFound, RouteNotFound } from 'components';
+import { PrivateRoute, CaptureNotFound /*RouteNotFound*/ } from 'components';
 
 import GlobalStyles from './styles/GlobalStyles';
 import { gridTemplate } from 'styles/mixins';
@@ -93,7 +93,7 @@ class App extends Component {
                                         <PageContainer>Contact</PageContainer>
                                     )}
                                 />
-                                <RouteNotFound />
+                                <div>Not Found</div>
                             </Switch>
                         </CaptureNotFound>
                         <Footer />

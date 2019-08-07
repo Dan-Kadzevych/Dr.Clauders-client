@@ -54,9 +54,13 @@ const SubmenuElement = styled.li`
 
 const HeaderSubMenu = ({ config }) => (
     <Submenu>
-        {config.map(({ slug, name }) => (
-            <SubmenuElement key={slug}>
-                <SubmenuLink as={NavLink} activeClassName="active" to={slug}>
+        {config.map(({ slug: { full: fullSlug }, name }) => (
+            <SubmenuElement key={fullSlug}>
+                <SubmenuLink
+                    as={NavLink}
+                    activeClassName="active"
+                    to={fullSlug}
+                >
                     {name}
                 </SubmenuLink>
             </SubmenuElement>

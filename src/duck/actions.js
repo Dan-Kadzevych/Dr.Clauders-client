@@ -4,9 +4,9 @@ export const getAppConfigRequest = () => ({
     type: types.GET_APP_CONFIG_REQUEST
 });
 
-export const getAppConfigSuccess = config => ({
+export const getAppConfigSuccess = ({ categories }) => ({
     type: types.GET_APP_CONFIG_SUCCESS,
-    config
+    payload: { categories }
 });
 
 export const getAppConfigFailure = error => ({

@@ -4,6 +4,7 @@ import CaptureNotFound from './CaptureNotFound';
 import RouteNotFound from './RouteNotFound';
 import AddProductBtn from './AddProductBtn';
 import _Base from './_Base';
+import DropdownArrow from './DropdownArrow';
 
 export {
     Input,
@@ -11,5 +12,6 @@ export {
     CaptureNotFound,
     RouteNotFound,
     AddProductBtn,
-    _Base
+    _Base,
+    DropdownArrow
 };
