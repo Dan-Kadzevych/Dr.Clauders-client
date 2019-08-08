@@ -8,3 +8,10 @@ export const petOptions = [
         label: 'Кошкам'
     }
 ];
+
+export const categoryInitialValues = {
+    name: '',
+    slug: '',
+    parent: { value: 0, label: 'Нет' },
+    pet: null
+};

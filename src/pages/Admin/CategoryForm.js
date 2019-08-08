@@ -1,29 +1,43 @@
 import React from 'react';
 import { Form, Field, reduxForm } from 'redux-form';
+import styled from 'styled-components';
 
 import { required } from 'utils/redux/validationRules';
 import { Input } from 'components';
-import { H4, SubmitBtn, FormGroup, GlobalError } from 'elements';
+import { H4, SubmitBtn, FormGroup, GlobalError, ButtonAlt } from 'elements';
 import Select from './Select';
 import { petOptions } from './duck/constants';
+import { color_black, color_white } from 'styles/variables';
 
 const FORM_NAME = 'addCategory';
 
 const formConfig = {
     form: FORM_NAME,
-    enableReinitialize: true,
-    initialValues: {
-        name: '',
-        slug: '',
-        parent: { value: 0, label: 'Нет' },
-        pet: null
-    }
+    enableReinitialize: true
 };
 
-const AddCategoryForm = ({ handleSubmit, parentCategories, error }) => (
+const StopUpdateBtn = styled(ButtonAlt)`
+    &&& {
+        color: ${color_black};
+        background-color: ${color_white};
+        margin-left: 2rem;
+    }
+`;
+
+const CategoryForm = ({
+    handleSubmit,
+    parentCategories,
+    error,
+    updatedCategory,
+    stopUpdating
+}) => (
     <Form onSubmit={handleSubmit}>
         {error && <GlobalError source={error} />}
-        <H4>Добавить Категорию</H4>
+        {updatedCategory ? (
+            <H4>Редактировать Категорию "{updatedCategory.name}"</H4>
+        ) : (
+            <H4>Добавить Категорию</H4>
+        )}
         <Field
             type="text"
             name="name"
@@ -58,8 +72,13 @@ const AddCategoryForm = ({ handleSubmit, parentCategories, error }) => (
             />
         </FormGroup>
 
-        <SubmitBtn>Добавить</SubmitBtn>
+        <SubmitBtn>{updatedCategory ? 'Сохранить' : 'Добавить'}</SubmitBtn>
+        {updatedCategory && (
+            <StopUpdateBtn type="button" onClick={stopUpdating}>
+                Отменить Изменения
+            </StopUpdateBtn>
+        )}
     </Form>
 );
 
-export default reduxForm(formConfig)(AddCategoryForm);
+export default reduxForm(formConfig)(CategoryForm);

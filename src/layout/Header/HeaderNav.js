@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import get from 'lodash/get';
 
 import { color_primary, font_tertiary } from 'styles/variables';
 import { getSubmenuDelays } from './duck/utils';
@@ -68,13 +69,12 @@ const HeaderNav = props => (
     <Nav>
         <List>
             {props.navConfig &&
-                props.navConfig.map(
-                    ({
-                        _id,
-                        name,
-                        subCategories,
-                        slug: { full: fullSlug }
-                    }) => (
+                props.navConfig.map(category => {
+                    const fullSlug = get(category, 'slug.full');
+                    const subCategories = get(category, 'subCategories');
+                    const name = get(category, 'name');
+
+                    return (
                         <Element key={fullSlug}>
                             <NavLink
                                 link={fullSlug}
@@ -83,11 +83,11 @@ const HeaderNav = props => (
                                 {name}
                             </NavLink>
                             {subCategories && !!subCategories.length && (
-                                <HeaderSubMenu config={subCategories} />
+                                <HeaderSubMenu subCategories={subCategories} />
                             )}
                         </Element>
-                    )
-                )}
+                    );
+                })}
         </List>
     </Nav>
 );

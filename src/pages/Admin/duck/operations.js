@@ -2,7 +2,10 @@ import withToken from 'utils/withToken';
 import { SubmissionError } from 'redux-form';
 
 import { getErrorMessage } from 'utils/errors';
-import actions from './actions';
+import actions, {
+    startUpdatingCategory,
+    stopUpdatingCategory
+} from './actions';
 
 export const addCategory = category => async dispatch => {
     try {
@@ -33,4 +36,29 @@ export const removeCategory = categoryID => async dispatch => {
     }
 };
 
-export default { addCategory, removeCategory };
+export const updateCategory = (id, category) => async dispatch => {
+    try {
+        dispatch(actions.updateCategoryRequest());
+
+        const { data } = await withToken.patch(
+            `/api/admin/category/${id}`,
+            category
+        );
+
+        dispatch(actions.updateCategorySuccess(data));
+        dispatch(stopUpdatingCategory());
+    } catch (e) {
+        const error = getErrorMessage(e);
+
+        dispatch(actions.updateCategoryFailure(error));
+        throw new SubmissionError({ _error: error });
+    }
+};
+
+export default {
+    addCategory,
+    removeCategory,
+    updateCategory,
+    startUpdatingCategory,
+    stopUpdatingCategory
+};

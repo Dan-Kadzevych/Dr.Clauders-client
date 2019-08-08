@@ -6,7 +6,7 @@ import { getCategories } from 'duck/selectors';
 import { _Base } from 'components';
 import { H4 } from 'elements';
 import { selectors, operations, utils } from './duck';
-import AddCategoryForm from './AddCategoryForm';
+import CategoryForm from './CategoryForm';
 import Category from './Category';
 
 const Container = styled.div`
@@ -22,13 +22,15 @@ const Container = styled.div`
 `;
 
 const Categories = styled.div`
-    width: 50%;
+    width: 70%;
     margin-top: 1rem;
 `;
 
 const mapStateToProps = state => ({
     categories: getCategories(state),
-    categoriesOptions: selectors.getCategoriesOptions(state)
+    categoriesOptions: selectors.getCategoriesOptions(state),
+    updatedCategory: selectors.getUpdatedCategory(state),
+    categoryInitialValues: selectors.getCategoryInitialValues(state)
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -37,8 +39,25 @@ const mapDispatchToProps = dispatch => ({
 
         return dispatch(operations.addCategory(category));
     },
+    updateCategory(
+        values,
+        dispatch,
+        {
+            updatedCategory: { _id: categoryID }
+        }
+    ) {
+        const category = utils.normalizeCategory(values);
+
+        return dispatch(operations.updateCategory(categoryID, category));
+    },
     removeCategory(categoryID) {
         return dispatch(operations.removeCategory(categoryID));
+    },
+    startUpdatingCategory(category) {
+        return dispatch(operations.startUpdatingCategory(category));
+    },
+    stopUpdatingCategory() {
+        return dispatch(operations.stopUpdatingCategory());
     }
 });
 
@@ -48,7 +67,12 @@ class Admin extends _Base {
             categories,
             categoriesOptions,
             addCategory,
-            removeCategory
+            updateCategory,
+            removeCategory,
+            updatedCategory,
+            categoryInitialValues,
+            startUpdatingCategory,
+            stopUpdatingCategory
         } = this.props;
 
         return (
@@ -62,14 +86,20 @@ class Admin extends _Base {
                                     category={category}
                                     removeCategory={removeCategory}
                                     key={category._id}
+                                    startUpdating={startUpdatingCategory}
                                 />
                             );
                         })}
                     </Categories>
                 </div>
                 <div>
-                    <AddCategoryForm
-                        onSubmit={addCategory}
+                    <CategoryForm
+                        updatedCategory={updatedCategory}
+                        stopUpdating={stopUpdatingCategory}
+                        initialValues={categoryInitialValues}
+                        onSubmit={
+                            updatedCategory ? updateCategory : addCategory
+                        }
                         parentCategories={categoriesOptions}
                     />
                 </div>

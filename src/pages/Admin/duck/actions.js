@@ -28,11 +28,39 @@ export const removeCategoryFailure = error => ({
     payload: { error }
 });
 
+export const updateCategoryRequest = () => ({
+    type: types.UPDATE_CATEGORY_REQUEST
+});
+
+export const updateCategorySuccess = categories => ({
+    type: types.UPDATE_CATEGORY_SUCCESS,
+    payload: { categories }
+});
+
+export const updateCategoryFailure = error => ({
+    type: types.UPDATE_CATEGORY_FAILURE,
+    payload: { error }
+});
+
+export const startUpdatingCategory = category => ({
+    type: types.START_UPDATING_CATEGORY,
+    payload: { category }
+});
+
+export const stopUpdatingCategory = () => ({
+    type: types.STOP_UPDATING_CATEGORY
+});
+
 export default {
     addCategoryRequest,
     addCategorySuccess,
     addCategoryFailure,
     removeCategoryRequest,
     removeCategorySuccess,
-    removeCategoryFailure
+    removeCategoryFailure,
+    updateCategoryRequest,
+    updateCategorySuccess,
+    updateCategoryFailure,
+    startUpdatingCategory,
+    stopUpdatingCategory
 };

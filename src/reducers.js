@@ -7,6 +7,7 @@ import { productReducer } from 'pages/Product/duck';
 import { cartReducer } from 'pages/Cart/duck';
 import { checkoutReducer } from 'pages/Checkout/duck';
 import { accountReducer } from 'pages/Account/duck';
+import { adminReducer } from 'pages/Admin/duck';
 import { appConfigReducer } from './duck';
 import { loadingReducer } from './loading';
 import { errorReducer } from './error';
@@ -19,6 +20,7 @@ export default history =>
         appConfig: appConfigReducer,
         checkoutPage: checkoutReducer,
         accountPage: accountReducer,
+        adminPage: adminReducer,
         loading: loadingReducer,
         error: errorReducer,
         form: formReducer,

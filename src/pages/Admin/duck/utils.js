@@ -1,5 +1,7 @@
 import get from 'lodash/get';
 
+import { petOptions } from './constants';
+
 export const formatCategories = categories =>
     categories.map(category => ({
         value: category._id,
@@ -18,4 +20,23 @@ export const normalizeCategory = values => {
     return normalizedCategory;
 };
 
-export default { normalizeCategory, formatCategories };
+export const mapCategoryToInitialValues = (category, categoriesOptions) => {
+    const initialValues = {};
+
+    initialValues.name = get(category, 'name');
+    initialValues.slug = get(category, 'slug.personal');
+    initialValues.pet = petOptions.find(
+        option => option.label === get(category, 'pet')
+    );
+    initialValues.parent = categoriesOptions.find(
+        option => option.value === get(category, 'parent._id', 0)
+    );
+
+    return initialValues;
+};
+
+export default {
+    normalizeCategory,
+    formatCategories,
+    mapCategoryToInitialValues
+};

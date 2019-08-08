@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import get from 'lodash/get';
 
 import { toRgba } from 'utils/utils';
 import {
@@ -52,19 +53,24 @@ const SubmenuElement = styled.li`
     }
 `;
 
-const HeaderSubMenu = ({ config }) => (
+const HeaderSubMenu = ({ subCategories }) => (
     <Submenu>
-        {config.map(({ slug: { full: fullSlug }, name }) => (
-            <SubmenuElement key={fullSlug}>
-                <SubmenuLink
-                    as={NavLink}
-                    activeClassName="active"
-                    to={fullSlug}
-                >
-                    {name}
-                </SubmenuLink>
-            </SubmenuElement>
-        ))}
+        {subCategories.map(subCategory => {
+            const fullSlug = get(subCategory, 'slug.full');
+            const name = get(subCategory, 'name');
+
+            return (
+                <SubmenuElement key={fullSlug}>
+                    <SubmenuLink
+                        as={NavLink}
+                        activeClassName="active"
+                        to={fullSlug}
+                    >
+                        {name}
+                    </SubmenuLink>
+                </SubmenuElement>
+            );
+        })}
     </Submenu>
 );
 

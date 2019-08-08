@@ -9,7 +9,7 @@ import {
 
 const StyledButton = styled.button`
     background-color: ${color_primary};
-    border: none;
+    border: 1px solid ${color_primary};
     padding: 1.7rem 4.5rem;
     display: inline-block;
     ${font_secondary};
@@ -24,6 +24,7 @@ const StyledButton = styled.button`
 
     :hover {
         background-color: ${color_secondary};
+        border-color: ${color_secondary};
     }
 `;
 
