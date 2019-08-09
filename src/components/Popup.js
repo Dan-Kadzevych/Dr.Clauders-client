@@ -28,7 +28,10 @@ class Popup extends _Base {
     }
 
     hideChildren(e) {
-        if (!this.childrenContainer.contains(e.target)) {
+        if (
+            this.childrenContainer &&
+            !this.childrenContainer.contains(e.target)
+        ) {
             this.setState({ showChildren: false }, () =>
                 document.removeEventListener('click', this.hideChildren)
             );

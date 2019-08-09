@@ -1,3 +1,3 @@
-import DropdownIndicator from './DropdownIndicator';
+import components from './components';
 
-export { DropdownIndicator };
+export { components };

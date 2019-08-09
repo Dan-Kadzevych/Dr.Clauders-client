@@ -11,11 +11,8 @@ import Icon from './Icon.js';
 import ScrollToTop from './ScrollToTop.js';
 import ErrorMessage from './ErrorMessage.js';
 import GlobalError from './GlobalError.js';
-import SubmitBtn from './form/SubmitBtn.js';
 import PageHeader from './PageHeader.js';
-import InputLabel from './form/InputLabel.js';
-import Select from './form/Select.js';
-import FormGroup from './form/FormGroup.js';
+import { Select, InputLabel, SubmitBtn, FormGroup } from './form';
 
 export {
     A,

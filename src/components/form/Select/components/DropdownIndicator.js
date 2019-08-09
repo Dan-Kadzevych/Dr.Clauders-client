@@ -1,7 +1,7 @@
 import React from 'react';
 import { components } from 'react-select';
 
-import { DropdownArrow } from 'components';
+import { DropdownArrow } from 'components/index';
 
 const DropdownIndicator = props => {
     return (

@@ -55,10 +55,26 @@ export const updateCategory = (id, category) => async dispatch => {
     }
 };
 
+export const addProduct = product => async dispatch => {
+    try {
+        dispatch(actions.addProductRequest());
+
+        const { data } = await withToken.post('/api/admin/product', product);
+
+        dispatch(actions.addProductSuccess(data));
+    } catch (e) {
+        const error = getErrorMessage(e);
+
+        dispatch(actions.addProductFailure(error));
+        throw new SubmissionError({ _error: error });
+    }
+};
+
 export default {
     addCategory,
     removeCategory,
     updateCategory,
     startUpdatingCategory,
-    stopUpdatingCategory
+    stopUpdatingCategory,
+    addProduct
 };

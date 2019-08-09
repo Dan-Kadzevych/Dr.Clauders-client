@@ -2,11 +2,33 @@ import get from 'lodash/get';
 
 import { petOptions } from './constants';
 
-export const formatCategories = categories =>
+export const formatCategory = category => ({
+    value: category._id,
+    label: category.name,
+    parent: category.parent && category.parent.name
+});
+
+export const formatCategories = categories => categories.map(formatCategory);
+
+export const formatCategoriesByParent = categories =>
     categories.map(category => ({
-        value: category._id,
-        label: category.name
+        label: category.name,
+        options: formatCategories(category.subCategories)
     }));
+
+export const normalizeProduct = values => {
+    const normalizedProduct = {};
+
+    normalizedProduct.title = values.title;
+    normalizedProduct.price = values.price;
+    normalizedProduct.slug = values.slug;
+    normalizedProduct.description = values.description;
+    normalizedProduct.categoryIDs = values.categories.map(
+        category => category.value
+    );
+
+    return normalizedProduct;
+};
 
 export const normalizeCategory = values => {
     const normalizedCategory = {};
@@ -24,7 +46,7 @@ export const mapCategoryToInitialValues = (category, categoriesOptions) => {
     const initialValues = {};
 
     initialValues.name = get(category, 'name');
-    initialValues.slug = get(category, 'slug.personal');
+    initialValues.slug = get(category, 'slug');
     initialValues.pet = petOptions.find(
         option => option.label === get(category, 'pet')
     );
@@ -37,6 +59,8 @@ export const mapCategoryToInitialValues = (category, categoriesOptions) => {
 
 export default {
     normalizeCategory,
+    normalizeProduct,
     formatCategories,
+    formatCategoriesByParent,
     mapCategoryToInitialValues
 };

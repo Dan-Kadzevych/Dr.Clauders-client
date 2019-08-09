@@ -1,4 +1,5 @@
-import Input from './Input';
+import Input from './form/Input';
+import Textarea from './form/Textarea';
 import PrivateRoute from './PrivateRoute';
 import CaptureNotFound from './CaptureNotFound';
 import RouteNotFound from './RouteNotFound';
@@ -9,6 +10,7 @@ import Popup from './Popup';
 
 export {
     Input,
+    Textarea,
     PrivateRoute,
     CaptureNotFound,
     RouteNotFound,

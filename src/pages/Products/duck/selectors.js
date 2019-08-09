@@ -14,7 +14,7 @@ const getProducts = state => get(state, 'productsPage.products', emptyArr);
 const getCurrentCategory = createSelector(
     [getCurrentLocation, getNormalizedCategories],
     (location, categories) =>
-        categories.find(({ slug: { full } }) => full === location) || emptyObj
+        categories.find(({ path }) => path === location) || emptyObj
 );
 
 export default {

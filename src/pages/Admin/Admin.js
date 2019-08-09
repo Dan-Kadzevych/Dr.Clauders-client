@@ -7,6 +7,7 @@ import { _Base } from 'components';
 import { H4 } from 'elements';
 import { selectors, operations, utils } from './duck';
 import CategoryForm from './CategoryForm';
+import ProductForm from './ProductForm';
 import Category from './Category';
 
 const Container = styled.div`
@@ -18,6 +19,7 @@ const Container = styled.div`
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-column-gap: 4rem;
+    grid-row-gap: 4rem;
     align-content: start;
 `;
 
@@ -28,6 +30,7 @@ const Categories = styled.div`
 
 const mapStateToProps = state => ({
     categories: getCategories(state),
+    parentCategoriesOptions: selectors.getParentCategoriesOptions(state),
     categoriesOptions: selectors.getCategoriesOptions(state),
     updatedCategory: selectors.getUpdatedCategory(state),
     categoryInitialValues: selectors.getCategoryInitialValues(state)
@@ -58,6 +61,11 @@ const mapDispatchToProps = dispatch => ({
     },
     stopUpdatingCategory() {
         return dispatch(operations.stopUpdatingCategory());
+    },
+    addProduct(values) {
+        const normalizeProduct = utils.normalizeProduct(values);
+
+        return dispatch(operations.addProduct(normalizeProduct));
     }
 });
 
@@ -65,6 +73,7 @@ class Admin extends _Base {
     render() {
         const {
             categories,
+            parentCategoriesOptions,
             categoriesOptions,
             addCategory,
             updateCategory,
@@ -72,11 +81,24 @@ class Admin extends _Base {
             updatedCategory,
             categoryInitialValues,
             startUpdatingCategory,
-            stopUpdatingCategory
+            stopUpdatingCategory,
+            addProduct
         } = this.props;
 
         return (
             <Container>
+                <div>
+                    <H4>Продукты</H4>
+                </div>
+                <div>
+                    <ProductForm
+                        updatedProduct={null}
+                        stopUpdating={() => {}}
+                        initialValues={{}}
+                        onSubmit={addProduct}
+                        categories={categoriesOptions}
+                    />
+                </div>
                 <div>
                     <H4>Категории</H4>
                     <Categories>
@@ -92,6 +114,7 @@ class Admin extends _Base {
                         })}
                     </Categories>
                 </div>
+
                 <div>
                     <CategoryForm
                         updatedCategory={updatedCategory}
@@ -100,7 +123,7 @@ class Admin extends _Base {
                         onSubmit={
                             updatedCategory ? updateCategory : addCategory
                         }
-                        parentCategories={categoriesOptions}
+                        parentCategories={parentCategoriesOptions}
                     />
                 </div>
             </Container>

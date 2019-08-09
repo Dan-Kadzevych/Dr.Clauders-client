@@ -14,11 +14,15 @@ const RemoveIcon = styled(Icon)`
 `;
 
 const StyledRemoveButton = styled(ButtonAlt)`
-    background-color: transparent;
-    :hover {
+    &&& {
         background-color: transparent;
-        ${RemoveIcon} {
-            fill: ${color_primary};
+        border-color: transparent;
+        padding: 0.5rem;
+        :hover {
+            background-color: transparent;
+            ${RemoveIcon} {
+                fill: ${color_primary};
+            }
         }
     }
 `;

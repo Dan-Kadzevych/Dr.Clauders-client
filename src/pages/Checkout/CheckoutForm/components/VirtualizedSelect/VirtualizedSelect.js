@@ -3,7 +3,7 @@ import AsyncSelect from 'react-select/async';
 import AsyncCreatableSelect from 'react-select/async-creatable';
 
 import { Select } from 'elements';
-import { DropdownIndicator } from 'components/form/Select';
+import { components } from 'components/form/Select';
 import { VirtualizedList as MenuList } from './index';
 
 const VirtualizedSelect = ({
@@ -21,7 +21,7 @@ const VirtualizedSelect = ({
             as={creatable ? AsyncCreatableSelect : AsyncSelect}
             isClearable
             placeholder={placeholder || ''}
-            components={{ DropdownIndicator, MenuList }}
+            components={{ ...components, MenuList }}
             classNamePrefix="Select"
             onChange={value => {
                 input.onChange(value);

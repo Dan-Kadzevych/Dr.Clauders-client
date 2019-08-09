@@ -3,11 +3,11 @@ export const phoneFormat = '+38 (###) ###-##-##';
 
 export const StaticRoutes = [
     {
-        slug: { personal: '/about-us', full: '/about-us' },
+        path: '/about-us',
         name: 'About Us'
     },
     {
-        slug: { personal: '/contact-us', full: '/contact-us' },
+        path: '/contact-us',
         name: 'Contact Us'
     }
 ];

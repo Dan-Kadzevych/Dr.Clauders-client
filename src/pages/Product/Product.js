@@ -29,8 +29,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchProduct(slug) {
-        return dispatch(operations.fetchProduct(slug));
+    fetchProduct(url) {
+        return dispatch(operations.fetchProduct(url));
     },
     removeProduct() {
         return dispatch(operations.removeProduct());

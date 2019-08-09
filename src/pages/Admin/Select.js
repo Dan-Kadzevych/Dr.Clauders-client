@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { components } from 'components/form/Select';
 import { Select as StyledSelect, InputLabel, ErrorMessage } from 'elements';
-
-import { DropdownIndicator } from 'components/form/Select';
 
 const SelectContainer = styled.div`
     padding: 3px 0;
@@ -12,26 +11,23 @@ const SelectContainer = styled.div`
 const Select = ({
     input,
     placeholder,
-    small,
     label,
-    options,
-    defaultValue,
-    meta: { touched, error }
+    meta: { touched, error },
+    ...other
 }) => {
     return (
         <SelectContainer>
             <InputLabel>{label}</InputLabel>
 
             <StyledSelect
+                {...other}
                 {...input}
                 isClearable
-                placeholder={placeholder || ''}
-                components={{ DropdownIndicator }}
+                placeholder={placeholder || 'Выбрать...'}
+                components={components}
                 classNamePrefix="Select"
                 onChange={value => input.onChange(value)}
                 onBlur={() => input.onBlur(input.value)}
-                small={small}
-                options={options}
                 error={touched && error}
                 noOptionsMessage={() => 'Ничего не найдено'}
             />

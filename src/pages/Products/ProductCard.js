@@ -25,17 +25,19 @@ const CartLink = styled(A)`
 `;
 
 const ProductCart = ({
-    ID,
-    slug,
-    image,
-    title,
-    price,
+    product: {
+        _id,
+        path,
+        media: { url: image },
+        title,
+        price
+    },
     loading,
     added,
     handleAdd
 }) => (
     <Card>
-        <Card.Body to={slug}>
+        <Card.Body to={path}>
             <Card.Image src={`http://localhost:5000/media/${image}`} alt="" />
             <Card.Title>{title}</Card.Title>
             <Card.Price>{toUAH(price)}</Card.Price>

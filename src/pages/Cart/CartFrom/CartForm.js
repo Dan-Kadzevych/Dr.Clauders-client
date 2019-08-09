@@ -120,7 +120,7 @@ class CartForm extends _Base {
                     <>
                         <HeaderRow />
                         {products.map(
-                            ({ slug, title, media: { url }, _id, price }) => (
+                            ({ path, title, media: { url }, _id, price }) => (
                                 <Row key={_id}>
                                     <RemoveButton
                                         type="button"
@@ -128,8 +128,8 @@ class CartForm extends _Base {
                                             this.handleRemove(_id, title)
                                         }
                                     />
-                                    <Image slug={slug} url={url} />
-                                    <Title to={slug}>{title}</Title>
+                                    <Image path={path} url={url} />
+                                    <Title to={path}>{title}</Title>
                                     <span>{toUAH(price)}</span>
                                     <Quantity _id={_id} />
 

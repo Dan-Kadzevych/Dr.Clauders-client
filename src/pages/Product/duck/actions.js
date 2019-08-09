@@ -1,14 +1,21 @@
 import types from './types';
 
-export const requestProduct = () => ({
+export const getProductRequest = () => ({
     type: types.GET_PRODUCT_REQUEST
 });
 
-export const receiveProduct = product => ({
+export const getProductSuccess = product => ({
     type: types.GET_PRODUCT_SUCCESS,
-    product
+    payload: { product }
+});
+
+export const getProductFailure = error => ({
+    type: types.GET_PRODUCT_FAILURE,
+    payload: { error }
 });
 
 export const removeProduct = () => ({
     type: types.REMOVE_PRODUCT
 });
+
+export default { getProductRequest, getProductSuccess, getProductFailure };

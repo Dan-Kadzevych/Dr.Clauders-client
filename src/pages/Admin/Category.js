@@ -162,17 +162,14 @@ class Category extends _Base {
     render() {
         const { category, startUpdating } = this.props;
         const { showSubcategories } = this.state;
-        const fullSlug = get(category, 'slug.full');
+        const path = get(category, 'path');
         const name = get(category, 'name');
         const subCategories = get(category, 'subCategories');
         const id = get(category, '_id');
 
         return (
             <>
-                <StyledCategory
-                    key={fullSlug}
-                    onClick={this.toggleSubcategories}
-                >
+                <StyledCategory key={path} onClick={this.toggleSubcategories}>
                     {!!subCategories.length && (
                         <DropdownArrow isOpen={showSubcategories} />
                     )}

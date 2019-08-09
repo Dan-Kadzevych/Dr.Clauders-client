@@ -64,7 +64,7 @@ class App extends Component {
                                     component={Products}
                                 />
                                 <Route
-                                    path="/shop/:pet/:category/:productName"
+                                    path="/products/:product"
                                     exact
                                     component={Product}
                                 />

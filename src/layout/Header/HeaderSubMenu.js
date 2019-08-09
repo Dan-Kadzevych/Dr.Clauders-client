@@ -56,15 +56,15 @@ const SubmenuElement = styled.li`
 const HeaderSubMenu = ({ subCategories }) => (
     <Submenu>
         {subCategories.map(subCategory => {
-            const fullSlug = get(subCategory, 'slug.full');
+            const path = get(subCategory, 'path');
             const name = get(subCategory, 'name');
 
             return (
-                <SubmenuElement key={fullSlug}>
+                <SubmenuElement key={path}>
                     <SubmenuLink
                         as={NavLink}
                         activeClassName="active"
-                        to={fullSlug}
+                        to={path}
                     >
                         {name}
                     </SubmenuLink>

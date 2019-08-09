@@ -26,17 +26,13 @@ const ProductsGrid = ({
 }) => (
     <Container>
         {!isLoading ? (
-            products.map(({ title, price, _id, media: { url }, slug }) => (
+            products.map(product => (
                 <ProductCard
-                    key={_id}
-                    ID={_id}
-                    image={url}
-                    slug={slug}
-                    price={price}
-                    title={title}
-                    loading={isRequested(_id)}
-                    added={isAdded(_id)}
-                    handleAdd={() => addToCart(_id)}
+                    key={product._id}
+                    loading={isRequested(product._id)}
+                    added={isAdded(product._id)}
+                    handleAdd={() => addToCart(product._id)}
+                    product={product}
                 />
             ))
         ) : (

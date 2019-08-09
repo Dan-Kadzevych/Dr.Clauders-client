@@ -1,21 +1,20 @@
-import { requestProduct, receiveProduct, removeProduct } from './actions';
-import { getProduct } from 'utils/requests';
+import axios from 'axios';
+
+import actions, { removeProduct } from './actions';
 import { getCurrentLocation } from 'duck/selectors';
 
-const fetchProduct = slug => async (dispatch, getState) => {
+const fetchProduct = url => async (dispatch, getState) => {
     try {
-        dispatch(requestProduct());
+        dispatch(actions.getProductRequest());
+        const slug = url.replace('/products/', '');
 
-        const { data } = await getProduct({ slug });
+        const { data } = await axios.get(`/api/product/get_product/${slug}`);
 
-        if (slug === getCurrentLocation(getState())) {
-            if (data.error) {
-                return;
-            }
-            return dispatch(receiveProduct(data));
+        if (url === getCurrentLocation(getState())) {
+            return dispatch(actions.getProductSuccess(data));
         }
     } catch (e) {
-        return e;
+        return dispatch(actions.getProductFailure(e.message));
     }
 };
 

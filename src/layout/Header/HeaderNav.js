@@ -70,16 +70,13 @@ const HeaderNav = props => (
         <List>
             {props.navConfig &&
                 props.navConfig.map(category => {
-                    const fullSlug = get(category, 'slug.full');
+                    const path = get(category, 'path');
                     const subCategories = get(category, 'subCategories');
                     const name = get(category, 'name');
 
                     return (
-                        <Element key={fullSlug}>
-                            <NavLink
-                                link={fullSlug}
-                                path={props.location.pathname}
-                            >
+                        <Element key={name}>
+                            <NavLink link={path} path={props.location.pathname}>
                                 {name}
                             </NavLink>
                             {subCategories && !!subCategories.length && (

@@ -13,8 +13,8 @@ const StyledImage = styled.img`
     margin: 0 auto;
 `;
 
-const Image = ({ slug, url }) => (
-    <ImageWrapper to={slug}>
+const Image = ({ path, url }) => (
+    <ImageWrapper to={path}>
         <StyledImage src={`http://localhost:5000/media/${url}`} alt="" />
     </ImageWrapper>
 );

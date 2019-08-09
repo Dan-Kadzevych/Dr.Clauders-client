@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Select from 'react-select';
 
 import { font_quaternary } from 'styles/variables';
@@ -39,12 +39,16 @@ const StyledSelect = styled(Select)`
             }
         }
 
-        &__indicator-separator {
-            display: none;
-        }
-        &__clear-indicator {
-            display: none;
-        }
+        ${({ showClear }) =>
+            !showClear &&
+            css`
+                &__indicator-separator {
+                    display: none;
+                }
+                &__clear-indicator {
+                    display: none;
+                }
+            `}
 
         &__menu {
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);

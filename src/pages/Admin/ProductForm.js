@@ -3,13 +3,12 @@ import { Form, Field, reduxForm } from 'redux-form';
 import styled from 'styled-components';
 
 import { required } from 'utils/redux/validationRules';
-import { Input } from 'components';
-import { H4, SubmitBtn, FormGroup, GlobalError, ButtonAlt } from 'elements';
+import { Input, Textarea } from 'components';
+import { H4, SubmitBtn, GlobalError, ButtonAlt } from 'elements';
 import Select from './Select';
-import { petOptions } from './duck/constants';
 import { color_black, color_white } from 'styles/variables';
 
-const FORM_NAME = 'category';
+const FORM_NAME = 'product';
 
 const formConfig = {
     form: FORM_NAME,
@@ -31,23 +30,23 @@ const ButtonGroup = styled.div`
     margin-top: 2rem;
 `;
 
-const CategoryForm = ({
+const ProductForm = ({
     handleSubmit,
-    parentCategories,
     error,
-    updatedCategory,
-    stopUpdating
+    updatedProduct,
+    stopUpdating,
+    categories
 }) => (
     <Form onSubmit={handleSubmit}>
         {error && <GlobalError source={error} />}
-        {updatedCategory ? (
-            <H4>Редактировать Категорию "{updatedCategory.name}"</H4>
+        {updatedProduct ? (
+            <H4>Редактировать Продукт "{updatedProduct.title}"</H4>
         ) : (
-            <H4>Добавить Категорию</H4>
+            <H4>Добавить Продукт</H4>
         )}
         <Field
             type="text"
-            name="name"
+            name="title"
             label="Название"
             small
             component={Input}
@@ -61,35 +60,46 @@ const CategoryForm = ({
             component={Input}
             validate={[required]}
         />
-        <FormGroup>
-            <Field
-                name="pet"
-                label="Кому"
-                small
-                options={petOptions}
-                component={Select}
-                validate={[required]}
-            />
-            <Field
-                name="parent"
-                label="Родитель"
-                small
-                options={parentCategories}
-                component={Select}
-            />
-        </FormGroup>
+        <Field
+            type="number"
+            name="price"
+            label="Цена"
+            small
+            component={Input}
+            validate={[required]}
+        />
+        <Field
+            name="categories"
+            label="Категории"
+            small
+            isMulti
+            showClear
+            closeMenuOnSelect={false}
+            options={categories}
+            component={Select}
+            validate={[required]}
+        />
+
+        <Field
+            type="textarea"
+            name="description.main"
+            label="Описание"
+            small
+            component={Textarea}
+            validate={[required]}
+        />
 
         <ButtonGroup>
-            {updatedCategory && (
+            {updatedProduct && (
                 <StopUpdateBtn type="button" onClick={stopUpdating}>
                     Отменить Изменения
                 </StopUpdateBtn>
             )}
             <SubmitBtn className="m-n">
-                {updatedCategory ? 'Сохранить' : 'Добавить'}
+                {updatedProduct ? 'Сохранить' : 'Добавить'}
             </SubmitBtn>
         </ButtonGroup>
     </Form>
 );
 
-export default reduxForm(formConfig)(CategoryForm);
+export default reduxForm(formConfig)(ProductForm);

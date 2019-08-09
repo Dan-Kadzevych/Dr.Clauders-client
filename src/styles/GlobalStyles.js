@@ -63,6 +63,10 @@ const GlobalStyles = createGlobalStyle`
         margin-bottom: 4rem;
     }
     
+    .m-n {
+        margin: 0;
+    }
+    
     .toast-success.toast-success {
         background-color: ${color_tertiary}  ;
         box-shadow: none ;
