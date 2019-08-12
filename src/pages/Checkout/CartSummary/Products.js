@@ -66,13 +66,13 @@ const ProductQuantity = styled.div`
 
 const Products = ({ products, quantityByID }) => (
     <StyledProducts>
-        {products.map(({ slug, title, media: { url }, _id, price }) => (
+        {products.map(({ path, title, media: { url }, _id, price }) => (
             <Element key={_id}>
-                <ImageContainer to={slug}>
+                <ImageContainer to={path}>
                     <Image src={`http://localhost:5000/media/${url}`} alt="" />
                 </ImageContainer>
                 <Description>
-                    <ProductTitle to={slug}>{title}</ProductTitle>
+                    <ProductTitle to={path}>{title}</ProductTitle>
                     <span>{toUAH(price)}</span>
                     <ProductQuantity>{quantityByID[_id]} шт.</ProductQuantity>
                     <ProductTotal>

@@ -1,10 +1,25 @@
 import get from 'lodash/get';
+import flatten from 'lodash/flatten';
 
+import isFieldEmpty from 'utils/redux/isFieldEmpty';
+import { minValue } from 'utils/redux/validationRules';
 import { petOptions } from './constants';
+
+export const requiredIfNoParent = (value, values) => {
+    const parent = get(values, 'parent.value');
+    if (!parent) {
+        if (isFieldEmpty(value)) {
+            return 'Обязательное, если нет родителя';
+        }
+    }
+};
+
+export const minValue1 = minValue(1);
 
 export const formatCategory = category => ({
     value: category._id,
     label: category.name,
+    pet: category.pet,
     parent: category.parent && category.parent.name
 });
 
@@ -28,6 +43,25 @@ export const normalizeProduct = values => {
     );
 
     return normalizedProduct;
+};
+
+export const mapProductToInitialValues = (product, categoriesOptions) => {
+    const initialValues = {};
+    const categoryIDs = get(product, 'categoryIDs', []);
+
+    const childCategories = flatten(
+        categoriesOptions.map(category => category.options)
+    );
+
+    initialValues.title = get(product, 'title');
+    initialValues.slug = get(product, 'slug');
+    initialValues.price = get(product, 'price');
+    initialValues.description = get(product, 'description');
+    initialValues.categories = childCategories.filter(category =>
+        categoryIDs.includes(category.value)
+    );
+
+    return initialValues;
 };
 
 export const normalizeCategory = values => {
@@ -59,8 +93,5 @@ export const mapCategoryToInitialValues = (category, categoriesOptions) => {
 
 export default {
     normalizeCategory,
-    normalizeProduct,
-    formatCategories,
-    formatCategoriesByParent,
-    mapCategoryToInitialValues
+    normalizeProduct
 };

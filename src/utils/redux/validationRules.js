@@ -9,6 +9,14 @@ export const required = value => {
     }
 };
 
+export const requiredIfNo = field => (value, values) => {
+    if (isFieldEmpty(values[field])) {
+        if (isFieldEmpty(value)) {
+            return 'Обязательное поле';
+        }
+    }
+};
+
 export const number = value => {
     if (!isFieldEmpty(value) && Number.isNaN(Number(value))) {
         return 'Must be a number';
@@ -36,11 +44,15 @@ export const password = value => {
     }
 };
 
+export const slug = value => {
+    if (!isFieldEmpty(value) && !/^[a-z0-9-]+$/gi.test(value)) {
+        return `Пожалуйста, изпользуйте прваильный формат`;
+    }
+};
+
 export const minValue = (min, formatter) => value => {
     if (!isFieldEmpty(value) && Number(value) < min) {
-        return `Must be greater than or equal to ${
-            formatter ? formatter(min) : min
-        }`;
+        return `Должно быть больше чем ${formatter ? formatter(min) : min}`;
     }
 };
 

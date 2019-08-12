@@ -12,7 +12,6 @@ import { getCurrentLocation } from 'duck/selectors';
 import { operations, selectors, utils } from './duck';
 import Hero from './Hero';
 import ProductsGrid from './ProductsGrid';
-
 import { gridTemplate } from 'styles/mixins';
 import { color_grey_light } from 'styles/variables';
 
@@ -46,8 +45,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    fetchProducts(categoryID, filter) {
-        return dispatch(operations.fetchProducts(categoryID, filter));
+    getProductsByCategory(filter, categoryID) {
+        return dispatch(operations.fetchProducts(filter, { categoryID }));
     },
     addToCart(ID) {
         return dispatch(addToCart(ID));
@@ -56,20 +55,17 @@ const mapDispatchToProps = dispatch => ({
 
 class Products extends Component {
     componentDidMount() {
-        const {
-            categoryID,
-            match: { url }
-        } = this.props;
+        const { categoryID, location } = this.props;
 
         if (categoryID) {
-            this.props.fetchProducts(categoryID, url);
+            this.props.getProductsByCategory(location, categoryID);
         }
     }
     componentDidUpdate({ location: prevLocation }) {
         const { categoryID, location } = this.props;
 
         if (categoryID && location !== prevLocation) {
-            this.props.fetchProducts(categoryID, location);
+            this.props.getProductsByCategory(location, categoryID);
         }
     }
 

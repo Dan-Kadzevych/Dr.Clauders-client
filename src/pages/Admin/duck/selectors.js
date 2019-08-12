@@ -1,19 +1,23 @@
 import { createSelector } from 'reselect';
 import get from 'lodash/get';
 
-import { getParentCategories, getCategories } from 'duck/selectors';
+import { getParentCategories } from 'duck/selectors';
 import {
     formatCategories,
     formatCategoriesByParent,
-    mapCategoryToInitialValues
+    mapCategoryToInitialValues,
+    mapProductToInitialValues
 } from './utils';
-import { categoryInitialValues } from './constants';
+import { categoryInitialValues, productInitialValues } from './constants';
 
 export const getUpdatedCategory = state =>
-    get(state, 'adminPage.updatedCategory');
+    get(state, 'adminPage.update.category');
+
+export const getUpdatedProduct = state =>
+    get(state, 'adminPage.update.product');
 
 export const getCategoriesOptions = createSelector(
-    getCategories,
+    getParentCategories,
     categories => formatCategoriesByParent(categories)
 );
 
@@ -30,9 +34,19 @@ export const getCategoryInitialValues = createSelector(
             : categoryInitialValues
 );
 
+export const getProductInitialValues = createSelector(
+    [getUpdatedProduct, getCategoriesOptions],
+    (updatedCategory, categoriesOptions) =>
+        updatedCategory
+            ? mapProductToInitialValues(updatedCategory, categoriesOptions)
+            : productInitialValues
+);
+
 export default {
     getParentCategoriesOptions,
     getCategoriesOptions,
     getUpdatedCategory,
-    getCategoryInitialValues
+    getCategoryInitialValues,
+    getUpdatedProduct,
+    getProductInitialValues
 };

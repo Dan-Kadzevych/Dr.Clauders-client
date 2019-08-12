@@ -14,6 +14,7 @@ const StyledSelect = styled(Select)`
             padding: ${({ small }) =>
                 small ? '0.6rem 0.8rem' : '1.2rem 1.5rem'};
             border: 1px solid rgba(0, 0, 0, 0.13);
+            border-radius: 0;
             ${borderError};
 
             :hover {
@@ -26,7 +27,6 @@ const StyledSelect = styled(Select)`
                 border-color: rgba(0, 0, 0, 0.13) !important;
                 box-shadow: none;
             }
-            border-radius: 0;
         }
 
         &__value-container {

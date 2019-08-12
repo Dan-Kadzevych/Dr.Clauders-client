@@ -1,27 +1,27 @@
 import axios from 'axios';
 
 import { getCurrentLocation } from 'duck/selectors';
-import { requestProducts, receiveProducts } from './actions';
+import actions from './actions';
 
-const fetchProducts = (categoryID, filter) => async (dispatch, getState) => {
+export const fetchProducts = (filter, params = {}) => async (
+    dispatch,
+    getState
+) => {
     try {
-        dispatch(requestProducts());
+        dispatch(actions.getProductsRequest());
+        let url = '/api/product/get_products';
 
-        const { data } = await axios.get(`/api/product/get_products`, {
-            params: {
-                categoryID
-            }
-        });
+        if (params.categoryID) {
+            url = `${url}/${params.categoryID}`;
+        }
+
+        const { data } = await axios.get(url);
 
         if (getCurrentLocation(getState()) === filter) {
-            if (data.error) {
-                return;
-            }
-
-            return dispatch(receiveProducts(data));
+            return dispatch(actions.getProductsSuccess(data));
         }
     } catch (e) {
-        return e;
+        return dispatch(actions.getProductsFailure(e.message));
     }
 };
 

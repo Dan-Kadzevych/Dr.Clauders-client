@@ -12,6 +12,8 @@ const Select = ({
     input,
     placeholder,
     label,
+    disabled,
+    handleChange,
     meta: { touched, error },
     ...other
 }) => {
@@ -23,10 +25,14 @@ const Select = ({
                 {...other}
                 {...input}
                 isClearable
+                isDisabled={disabled}
                 placeholder={placeholder || 'Выбрать...'}
                 components={components}
                 classNamePrefix="Select"
-                onChange={value => input.onChange(value)}
+                onChange={value => {
+                    input.onChange(value);
+                    handleChange && handleChange(value);
+                }}
                 onBlur={() => input.onBlur(input.value)}
                 error={touched && error}
                 noOptionsMessage={() => 'Ничего не найдено'}

@@ -15,3 +15,11 @@ export const categoryInitialValues = {
     parent: { value: 0, label: 'Нет' },
     pet: null
 };
+
+export const productInitialValues = {
+    title: '',
+    slug: '',
+    category: null,
+    description: '',
+    tabs: null
+};

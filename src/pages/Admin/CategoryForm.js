@@ -2,11 +2,12 @@ import React from 'react';
 import { Form, Field, reduxForm } from 'redux-form';
 import styled from 'styled-components';
 
-import { required } from 'utils/redux/validationRules';
+import { required, slug } from 'utils/redux/validationRules';
 import { Input } from 'components';
 import { H4, SubmitBtn, FormGroup, GlobalError, ButtonAlt } from 'elements';
 import Select from './Select';
 import { petOptions } from './duck/constants';
+import { requiredIfNoParent } from './duck/utils';
 import { color_black, color_white } from 'styles/variables';
 
 const FORM_NAME = 'category';
@@ -18,6 +19,7 @@ const formConfig = {
 
 const StopUpdateBtn = styled(ButtonAlt)`
     &&& {
+        outline: 1px solid ${color_black};
         color: ${color_black};
         background-color: ${color_white};
         margin-right: 2rem;
@@ -36,7 +38,9 @@ const CategoryForm = ({
     parentCategories,
     error,
     updatedCategory,
-    stopUpdating
+    stopUpdating,
+    categoryParent,
+    change
 }) => (
     <Form onSubmit={handleSubmit}>
         {error && <GlobalError source={error} />}
@@ -59,7 +63,7 @@ const CategoryForm = ({
             label="Slug"
             small
             component={Input}
-            validate={[required]}
+            validate={[required, slug]}
         />
         <FormGroup>
             <Field
@@ -67,13 +71,20 @@ const CategoryForm = ({
                 label="Кому"
                 small
                 options={petOptions}
+                disabled={categoryParent}
                 component={Select}
-                validate={[required]}
+                validate={[requiredIfNoParent]}
             />
             <Field
                 name="parent"
                 label="Родитель"
                 small
+                handleChange={value =>
+                    change(
+                        'pet',
+                        petOptions.find(pet => pet.label === value.pet)
+                    )
+                }
                 options={parentCategories}
                 component={Select}
             />

@@ -4,7 +4,9 @@ import { SubmissionError } from 'redux-form';
 import { getErrorMessage } from 'utils/errors';
 import actions, {
     startUpdatingCategory,
-    stopUpdatingCategory
+    stopUpdatingCategory,
+    startUpdatingProduct,
+    stopUpdatingProduct
 } from './actions';
 
 export const addCategory = category => async dispatch => {
@@ -70,11 +72,48 @@ export const addProduct = product => async dispatch => {
     }
 };
 
+export const updateProduct = (id, product) => async dispatch => {
+    try {
+        dispatch(actions.updateProductRequest());
+
+        const { data } = await withToken.patch(
+            `/api/admin/product/${id}`,
+            product
+        );
+
+        dispatch(actions.updateProductSuccess(data));
+        dispatch(stopUpdatingProduct());
+    } catch (e) {
+        const error = getErrorMessage(e);
+
+        dispatch(actions.updateProductFailure(error));
+        throw new SubmissionError({ _error: error });
+    }
+};
+
+export const removeProduct = productID => async dispatch => {
+    try {
+        dispatch(actions.removeProductRequest());
+
+        const { data } = await withToken.delete(
+            `/api/admin/product/${productID}`
+        );
+
+        dispatch(actions.removeProductSuccess(data));
+    } catch (e) {
+        dispatch(actions.removeProductFailure(getErrorMessage(e)));
+    }
+};
+
 export default {
     addCategory,
-    removeCategory,
     updateCategory,
+    removeCategory,
     startUpdatingCategory,
     stopUpdatingCategory,
-    addProduct
+    addProduct,
+    updateProduct,
+    removeProduct,
+    startUpdatingProduct,
+    stopUpdatingProduct
 };

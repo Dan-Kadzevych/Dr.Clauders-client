@@ -16,6 +16,7 @@ const color_grey_light = '#bfbfbf';
 const color_grey_light_2 = '#ebe9eb';
 const color_grey_light_3 = '#d3ced2';
 const color_grey_light_4 = '#f7f6f7';
+const color_grey_light_5 = '#F2F2F2';
 
 const color_red = '#f44336';
 
@@ -46,6 +47,7 @@ export {
     color_grey_light_2,
     color_grey_light_3,
     color_grey_light_4,
+    color_grey_light_5,
     color_red,
     font_primary,
     font_secondary,

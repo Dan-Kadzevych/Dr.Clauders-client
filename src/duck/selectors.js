@@ -22,23 +22,18 @@ export const getCategoriesByID = state =>
 export const getCurrentLocation = state =>
     get(state, 'router.location.pathname');
 
-export const getCategories = createSelector(
+export const getParentCategories = createSelector(
     getCategoriesByID,
     categoriesByID => Object.values(categoriesByID)
 );
 
-export const getParentCategories = createSelector(
-    getCategories,
-    categories => categories.filter(category => !category.parent)
-);
-
-export const getNormalizedCategories = createSelector(
-    getCategories,
+export const getAllCategories = createSelector(
+    getParentCategories,
     normalizeCategories
 );
 
 export const getNavConfig = createSelector(
-    getCategories,
+    getParentCategories,
     categories => [...categories, ...StaticRoutes]
 );
 

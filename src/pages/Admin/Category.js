@@ -13,7 +13,7 @@ import {
 } from 'styles/variables';
 
 const StyledPopup = styled(Popup)`
-    grid-column-end: -1;
+    grid-column: -1;
     align-self: stretch;
 `;
 
@@ -77,12 +77,9 @@ const StyledCategory = styled.div`
         color: ${color_primary};
         background-color: rgba(${toRgba(color_grey_light)} 0.6);
         ${MenuBtn} {
-            visibility: initial;
+            visibility: visible;
         }
     }
-    //:not(:last-child) {
-    //    border-bottom: none;
-    //}
 `;
 
 const Name = styled.span`
@@ -102,9 +99,6 @@ const StyledSubCategory = styled(StyledCategory)`
         color: ${color_primary};
         background-color: rgba(${toRgba(color_grey_light)} 0.3);
     }
-    //:not(:last-child) {
-    //    border-bottom: none;
-    //}
 `;
 
 const RemoveIcon = styled(Icon)`

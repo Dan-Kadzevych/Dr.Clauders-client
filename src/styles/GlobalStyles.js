@@ -42,6 +42,14 @@ const GlobalStyles = createGlobalStyle`
        display: none;
     }
     
+    .ml-sm-s {
+    margin-left: 1.5rem;
+    }
+    
+    .mt-sm-s {
+        margin-top: 1.5rem;
+    }
+    
     .mt-md {
         margin-top: 3rem;
     }

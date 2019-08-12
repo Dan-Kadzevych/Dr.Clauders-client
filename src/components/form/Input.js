@@ -1,11 +1,11 @@
 import React from 'react';
 import NumberFormat from 'react-number-format';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { ErrorMessage, InputLabel } from 'elements';
 import { phoneFormat } from 'duck/constants';
 
-import { font_quaternary } from 'styles/variables';
+import { font_quaternary, color_grey_light_5 } from 'styles/variables';
 import { borderError } from 'styles/mixins';
 
 const InputContainer = styled.div`
@@ -32,6 +32,12 @@ const StyledInput = styled(({ error, touched, phone, small, ...params }) =>
     padding: ${({ small }) => (small ? '0.6rem 0.8rem' : '1.2rem 1.5rem')};
     border: 1px solid rgba(0, 0, 0, 0.13);
 
+    ${({ disabled }) =>
+        disabled &&
+        css`
+            background-color: ${color_grey_light_5};
+        `}
+
     :focus {
         outline: none;
     }
@@ -46,17 +52,21 @@ const Input = ({
     meta: { touched, error },
     placeholder,
     mask,
-    small
+    small,
+    disabled,
+    min
 }) => (
-    <InputContainer>
+    <InputContainer disabled={disabled}>
         <InputLabel> {label} </InputLabel>
 
         <StyledInput
             {...input}
+            disabled={disabled}
             error={touched && error}
             touched={touched && !error}
             placeholder={placeholder}
             type={type}
+            min={min}
             phone={mask === 'phone'}
             small={small}
         />

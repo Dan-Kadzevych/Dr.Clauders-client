@@ -69,9 +69,9 @@ export const removeProductRequest = () => ({
     type: types.REMOVE_PRODUCT_REQUEST
 });
 
-export const removeProductSuccess = categories => ({
+export const removeProductSuccess = products => ({
     type: types.REMOVE_PRODUCT_SUCCESS,
-    payload: { categories }
+    payload: { products }
 });
 
 export const removeProductFailure = error => ({
@@ -83,9 +83,9 @@ export const updateProductRequest = () => ({
     type: types.UPDATE_PRODUCT_REQUEST
 });
 
-export const updateProductSuccess = categories => ({
+export const updateProductSuccess = products => ({
     type: types.UPDATE_PRODUCT_SUCCESS,
-    payload: { categories }
+    payload: { products }
 });
 
 export const updateProductFailure = error => ({
@@ -93,9 +93,9 @@ export const updateProductFailure = error => ({
     payload: { error }
 });
 
-export const startUpdatingProduct = category => ({
+export const startUpdatingProduct = product => ({
     type: types.START_UPDATING_PRODUCT,
-    payload: { category }
+    payload: { product }
 });
 
 export const stopUpdatingProduct = () => ({

@@ -9,7 +9,7 @@ import {
 
 const StyledButton = styled.button`
     background-color: ${color_primary};
-    border: 1px solid ${color_primary};
+    border: none;
     padding: 1.7rem 4.5rem;
     display: inline-block;
     ${font_secondary};

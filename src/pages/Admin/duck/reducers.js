@@ -2,21 +2,43 @@ import createReducer from 'utils/redux/createReducer';
 import types from './types';
 
 const initialState = {
-    updatedCategory: null
+    update: {
+        category: null,
+        product: null
+    }
 };
 
 const startUpdatingCategory = (state = {}, { payload: { category } }) => ({
     ...state,
-    updatedCategory: category
+    update: {
+        category: category
+    }
 });
 const stopUpdatingCategory = (state = {}) => ({
     ...state,
-    updatedCategory: null
+    update: {
+        category: null
+    }
+});
+
+const startUpdatingProduct = (state = {}, { payload: { product } }) => ({
+    ...state,
+    update: {
+        product: product
+    }
+});
+const stopUpdatingProduct = (state = {}) => ({
+    ...state,
+    update: {
+        product: null
+    }
 });
 
 const handlers = {
     [types.START_UPDATING_CATEGORY]: startUpdatingCategory,
-    [types.STOP_UPDATING_CATEGORY]: stopUpdatingCategory
+    [types.STOP_UPDATING_CATEGORY]: stopUpdatingCategory,
+    [types.START_UPDATING_PRODUCT]: startUpdatingProduct,
+    [types.STOP_UPDATING_PRODUCT]: stopUpdatingProduct
 };
 
 export default createReducer(initialState, handlers);
