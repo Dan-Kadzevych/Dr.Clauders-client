@@ -22,8 +22,20 @@ export const getCategoriesOptions = createSelector(
 );
 
 export const getParentCategoriesOptions = createSelector(
-    getParentCategories,
-    categories => [{ value: 0, label: 'Нет' }, ...formatCategories(categories)]
+    [getParentCategories, getUpdatedCategory],
+    (categories, updatedCategory) => {
+        let categoriesOptions = [
+            { value: 0, label: 'Нет' },
+            ...formatCategories(categories)
+        ];
+        if (updatedCategory) {
+            categoriesOptions = categoriesOptions.filter(
+                option => option.value !== updatedCategory.id
+            );
+        }
+
+        return categoriesOptions;
+    }
 );
 
 export const getCategoryInitialValues = createSelector(

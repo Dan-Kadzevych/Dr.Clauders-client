@@ -10,9 +10,8 @@ const Container = styled.div`
 const ChildrenContainer = styled.div`
     position: absolute;
 
-    left: 100%;
-    top: 50%;
-    transform: translate(0, -50%);
+    right: 0;
+    top: 100%;
     z-index: 1000;
 `;
 

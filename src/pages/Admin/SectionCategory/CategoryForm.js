@@ -1,13 +1,22 @@
 import React from 'react';
-import { Form, Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { Form, Field, reduxForm, formValueSelector } from 'redux-form';
 import styled from 'styled-components';
 
 import { required, slug } from 'utils/redux/validationRules';
-import { Input } from 'components';
-import { H4, SubmitBtn, FormGroup, GlobalError, ButtonAlt } from 'elements';
-import Select from './Select';
-import { petOptions } from './duck/constants';
-import { requiredIfNoParent } from './duck/utils';
+import { Input } from 'components/index';
+import {
+    H4,
+    SubmitBtn,
+    FormGroup,
+    GlobalError,
+    ButtonAlt
+} from 'elements/index';
+import Select from '../Select';
+import { petOptions } from '../duck/constants';
+import { operations, selectors } from '../duck';
+import { normalizeCategory, requiredIfNoParent } from '../duck/utils';
 import { color_black, color_white } from 'styles/variables';
 
 const FORM_NAME = 'category';
@@ -17,8 +26,10 @@ const formConfig = {
     enableReinitialize: true
 };
 
+const categoryFormSelector = formValueSelector(FORM_NAME);
+
 const StopUpdateBtn = styled(ButtonAlt)`
-    &&& {
+    && {
         outline: 1px solid ${color_black};
         color: ${color_black};
         background-color: ${color_white};
@@ -33,16 +44,49 @@ const ButtonGroup = styled.div`
     margin-top: 2rem;
 `;
 
+const mapStateToProps = state => ({
+    categoriesOptions: selectors.getParentCategoriesOptions(state),
+    updatedCategory: selectors.getUpdatedCategory(state),
+    initialValues: selectors.getCategoryInitialValues(state),
+    categoryParent: categoryFormSelector(state, 'parent.value')
+});
+
+const mapDispatchToProps = dispatch => ({
+    addCategory(values) {
+        const category = normalizeCategory(values);
+
+        return dispatch(operations.addCategory(category));
+    },
+    updateCategory(
+        values,
+        dispatch,
+        {
+            updatedCategory: { _id: categoryID }
+        }
+    ) {
+        const category = normalizeCategory(values);
+
+        return dispatch(operations.updateCategory(categoryID, category));
+    },
+    stopUpdating() {
+        return dispatch(operations.stopUpdatingCategory());
+    }
+});
+
 const CategoryForm = ({
     handleSubmit,
-    parentCategories,
+    updateCategory,
+    addCategory,
+    categoriesOptions,
     error,
     updatedCategory,
     stopUpdating,
     categoryParent,
     change
 }) => (
-    <Form onSubmit={handleSubmit}>
+    <Form
+        onSubmit={handleSubmit(updatedCategory ? updateCategory : addCategory)}
+    >
         {error && <GlobalError source={error} />}
         {updatedCategory ? (
             <H4>Редактировать Категорию "{updatedCategory.name}"</H4>
@@ -85,7 +129,7 @@ const CategoryForm = ({
                         petOptions.find(pet => pet.label === value.pet)
                     )
                 }
-                options={parentCategories}
+                options={categoriesOptions}
                 component={Select}
             />
         </FormGroup>
@@ -103,4 +147,10 @@ const CategoryForm = ({
     </Form>
 );
 
-export default reduxForm(formConfig)(CategoryForm);
+export default compose(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    ),
+    reduxForm(formConfig)
+)(CategoryForm);

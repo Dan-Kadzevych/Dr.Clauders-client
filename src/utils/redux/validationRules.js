@@ -45,7 +45,7 @@ export const password = value => {
 };
 
 export const slug = value => {
-    if (!isFieldEmpty(value) && !/^[a-z0-9-]+$/gi.test(value)) {
+    if (!isFieldEmpty(value) && !/^[a-z0-9-]+$/g.test(value)) {
         return `Пожалуйста, изпользуйте прваильный формат`;
     }
 };

@@ -38,6 +38,10 @@ const GlobalStyles = createGlobalStyle`
         font-size: 62.5%;
     }
     
+    ul {
+        list-style-type: none;
+    }
+    
     .d-none {
        display: none;
     }

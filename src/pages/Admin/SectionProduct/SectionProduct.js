@@ -1,0 +1,19 @@
+import React from 'react';
+
+import { SectionContainer } from '../elements';
+import { Products, ProductForm } from './index';
+
+const SectionProduct = ({ products, removeProduct, startUpdatingProduct }) => {
+    return (
+        <SectionContainer>
+            <Products
+                products={products}
+                removeProduct={removeProduct}
+                startUpdatingProduct={startUpdatingProduct}
+            />
+            <ProductForm />
+        </SectionContainer>
+    );
+};
+
+export default SectionProduct;
