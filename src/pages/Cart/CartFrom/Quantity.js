@@ -11,6 +11,8 @@ const Quantity = ({ _id }) => (
         <Field
             name={_id}
             type="number"
+            min="0"
+            autoComplete="off"
             component={CartInput}
             validate={[required, number, minValue0]}
             format={formatQuantityValue}

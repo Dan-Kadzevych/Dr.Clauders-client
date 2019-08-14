@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { Field } from 'redux-form';
 import styled from 'styled-components';
 
@@ -35,56 +35,79 @@ const TabsList = styled.ul`
     border: 1px solid ${color_grey_light};
 `;
 
-const Tabs = ({ fields, meta: { error, submitFailed } }) => (
-    <>
-        <TabsHeader>
-            <H5 className="m-n">Табы</H5>{' '}
-            <ButtonAlt
-                className="ml-sm-s"
-                type="button"
-                onClick={() => fields.push({})}
-            >
-                Плюс +
-            </ButtonAlt>
-        </TabsHeader>
-        {!!fields.length && (
-            <TabsList>
-                {submitFailed && error && <span>{error}</span>}
-                {fields.map((tab, index) => (
-                    <TabsElement key={index}>
-                        <TabsElementHeader>
-                            <h4>#{index + 1}</h4>
-                            <ButtonAlt
-                                type="button"
-                                onClick={() => fields.remove(index)}
-                            >
-                                X
-                            </ButtonAlt>
-                        </TabsElementHeader>
-                        <div>
-                            <Field
-                                name={`${tab}.title`}
-                                type="text"
-                                component={Input}
-                                label="Название"
-                                small
-                                validate={[required]}
-                            />
-                            <Field
-                                type="textarea"
-                                name={`${tab}.content`}
-                                label="Описание"
-                                small
-                                rows="3"
-                                component={Textarea}
-                                validate={[required]}
-                            />
-                        </div>
-                    </TabsElement>
-                ))}
-            </TabsList>
-        )}
-    </>
-);
+class Tabs extends PureComponent {
+    componentDidUpdate({ fields: prevFields }) {
+        if (this.props.fields.length > prevFields.length) {
+            this.scrollToBottom();
+        }
+    }
+
+    scrollToBottom() {
+        this.tabsList.scrollTop = this.tabsList.scrollHeight;
+    }
+
+    render() {
+        const {
+            fields,
+            meta: { error, submitFailed }
+        } = this.props;
+
+        return (
+            <>
+                <TabsHeader>
+                    <H5 className="m-n">Табы</H5>{' '}
+                    <ButtonAlt
+                        className="ml-sm-s"
+                        type="button"
+                        onClick={() => fields.push({})}
+                    >
+                        Плюс +
+                    </ButtonAlt>
+                </TabsHeader>
+                {!!fields.length && (
+                    <TabsList
+                        ref={el => {
+                            this.tabsList = el;
+                        }}
+                    >
+                        {submitFailed && error && <span>{error}</span>}
+                        {fields.map((tab, index) => (
+                            <TabsElement key={index}>
+                                <TabsElementHeader>
+                                    <h4>#{index + 1}</h4>
+                                    <ButtonAlt
+                                        type="button"
+                                        onClick={() => fields.remove(index)}
+                                    >
+                                        X
+                                    </ButtonAlt>
+                                </TabsElementHeader>
+                                <div>
+                                    <Field
+                                        name={`${tab}.title`}
+                                        type="text"
+                                        component={Input}
+                                        label="Название"
+                                        small
+                                        validate={[required]}
+                                    />
+                                    <Field
+                                        type="textarea"
+                                        name={`${tab}.content`}
+                                        label="Описание"
+                                        small
+                                        rows="3"
+                                        component={Textarea}
+                                        validate={[required]}
+                                    />
+                                </div>
+                            </TabsElement>
+                        ))}
+                    </TabsList>
+                )}
+            </>
+        );
+    }
+}
 
 export default Tabs;

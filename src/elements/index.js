@@ -12,7 +12,7 @@ import ScrollToTop from './ScrollToTop.js';
 import ErrorMessage from './ErrorMessage.js';
 import GlobalError from './GlobalError.js';
 import PageHeader from './PageHeader.js';
-import { Select, InputLabel, SubmitBtn, FormGroup } from './form';
+import { Label, SubmitBtn, FormGroup, InputContainer } from './form';
 
 export {
     A,
@@ -30,7 +30,7 @@ export {
     SubmitBtn,
     PageHeader,
     GlobalError,
-    InputLabel,
-    Select,
-    FormGroup
+    Label,
+    FormGroup,
+    InputContainer
 };

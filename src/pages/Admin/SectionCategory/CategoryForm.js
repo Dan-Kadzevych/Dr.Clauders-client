@@ -5,7 +5,7 @@ import { Form, Field, reduxForm, formValueSelector } from 'redux-form';
 import styled from 'styled-components';
 
 import { required, slug } from 'utils/redux/validationRules';
-import { Input } from 'components/index';
+import { Input, Select } from 'components';
 import {
     H4,
     SubmitBtn,
@@ -13,7 +13,6 @@ import {
     GlobalError,
     ButtonAlt
 } from 'elements/index';
-import Select from '../Select';
 import { petOptions } from '../duck/constants';
 import { operations, selectors } from '../duck';
 import { normalizeCategory, requiredIfNoParent } from '../duck/utils';
@@ -115,7 +114,7 @@ const CategoryForm = ({
                 label="Кому"
                 small
                 options={petOptions}
-                disabled={categoryParent}
+                disabled={!!categoryParent}
                 component={Select}
                 validate={[requiredIfNoParent]}
             />

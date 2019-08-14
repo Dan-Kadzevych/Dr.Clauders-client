@@ -2,9 +2,8 @@ import React from 'react';
 import { Field, FormSection } from 'redux-form';
 import styled from 'styled-components';
 
-import { ErrorMessage } from 'elements';
+import { Select } from 'components';
 import { required } from 'utils/redux/validationRules';
-import VirtualizedSelect from '../../components/VirtualizedSelect';
 import { font_quaternary } from 'styles/variables';
 import { borderError } from 'styles/mixins';
 
@@ -24,12 +23,17 @@ const SmallInput = styled.input`
     ${borderError};
 `;
 
-const Street = styled.label`
+const Street = styled.div`
     padding-left: 3rem;
     margin: 2rem 0;
     display: grid;
     grid-template-columns: 6fr 1fr 1fr;
     align-items: start;
+`;
+
+const StyledSelect = styled(Select)`
+    padding: 0;
+    margin: 0;
 `;
 
 const CustomInput = ({
@@ -48,32 +52,17 @@ const CustomInput = ({
     );
 };
 
-const Select = ({
-    input,
-    placeholder,
-    loadOptions,
-    meta: { touched, error }
-}) => (
-    <div>
-        <VirtualizedSelect
-            input={input}
-            placeholder={placeholder}
-            loadOptions={loadOptions}
-            error={touched && error}
-            small
-            creatable
-        />
-        {touched && error && <ErrorMessage>{error}</ErrorMessage>}
-    </div>
-);
-
 const StreetSection = ({ loadOptions }) => (
     <FormSection name="address">
         <Street>
             <Field
                 name="street"
                 placeholder="Выберите улицу"
-                component={Select}
+                component={StyledSelect}
+                virtualized
+                async
+                creatable
+                small
                 loadOptions={loadOptions}
                 validate={[required]}
             />

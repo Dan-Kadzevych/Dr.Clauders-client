@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { Field, Form, reduxForm } from 'redux-form';
 import styled from 'styled-components';
 
-import { AddProductBtn } from 'components';
+import { AddProductBtn, Input } from 'components';
 import { addToCart } from 'pages/Cart/duck/operations';
 import {
     getIsProductAddedFunc,
@@ -13,11 +13,7 @@ import {
 import { formatQuantityValue } from 'utils/redux/helpers';
 import { minValue1 } from './duck/utils';
 import { number, required } from 'utils/redux/validationRules';
-import {
-    font_quaternary,
-    color_secondary,
-    color_primary
-} from 'styles/variables';
+import { color_secondary, color_primary } from 'styles/variables';
 import { Icon, A } from 'elements';
 import successNotification from 'notifications/success';
 
@@ -30,20 +26,11 @@ const CartInputBox = styled.div`
     margin-right: 1.5rem;
     display: block;
 `;
-const CartInput = styled.input`
-    display: block;
+const CartInput = styled(Input)`
     width: 7rem;
     font-size: 1.9rem;
-    line-height: 2.8rem;
-    padding: 1.2rem 1.5rem;
-    ${font_quaternary};
     text-align: center;
-    border: 1px solid #ccc;
-    height: 4rem;
-
-    :focus {
-        outline: none;
-    }
+    height: 3.9rem;
 `;
 
 const Notification = styled.div`
@@ -107,52 +94,33 @@ const mapDispatchToProps = (dispatch, { ID, title }) => ({
     }
 });
 
-class CartFrom extends Component {
-    renderInput = ({ input, type }) => {
-        return (
-            <CartInput
-                {...input}
-                required
+const CartFrom = ({ handleSubmit, isLoading, isAdded, addToCart }) => (
+    <Cart
+        onSubmit={handleSubmit(({ quantity }) => addToCart(Number(quantity)))}
+    >
+        <CartInputBox>
+            <Field
+                name="quantity"
+                type="number"
                 min="1"
-                type={type}
                 autoComplete="off"
+                small
+                component={CartInput}
+                validate={[required, number, minValue1]}
+                format={formatQuantityValue}
             />
-        );
-    };
+        </CartInputBox>
 
-    onSubmit = ({ quantity }) => {
-        const { addToCart } = this.props;
-
-        addToCart(Number(quantity));
-    };
-
-    render() {
-        const { handleSubmit, isLoading, isAdded } = this.props;
-
-        return (
-            <Cart onSubmit={handleSubmit(this.onSubmit)}>
-                <CartInputBox>
-                    <Field
-                        name="quantity"
-                        type="number"
-                        component={this.renderInput}
-                        validate={[required, number, minValue1]}
-                        format={formatQuantityValue}
-                    />
-                </CartInputBox>
-
-                <AddProductBtn
-                    type="submit"
-                    isLoading={isLoading}
-                    disabled={isLoading}
-                    isAdded={isAdded}
-                >
-                    Add to cart
-                </AddProductBtn>
-            </Cart>
-        );
-    }
-}
+        <AddProductBtn
+            type="submit"
+            isLoading={isLoading}
+            disabled={isLoading}
+            isAdded={isAdded}
+        >
+            Add to cart
+        </AddProductBtn>
+    </Cart>
+);
 
 export default compose(
     connect(

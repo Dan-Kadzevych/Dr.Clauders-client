@@ -5,10 +5,9 @@ import { Form, Field, FieldArray, reduxForm } from 'redux-form';
 import styled from 'styled-components';
 
 import { required, slug } from 'utils/redux/validationRules';
-import { Input, Textarea } from 'components';
+import { Input, Textarea, Select } from 'components';
 import { H4, SubmitBtn, GlobalError, ButtonAlt } from 'elements';
-import Select from 'pages/Admin/Select';
-import { operations, selectors } from 'pages/Admin/duck/index';
+import { operations, selectors } from 'pages/Admin/duck';
 import { minValue1, normalizeProduct } from 'pages/Admin/duck/utils';
 import { Tabs } from './index';
 import { color_black, color_white } from 'styles/variables';

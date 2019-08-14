@@ -5,6 +5,10 @@ const FormGroup = styled.div`
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-column-gap: 2rem;
+
+    & > * {
+        margin-top: 0 !important;
+    }
 `;
 
 export default FormGroup;

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { font_quaternary } from 'styles/variables';
 
-const InputLabel = styled.div`
+const Label = styled.div`
     line-height: 1.9rem;
 
     ${font_quaternary};
@@ -10,4 +10,4 @@ const InputLabel = styled.div`
     margin-bottom: 5px;
 `;
 
-export default InputLabel;
+export default Label;

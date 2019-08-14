@@ -1,22 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import NumberFormat from 'react-number-format';
 import styled, { css } from 'styled-components';
 
-import { ErrorMessage, InputLabel } from 'elements';
+import { ErrorMessage, Label, InputContainer } from 'elements';
 import { phoneFormat } from 'duck/constants';
 
 import { font_quaternary, color_grey_light_5 } from 'styles/variables';
 import { borderError } from 'styles/mixins';
-
-const InputContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    padding: 3px 0;
-
-    :not(:first-child) {
-        margin-top: 1rem;
-    }
-`;
 
 const StyledInput = styled(({ error, touched, phone, small, ...params }) =>
     phone ? (
@@ -54,13 +45,16 @@ const Input = ({
     mask,
     small,
     disabled,
-    min
+    min,
+    className,
+    autoComplete
 }) => (
     <InputContainer disabled={disabled}>
-        <InputLabel> {label} </InputLabel>
+        {label && <Label> {label} </Label>}
 
         <StyledInput
             {...input}
+            className={className}
             disabled={disabled}
             error={touched && error}
             touched={touched && !error}
@@ -69,10 +63,37 @@ const Input = ({
             min={min}
             phone={mask === 'phone'}
             small={small}
+            autoComplete={autoComplete}
         />
 
         {touched && error && <ErrorMessage>{error}</ErrorMessage>}
     </InputContainer>
 );
+
+Input.defaultProps = {
+    small: false,
+    disabled: false,
+    min: null,
+    type: 'text',
+    label: '',
+    placeholder: '',
+    mask: '',
+    autoComplete: 'on',
+    input: {},
+    meta: {}
+};
+
+Input.propTypes = {
+    small: PropTypes.bool,
+    disabled: PropTypes.bool,
+    type: PropTypes.string,
+    label: PropTypes.string,
+    placeholder: PropTypes.string,
+    mask: PropTypes.string,
+    autoComplete: PropTypes.oneOf(['on', 'off']),
+    min: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    input: PropTypes.object,
+    meta: PropTypes.object
+};
 
 export default Input;

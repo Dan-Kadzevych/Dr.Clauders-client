@@ -3,8 +3,9 @@ import React from 'react';
 
 import { required } from 'utils/redux/validationRules';
 import { SubmitBtn } from 'elements';
+import { Select } from 'components';
 import { stepFormConfig } from '../../formConfig';
-import { Select, RadioGroup } from '../../components/index';
+import { RadioGroup } from '../../components/index';
 
 const Delivery = ({
     deliveryLoading,
@@ -22,6 +23,9 @@ const Delivery = ({
             name="city"
             label="City"
             loadOptions={loadCityOptions}
+            virtualized
+            async
+            creatable
             component={Select}
             handleChange={handleCityChange}
             placeholder="Выберите город"

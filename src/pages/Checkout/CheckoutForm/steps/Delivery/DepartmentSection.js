@@ -2,34 +2,13 @@ import React from 'react';
 import { Field, FormSection } from 'redux-form';
 import styled from 'styled-components';
 
-import { ErrorMessage } from 'elements';
+import { Select } from 'components';
 import { required } from 'utils/redux/validationRules';
-import VirtualizedSelect from '../../components/VirtualizedSelect';
 
 const Department = styled.label`
     padding-left: 3rem;
     margin: 2rem 0;
 `;
-
-const Select = ({
-    input,
-    placeholder,
-    loadOptions,
-    description,
-    meta: { touched, error }
-}) => (
-    <div>
-        <VirtualizedSelect
-            input={input}
-            placeholder={placeholder}
-            loadOptions={loadOptions}
-            error={touched && error}
-            small
-            creatable
-        />
-        {touched && error && <ErrorMessage>{error}</ErrorMessage>}
-    </div>
-);
 
 const DepartmentSection = ({ loadOptions, description }) => (
     <FormSection name="address">
@@ -38,6 +17,10 @@ const DepartmentSection = ({ loadOptions, description }) => (
                 name="department"
                 placeholder="Выберите отделение"
                 component={Select}
+                small
+                creatable
+                virtualized
+                async
                 loadOptions={loadOptions}
                 validate={[required]}
                 description={description}

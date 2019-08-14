@@ -1,6 +1,6 @@
 import SubmitBtn from './SubmitBtn.js';
-import InputLabel from './InputLabel.js';
-import Select from './Select.js';
+import Label from './Label.js';
 import FormGroup from './FormGroup.js';
+import InputContainer from './InputContainer.js';
 
-export { SubmitBtn, InputLabel, Select, FormGroup };
+export { Label, SubmitBtn, FormGroup, InputContainer };

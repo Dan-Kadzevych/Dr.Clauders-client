@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { ErrorMessage, InputLabel } from 'elements/index';
+import { ErrorMessage, Label } from 'elements/index';
 
 import { font_quaternary } from 'styles/variables';
 import { borderError } from 'styles/mixins';
@@ -43,7 +43,7 @@ const Textarea = ({
     rows
 }) => (
     <TextareaContainer>
-        <InputLabel> {label} </InputLabel>
+        <Label> {label} </Label>
 
         <StyledTextarea
             {...input}
