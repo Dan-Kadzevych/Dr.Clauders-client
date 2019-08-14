@@ -33,6 +33,7 @@ export const removeCategory = categoryID => async dispatch => {
         );
 
         dispatch(actions.removeCategorySuccess(data));
+        dispatch(stopUpdatingCategory());
     } catch (e) {
         dispatch(actions.removeCategoryFailure(getErrorMessage(e)));
     }
@@ -100,6 +101,7 @@ export const removeProduct = productID => async dispatch => {
         );
 
         dispatch(actions.removeProductSuccess(data));
+        dispatch(stopUpdatingProduct());
     } catch (e) {
         dispatch(actions.removeProductFailure(getErrorMessage(e)));
     }
