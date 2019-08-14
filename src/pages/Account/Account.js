@@ -3,7 +3,6 @@ import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-// import { RouteNotFound } from 'components';
 import { H1, ButtonAlt, PageHeader } from 'elements';
 import { operations } from './duck';
 
@@ -59,7 +58,6 @@ const Account = ({ match, logout }) => {
                     path={`${match.path}/discount`}
                     component={() => <div>'orders'</div>}
                 />
-                <div>Not Found</div>
             </Switch>
         </Container>
     );

@@ -13,13 +13,14 @@ import {
     Products,
     Checkout,
     Account,
-    Admin
+    Admin,
+    NotFound
 } from 'pages';
 import { isAppLoading } from 'duck';
 import { Footer, Header } from 'layout';
 import { Spinner } from 'blocks';
 import { ScrollToTop } from 'elements';
-import { PrivateRoute, CaptureNotFound /*RouteNotFound*/ } from 'components';
+import { PrivateRoute } from 'components';
 
 import GlobalStyles from './styles/GlobalStyles';
 import { gridTemplate } from 'styles/mixins';
@@ -51,51 +52,47 @@ class App extends Component {
                     <ScrollToTop>
                         <ToastContainer />
                         <Route component={Header} />
-                        <CaptureNotFound>
-                            <Switch>
-                                <Route path="/" exact component={Home} />
-                                <Route path="/auth" component={Auth} />
-                                <Route
-                                    path={[
-                                        '/pet-supplements/:pet/:category',
-                                        '/pet-supplements/:pet'
-                                    ]}
-                                    exact
-                                    component={Products}
-                                />
-                                <Route
-                                    path="/products/:product"
-                                    exact
-                                    component={Product}
-                                />
-                                <Route exact path="/cart" component={Cart} />
-                                <Route
-                                    exact
-                                    path="/checkout"
-                                    component={Checkout}
-                                />
-                                <PrivateRoute
-                                    path="/account"
-                                    component={Account}
-                                />
-                                <PrivateRoute path="/admin" component={Admin} />
-                                <Route
-                                    path="/about-us"
-                                    exact
-                                    component={() => (
-                                        <PageContainer>About Us</PageContainer>
-                                    )}
-                                />
-                                <Route
-                                    path="/contact-us"
-                                    exact
-                                    component={() => (
-                                        <PageContainer>Contact</PageContainer>
-                                    )}
-                                />
-                                <div>Not Found</div>
-                            </Switch>
-                        </CaptureNotFound>
+                        <Switch>
+                            <Route path="/" exact component={Home} />
+                            <Route path="/auth" component={Auth} />
+                            <Route
+                                path={[
+                                    '/pet-supplements/:pet/:category',
+                                    '/pet-supplements/:pet'
+                                ]}
+                                exact
+                                component={Products}
+                            />
+                            <Route
+                                path="/products/:product"
+                                exact
+                                component={Product}
+                            />
+                            <Route exact path="/cart" component={Cart} />
+                            <Route
+                                exact
+                                path="/checkout"
+                                component={Checkout}
+                            />
+                            <PrivateRoute path="/account" component={Account} />
+                            <PrivateRoute path="/admin" component={Admin} />
+                            <Route
+                                path="/about-us"
+                                exact
+                                component={() => (
+                                    <PageContainer>About Us</PageContainer>
+                                )}
+                            />
+                            <Route
+                                path="/contact-us"
+                                exact
+                                component={() => (
+                                    <PageContainer>Contact</PageContainer>
+                                )}
+                            />
+                            <Route path="/404" component={NotFound} />
+                            <Route component={NotFound} />
+                        </Switch>
                         <Footer />
                     </ScrollToTop>
                 </ConnectedRouter>

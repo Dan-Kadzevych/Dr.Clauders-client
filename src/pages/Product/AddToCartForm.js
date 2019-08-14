@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { Field, Form, reduxForm } from 'redux-form';
 import styled from 'styled-components';
 
-import { AddProductBtn, Input } from 'components';
+import { AddProductBtn, Input, Icon } from 'components';
+import { A } from 'elements';
 import { addToCart } from 'pages/Cart/duck/operations';
 import {
     getIsProductAddedFunc,
@@ -14,7 +15,6 @@ import { formatQuantityValue } from 'utils/redux/helpers';
 import { minValue1 } from './duck/utils';
 import { number, required } from 'utils/redux/validationRules';
 import { color_secondary, color_primary } from 'styles/variables';
-import { Icon, A } from 'elements';
 import successNotification from 'notifications/success';
 
 const Cart = styled(Form)`

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Icon } from 'elements/index';
+import { Icon } from 'components';
 import { toRgba } from 'utils/utils';
 import { color_grey_light, color_primary } from 'styles/variables';
 

@@ -1,7 +1,8 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-import { ButtonAlt, Icon } from 'elements';
+import { ButtonAlt } from 'elements';
+import Icon from './Icon';
 import { color_secondary, color_white } from 'styles/variables';
 
 const Button = styled(ButtonAlt)`

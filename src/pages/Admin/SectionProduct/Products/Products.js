@@ -11,7 +11,7 @@ const Container = styled.div`
 const ProductList = styled.ul`
     overflow-y: scroll;
     max-height: 60rem;
-    padding-top: 1rem;
+    padding: 1rem;
 `;
 
 const Products = ({ products, removeProduct, startUpdatingProduct }) => (

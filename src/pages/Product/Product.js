@@ -8,7 +8,7 @@ import Media from './Media';
 import Description from './Description';
 import Tabs from './Tabs';
 import { operations, selectors } from './duck';
-import { NoMatch } from 'pages';
+import { NotFound } from 'pages';
 
 const Container = styled.div`
     grid-column: center-start / center-end;
@@ -57,7 +57,7 @@ class Product extends _Base {
         const { product, isLoading } = this.props;
 
         if (!product && !isLoading) {
-            return <NoMatch />;
+            return <NotFound />;
         }
 
         return (

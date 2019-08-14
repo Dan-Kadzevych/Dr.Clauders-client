@@ -7,7 +7,6 @@ import H3 from './H3.js';
 import H4 from './H4.js';
 import H5 from './H5.js';
 import P from './P.js';
-import Icon from './Icon.js';
 import ScrollToTop from './ScrollToTop.js';
 import ErrorMessage from './ErrorMessage.js';
 import GlobalError from './GlobalError.js';
@@ -24,7 +23,6 @@ export {
     H4,
     H5,
     P,
-    Icon,
     ScrollToTop,
     ErrorMessage,
     SubmitBtn,

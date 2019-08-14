@@ -6,10 +6,7 @@ import { DropdownArrow } from 'components/index';
 const DropdownIndicator = props => {
     return (
         <components.DropdownIndicator {...props}>
-            <DropdownArrow
-                isOpen={props.selectProps.menuIsOpen}
-                icon="drop-down-arrow"
-            />
+            <DropdownArrow isOpen={props.selectProps.menuIsOpen} />
         </components.DropdownIndicator>
     );
 };

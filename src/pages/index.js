@@ -3,7 +3,7 @@ import Home from './Home';
 import Cart from './Cart';
 import Product from './Product';
 import Products from './Products';
-import NoMatch from './NoMatch';
+import NotFound from './NotFound';
 import Checkout from './Checkout';
 import Account from './Account';
 import Admin from './Admin';
@@ -14,7 +14,7 @@ export {
     Cart,
     Products,
     Product,
-    NoMatch,
+    NotFound,
     Checkout,
     Account,
     Admin

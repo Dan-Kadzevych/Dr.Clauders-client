@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
 import styled from 'styled-components';
 
 import { addToCart } from 'pages/Cart/duck/operations';
@@ -8,7 +9,7 @@ import {
     getIsProductRequestedFunc
 } from 'pages/Cart/duck/selectors';
 import { getCurrentLocation } from 'duck/selectors';
-// import { RouteNotFound } from 'components';
+import { NotFound } from 'pages';
 import { operations, selectors, utils } from './duck';
 import Hero from './Hero';
 import ProductsGrid from './ProductsGrid';
@@ -94,7 +95,7 @@ class Products extends Component {
                 />
             </Container>
         ) : (
-            <div>Not found</div>
+            <NotFound />
         );
     }
 }

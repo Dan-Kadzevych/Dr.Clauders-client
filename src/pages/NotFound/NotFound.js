@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { H2 } from 'elements';
 
-import NoMatchImage from 'images/404-image.jpg';
+import notFoundImg from 'images/404-image.jpg';
 
 const Container = styled.div`
     grid-column: center-start / center-end;
@@ -17,11 +17,11 @@ const Image = styled.img`
     max-width: 65rem;
 `;
 
-const NoMatch = () => (
+const NotFound = () => (
     <Container>
         <H2>This page is not resting, it has ceased to exist.</H2>
-        <Image src={NoMatchImage} />
+        <Image src={notFoundImg} />
     </Container>
 );
 
-export default NoMatch;
+export default NotFound;

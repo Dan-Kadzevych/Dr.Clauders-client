@@ -40,7 +40,7 @@ const StyledProduct = styled.li`
     border-bottom: 1px solid ${color_grey_light};
 
     display: grid;
-    grid-template-columns: 10rem 1fr 5rem;
+    grid-template-columns: 8rem 1fr 5rem;
     align-items: center;
 `;
 

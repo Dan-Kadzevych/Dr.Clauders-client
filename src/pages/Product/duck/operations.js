@@ -8,7 +8,9 @@ const fetchProduct = url => async (dispatch, getState) => {
         dispatch(actions.getProductRequest());
         const slug = url.replace('/products/', '');
 
-        const { data } = await axios.get(`/api/product/get_product/${slug}`);
+        const { data } = await axios.get(`/api/product/get_product`, {
+            params: { slug }
+        });
 
         if (url === getCurrentLocation(getState())) {
             return dispatch(actions.getProductSuccess(data));

@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { toRgba } from 'utils/utils';
+import { Icon } from 'components';
 import { color_grey_dark_4, color_grey_light } from 'styles/variables';
-import Icon from 'elements/Icon';
 
 const StyledBtn = styled.span`
     padding: 1rem;

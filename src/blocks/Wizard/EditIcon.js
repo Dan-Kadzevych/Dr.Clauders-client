@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { Icon } from 'elements';
+import { Icon } from 'components';
 import { color_primary } from 'styles/variables';
 
 const EditIcon = styled(Icon)`

@@ -2,7 +2,8 @@ import React from 'react';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 
-import { Icon, ButtonAlt } from 'elements';
+import { ButtonAlt } from 'elements';
+import { Icon } from 'components';
 import { color_primary, color_secondary } from 'styles/variables';
 
 const CloseIcon = styled(Icon)`

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import sprite from 'images/sprite.svg';
+import sprite from 'images/icons/sprite.svg';
 
 const Icon = ({ className, icon }) => (
     <svg className={className}>
