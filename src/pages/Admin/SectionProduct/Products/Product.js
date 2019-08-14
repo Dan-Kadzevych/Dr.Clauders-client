@@ -79,7 +79,10 @@ class Product extends _Base {
                         render={({ close }) => (
                             <PopupMenu>
                                 <PopupMenu.Element
-                                    handleClick={() => startUpdating(product)}
+                                    handleClick={e => {
+                                        startUpdating(product);
+                                        close(e);
+                                    }}
                                     icon="edit"
                                     text="Редактировать"
                                 />

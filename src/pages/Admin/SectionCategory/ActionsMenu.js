@@ -19,7 +19,10 @@ const ActionsMenu = ({ handleEdit, handleRemove }) => (
         render={({ close }) => (
             <PopupMenu>
                 <PopupMenu.Element
-                    handleClick={handleEdit}
+                    handleClick={e => {
+                        handleEdit(e);
+                        close(e);
+                    }}
                     icon="edit"
                     text="Редактировать"
                 />

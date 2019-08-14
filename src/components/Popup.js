@@ -22,25 +22,30 @@ class Popup extends _Base {
 
     showChildren() {
         this.setState({ showChildren: true }, () =>
-            document.addEventListener('click', this.hideChildren)
+            document.addEventListener('click', this.hideOnOutsideClick)
         );
     }
 
-    hideChildren(e) {
+    hideOnOutsideClick(e) {
         if (
             this.childrenContainer &&
             !this.childrenContainer.contains(e.target)
         ) {
-            this.setState({ showChildren: false }, () =>
-                document.removeEventListener('click', this.hideChildren)
-            );
+            this.hideChildren();
         }
+    }
+
+    hideChildren() {
+        this.setState({ showChildren: false }, () =>
+            document.removeEventListener('click', this.hideOnOutsideClick)
+        );
     }
 
     render() {
         const { trigger, render: View, className } = this.props;
         const { showChildren } = this.state;
         const Trigger = trigger;
+
         return (
             <Container className={className} onClick={e => e.stopPropagation()}>
                 <Trigger onClick={this.showChildren} />
