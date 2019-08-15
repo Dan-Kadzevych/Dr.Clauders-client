@@ -1,19 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { Form, Field, reduxForm, formValueSelector } from 'redux-form';
+import { Field, reduxForm, formValueSelector } from 'redux-form';
 import styled from 'styled-components';
 
 import { required, slug } from 'utils/redux/validationRules';
 import { Input, Select } from 'components';
-import {
-    H4,
-    SubmitBtn,
-    FormGroup,
-    GlobalError,
-    ButtonAlt
-} from 'elements/index';
+import { Spinner } from 'blocks';
+import { H4, SubmitBtn, FormGroup, GlobalError, ButtonAlt } from 'elements';
 import { petOptions } from '../duck/constants';
+import { StyledForm } from '../elements';
 import { operations, selectors } from '../duck';
 import { normalizeCategory, requiredIfNoParent } from '../duck/utils';
 import { color_black, color_white } from 'styles/variables';
@@ -47,7 +43,8 @@ const mapStateToProps = state => ({
     categoriesOptions: selectors.getParentCategoriesOptions(state),
     updatedCategory: selectors.getUpdatedCategory(state),
     initialValues: selectors.getCategoryInitialValues(state),
-    categoryParent: categoryFormSelector(state, 'parent.value')
+    categoryParent: categoryFormSelector(state, 'parent.value'),
+    isLoading: selectors.isCategoryFormLoading(state)
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -81,11 +78,13 @@ const CategoryForm = ({
     updatedCategory,
     stopUpdating,
     categoryParent,
-    change
+    change,
+    isLoading
 }) => (
-    <Form
+    <StyledForm
         onSubmit={handleSubmit(updatedCategory ? updateCategory : addCategory)}
     >
+        {isLoading && <Spinner />}
         {error && <GlobalError source={error} />}
         {updatedCategory ? (
             <H4>Редактировать Категорию "{updatedCategory.name}"</H4>
@@ -143,7 +142,7 @@ const CategoryForm = ({
                 {updatedCategory ? 'Сохранить' : 'Добавить'}
             </SubmitBtn>
         </ButtonGroup>
-    </Form>
+    </StyledForm>
 );
 
 export default compose(

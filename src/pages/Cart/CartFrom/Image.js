@@ -15,7 +15,10 @@ const StyledImage = styled.img`
 
 const Image = ({ path, url }) => (
     <ImageWrapper to={path}>
-        <StyledImage src={`http://localhost:5000/media/${url}`} alt="" />
+        <StyledImage
+            src={`https://dr-clauders-server.herokuapp.com/${url}`}
+            alt=""
+        />
     </ImageWrapper>
 );
 

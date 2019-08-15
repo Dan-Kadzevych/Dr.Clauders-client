@@ -69,7 +69,10 @@ const Products = ({ products, quantityByID }) => (
         {products.map(({ path, title, media: { url }, _id, price }) => (
             <Element key={_id}>
                 <ImageContainer to={path}>
-                    <Image src={`http://localhost:5000/media/${url}`} alt="" />
+                    <Image
+                        src={`https://dr-clauders-server.herokuapp.com/${url}`}
+                        alt=""
+                    />
                 </ImageContainer>
                 <Description>
                     <ProductTitle to={path}>{title}</ProductTitle>

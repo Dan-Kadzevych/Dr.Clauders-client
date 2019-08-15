@@ -15,11 +15,11 @@ export const signUpFailure = error => ({
 });
 
 export const signInRequest = () => ({
-    type: types.SIGN_UP_REQUEST
+    type: types.SIGN_IN_REQUEST
 });
 
 export const signInSuccess = user => ({
-    type: types.SIGN_UP_SUCCESS,
+    type: types.SIGN_IN_SUCCESS,
     payload: user
 });
 

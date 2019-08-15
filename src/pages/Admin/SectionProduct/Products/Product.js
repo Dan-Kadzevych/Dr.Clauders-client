@@ -64,7 +64,7 @@ class Product extends _Base {
                     <div>
                         <ImageLink to={path}>
                             <StyledImage
-                                src={`http://localhost:5000/media/${image}`}
+                                src={`https://dr-clauders-server.herokuapp.com/media/${image}`}
                                 alt=""
                             />
                         </ImageLink>

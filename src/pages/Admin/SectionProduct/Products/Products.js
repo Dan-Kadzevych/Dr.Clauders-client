@@ -1,11 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { H4 } from 'elements/index';
+import { H4 } from 'elements';
+import { Spinner } from 'blocks';
 import { Product } from './index';
 
 const Container = styled.div`
-    width: 75%;
+    width: 80%;
+    position: relative;
+    min-height: 10rem;
 `;
 
 const ProductList = styled.ul`
@@ -14,8 +17,14 @@ const ProductList = styled.ul`
     padding: 1rem;
 `;
 
-const Products = ({ products, removeProduct, startUpdatingProduct }) => (
+const Products = ({
+    products,
+    removeProduct,
+    startUpdatingProduct,
+    isLoading
+}) => (
     <Container>
+        {isLoading && <Spinner />}
         <H4>Продукты</H4>
         <ProductList>
             {products.map(product => (

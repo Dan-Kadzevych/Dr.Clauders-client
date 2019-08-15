@@ -13,10 +13,13 @@ const Figure = styled.figure`
     flex-direction: column;
 `;
 
-const Media = ({ main, sub }) => (
+const Media = ({ main }) => (
     <StyledMedia>
         <Figure>
-            <Image src={`http://localhost:5000/media/${main}`} alt="" />
+            <Image
+                src={`https://dr-clauders-server.herokuapp.com/media/${main}`}
+                alt=""
+            />
         </Figure>
     </StyledMedia>
 );

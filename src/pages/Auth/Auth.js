@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import { H1 } from 'elements';
 import { getIsAuthorized } from 'pages/Account/duck/selectors';
-import { operations } from './duck';
+import { operations, selectors } from './duck';
 import { SignInForm, SignUpForm } from './index';
 
 const Container = styled.div`
@@ -30,7 +30,9 @@ const Title = styled(H1)`
 `;
 
 const mapStateToProps = state => ({
-    isAuthorized: getIsAuthorized(state)
+    isAuthorized: getIsAuthorized(state),
+    isSignInLoading: selectors.signInLoadingSelector(state),
+    isSignUpLoading: selectors.signUpLoadingSelector(state)
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -48,7 +50,9 @@ const Auth = ({
     location: { state },
     isAuthorized,
     signUp,
-    signIn
+    signIn,
+    isSignInLoading,
+    isSignUpLoading
 }) => {
     if (isAuthorized) {
         const { from } = state || { from: { pathname: '/' } };
@@ -61,8 +65,8 @@ const Auth = ({
             <Header>
                 <Title>Sign In</Title>
             </Header>
-            <SignInForm onSubmit={signIn} />
-            <SignUpForm onSubmit={signUp} />
+            <SignInForm onSubmit={signIn} isLoading={isSignInLoading} />
+            <SignUpForm onSubmit={signUp} isLoading={isSignUpLoading} />
         </Container>
     );
 };

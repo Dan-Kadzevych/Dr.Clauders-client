@@ -2,6 +2,7 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 
 import { SubmitBtn, GlobalError } from 'elements';
+import { Spinner } from 'blocks';
 import { Input } from 'components';
 import { email, required, password } from 'utils/redux/validationRules';
 import { StyledForm } from './elements';
@@ -16,8 +17,9 @@ const formConfig = {
     }
 };
 
-const SignInForm = ({ handleSubmit, error }) => (
+const SignInForm = ({ handleSubmit, error, isLoading }) => (
     <StyledForm onSubmit={handleSubmit}>
+        {isLoading && <Spinner />}
         {error && <GlobalError source={error} />}
         <Field
             type="email"

@@ -6,7 +6,8 @@ import { Categories, CategoryForm } from './index';
 const SectionCategory = ({
     categories,
     removeCategory,
-    startUpdatingCategory
+    startUpdatingCategory,
+    isCategoriesLoading
 }) => {
     return (
         <SectionContainer>
@@ -14,6 +15,7 @@ const SectionCategory = ({
                 categories={categories}
                 removeCategory={removeCategory}
                 startUpdatingCategory={startUpdatingCategory}
+                isLoading={isCategoriesLoading}
             />
             <CategoryForm />
         </SectionContainer>

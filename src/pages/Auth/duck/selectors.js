@@ -1,8 +1,8 @@
-import { createErrorSelector } from 'error';
+import { createLoadingSelector } from 'loading';
 
 import { SIGN_IN, SIGN_UP } from './types';
 
-const signInErrorSelector = createErrorSelector([SIGN_IN]);
-const signUpErrorSelector = createErrorSelector([SIGN_UP]);
+const signInLoadingSelector = createLoadingSelector([SIGN_IN]);
+const signUpLoadingSelector = createLoadingSelector([SIGN_UP]);
 
-export default { signInErrorSelector, signUpErrorSelector };
+export default { signInLoadingSelector, signUpLoadingSelector };

@@ -8,6 +8,7 @@ const StyledForm = styled(Form)`
     padding: 3rem;
     border: 1px solid ${color_grey_light};
     margin: 3rem 0;
+    position: relative;
 `;
 
 export default StyledForm;

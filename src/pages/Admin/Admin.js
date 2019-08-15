@@ -6,7 +6,7 @@ import { getParentCategories, getCurrentLocation } from 'duck/selectors';
 import { getProducts } from 'pages/Products/duck/selectors';
 import { fetchProducts } from 'pages/Products/duck/operations';
 import { _Base } from 'components';
-import { operations } from './duck';
+import { operations, selectors } from './duck';
 import SectionCategory from './SectionCategory';
 import SectionProduct from './SectionProduct';
 
@@ -23,7 +23,9 @@ const Container = styled.div`
 const mapStateToProps = state => ({
     categories: getParentCategories(state),
     location: getCurrentLocation(state),
-    products: getProducts(state)
+    products: getProducts(state),
+    isProductsLoading: selectors.isProductsViewLoading(state),
+    isCategoriesLoading: selectors.isCategoriesViewLoading(state)
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -61,7 +63,9 @@ class Admin extends _Base {
             removeCategory,
             startUpdatingCategory,
             removeProduct,
-            startUpdatingProduct
+            startUpdatingProduct,
+            isProductsLoading,
+            isCategoriesLoading
         } = this.props;
 
         return (
@@ -70,11 +74,13 @@ class Admin extends _Base {
                     products={products}
                     removeProduct={removeProduct}
                     startUpdatingProduct={startUpdatingProduct}
+                    isProductsLoading={isProductsLoading}
                 />
                 <SectionCategory
                     categories={categories}
                     removeCategory={removeCategory}
                     startUpdatingCategory={startUpdatingCategory}
+                    isCategoriesLoading={isCategoriesLoading}
                 />
             </Container>
         );

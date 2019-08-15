@@ -2,6 +2,7 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 
 import { SubmitBtn, GlobalError } from 'elements';
+import { Spinner } from 'blocks';
 import { Input } from 'components';
 import { phonePlaceholder } from 'duck/constants';
 import { email, phone, required, password } from 'utils/redux/validationRules';
@@ -19,8 +20,9 @@ const formConfig = {
     }
 };
 
-const SignUpForm = ({ handleSubmit, error }) => (
+const SignUpForm = ({ handleSubmit, error, isLoading }) => (
     <StyledForm onSubmit={handleSubmit}>
+        {isLoading && <Spinner />}
         {error && <GlobalError>{error}</GlobalError>}
         <Field
             type="text"

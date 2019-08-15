@@ -1,14 +1,16 @@
 import React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { Form, Field, FieldArray, reduxForm } from 'redux-form';
+import { Field, FieldArray, reduxForm } from 'redux-form';
 import styled from 'styled-components';
 
 import { required, slug } from 'utils/redux/validationRules';
 import { Input, Textarea, Select } from 'components';
 import { H4, SubmitBtn, GlobalError, ButtonAlt } from 'elements';
+import { Spinner } from 'blocks';
 import { operations, selectors } from 'pages/Admin/duck';
 import { minValue1, normalizeProduct } from 'pages/Admin/duck/utils';
+import { StyledForm } from 'pages/Admin/elements';
 import { Tabs } from './index';
 import { color_black, color_white } from 'styles/variables';
 
@@ -38,7 +40,8 @@ const ButtonGroup = styled.div`
 const mapStateToProps = state => ({
     updatedProduct: selectors.getUpdatedProduct(state),
     categoriesOptions: selectors.getCategoriesOptions(state),
-    initialValues: selectors.getProductInitialValues(state)
+    initialValues: selectors.getProductInitialValues(state),
+    isLoading: selectors.isProductFormLoading(state)
 });
 const mapDispatchToProps = dispatch => ({
     addProduct(values) {
@@ -69,9 +72,13 @@ const ProductForm = ({
     updatedProduct,
     stopUpdatingProduct,
     categoriesOptions,
-    error
+    error,
+    isLoading
 }) => (
-    <Form onSubmit={handleSubmit(updatedProduct ? updateProduct : addProduct)}>
+    <StyledForm
+        onSubmit={handleSubmit(updatedProduct ? updateProduct : addProduct)}
+    >
+        {isLoading && <Spinner />}
         {error && <GlobalError source={error} />}
         {updatedProduct ? (
             <H4>Редактировать Продукт "{updatedProduct.title}"</H4>
@@ -136,7 +143,7 @@ const ProductForm = ({
                 {updatedProduct ? 'Сохранить' : 'Добавить'}
             </SubmitBtn>
         </ButtonGroup>
-    </Form>
+    </StyledForm>
 );
 
 export default compose(
