@@ -22,7 +22,10 @@ export const signUp = values => async dispatch => {
         const user = normalizeUser(values);
         const cart = getCartFromLS();
 
-        const { data } = await axios.post('/api/user', { user, cart });
+        const { data } = await axios.post(
+            'https://dr-clauders-server.herokuapp.com/api/user',
+            { user, cart }
+        );
         await axios.get('/ping');
 
         dispatch(signUpSuccess(data.user));
