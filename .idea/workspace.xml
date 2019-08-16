@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a4b6a91a-ab59-46d6-9d7a-4a2beefb5f35" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/pages/Auth/duck/operations.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Auth/duck/operations.js" afterDir="false" />
-    </list>
+    <list default="true" id="a4b6a91a-ab59-46d6-9d7a-4a2beefb5f35" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -195,13 +193,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="23">
+            <state relative-caret-position="-1263">
               <caret line="1" column="54" lean-forward="true" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="54" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/server.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="138">
@@ -210,11 +208,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/Auth/duck/operations.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="218">
-              <caret line="24" column="83" selection-start-line="24" selection-start-column="83" selection-end-line="24" selection-end-column="83" />
+            <state relative-caret-position="-4">
+              <caret line="24" column="42" selection-start-line="24" selection-start-column="42" selection-end-line="24" selection-end-column="42" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -533,7 +531,7 @@
       <workItem from="1565860682731" duration="499000" />
       <workItem from="1565862863493" duration="1033000" />
       <workItem from="1565876173786" duration="4886000" />
-      <workItem from="1565946836387" duration="3942000" />
+      <workItem from="1565946836387" duration="4404000" />
     </task>
     <task id="LOCAL-00001" summary="- Connected client to the server&#10;- Added redux stuff for products page&#10;- Added fetch products action on products page load/update&#10;- Refactored HeaderNav component by creating additional file for NavLink">
       <created>1561397108835</created>
@@ -553,13 +551,12 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="666543000" />
+    <option name="totallyTimeSpent" value="667005000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4987715" visible="true" weight="0.24947146" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4987715" visible="true" weight="0.24947146" />
       <window_info id="Structure" order="1" sideWeight="0.5012285" side_tool="true" weight="0.24947146" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -571,7 +568,7 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32923833" />
-      <window_info anchor="bottom" id="Terminal" order="9" visible="true" weight="0.3980344" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.3980344" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.32923833" />
       <window_info anchor="bottom" id="TypeScript" order="12" />
@@ -955,9 +952,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/Auth/duck/operations.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4">
+          <caret line="24" column="42" selection-start-line="24" selection-start-column="42" selection-end-line="24" selection-end-column="42" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
+        <state relative-caret-position="-1263">
           <caret line="1" column="54" lean-forward="true" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="54" />
         </state>
       </provider>
@@ -966,16 +973,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="138">
           <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/Auth/duck/operations.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="24" column="83" selection-start-line="24" selection-start-column="83" selection-end-line="24" selection-end-column="83" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
