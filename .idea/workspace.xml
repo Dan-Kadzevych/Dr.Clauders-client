@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a4b6a91a-ab59-46d6-9d7a-4a2beefb5f35" name="Default Changelist" comment="" />
+    <list default="true" id="a4b6a91a-ab59-46d6-9d7a-4a2beefb5f35" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/pages/Auth/duck/operations.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Auth/duck/operations.js" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -117,7 +119,7 @@
           <entry key="css" value="1" />
           <entry key="html" value="2" />
           <entry key="ico" value="1" />
-          <entry key="js" value="1429" />
+          <entry key="js" value="1430" />
           <entry key="json" value="6" />
           <entry key="svg" value="10" />
           <entry key="ts" value="2" />
@@ -129,7 +131,7 @@
           <entry key="HTML" value="2" />
           <entry key="Image" value="1" />
           <entry key="JSON" value="6" />
-          <entry key="JavaScript" value="1428" />
+          <entry key="JavaScript" value="1429" />
           <entry key="PLAIN_TEXT" value="1" />
           <entry key="SVG" value="10" />
           <entry key="TypeScript" value="2" />
@@ -137,7 +139,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="js" value="63014" />
+          <entry key="js" value="63015" />
           <entry key="json" value="21" />
           <entry key="svg" value="12" />
         </counts>
@@ -145,7 +147,7 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JSON" value="21" />
-          <entry key="JavaScript" value="62046" />
+          <entry key="JavaScript" value="62047" />
           <entry key="Less" value="968" />
           <entry key="SVG" value="12" />
         </counts>
@@ -169,7 +171,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/Admin/duck/operations.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
+            <state relative-caret-position="345">
               <caret line="15" column="47" selection-start-line="15" selection-start-column="47" selection-end-line="15" selection-end-column="47" />
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
@@ -193,26 +195,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1263">
-              <caret line="1" column="54" lean-forward="true" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="54" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/server.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="138">
-              <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+            <state relative-caret-position="1817">
+              <caret line="79" column="25" selection-start-line="79" selection-start-column="25" selection-end-line="79" selection-end-column="25" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="252">
+              <caret line="11" column="3" lean-forward="true" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/Auth/duck/operations.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-4">
-              <caret line="24" column="42" selection-start-line="24" selection-start-column="42" selection-end-line="24" selection-end-column="42" />
+            <state relative-caret-position="326">
+              <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -224,7 +226,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>minV</find>
       <find>minValue</find>
       <find>updatedCategory</find>
       <find>MenuBtn</find>
@@ -254,6 +255,7 @@
       <find>isLoading</find>
       <find>Spinner</find>
       <find>signInErrorSelector</find>
+      <find>serve</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -417,19 +419,19 @@
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/images/icons" />
-      <recent name="$PROJECT_DIR$/public" />
-      <recent name="$PROJECT_DIR$/src/components/form/Select/components" />
-      <recent name="$PROJECT_DIR$/src/images" />
-      <recent name="$PROJECT_DIR$/src/pages/SignUp/duck" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/components" />
       <recent name="$PROJECT_DIR$/src/images/icons" />
       <recent name="$PROJECT_DIR$/src/components/form/Select" />
       <recent name="$PROJECT_DIR$/src/pages/Admin/SectionProduct/Products" />
       <recent name="$PROJECT_DIR$/src/pages/Admin/SectionProduct/ProductForm" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/images/icons" />
+      <recent name="$PROJECT_DIR$/public" />
+      <recent name="$PROJECT_DIR$/src/components/form/Select/components" />
+      <recent name="$PROJECT_DIR$/src/images" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -531,7 +533,7 @@
       <workItem from="1565860682731" duration="499000" />
       <workItem from="1565862863493" duration="1033000" />
       <workItem from="1565876173786" duration="4886000" />
-      <workItem from="1565946836387" duration="4404000" />
+      <workItem from="1565946836387" duration="5340000" />
     </task>
     <task id="LOCAL-00001" summary="- Connected client to the server&#10;- Added redux stuff for products page&#10;- Added fetch products action on products page load/update&#10;- Refactored HeaderNav component by creating additional file for NavLink">
       <created>1561397108835</created>
@@ -551,11 +553,33 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="667005000" />
+    <option name="totallyTimeSpent" value="667941000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
     <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4987715" visible="true" weight="0.24947146" />
+      <window_info id="Structure" order="1" sideWeight="0.5012285" side_tool="true" weight="0.24947146" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32923833" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.2874693" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32923833" />
+      <window_info anchor="bottom" id="Terminal" order="9" visible="true" weight="0.3980344" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.32923833" />
+      <window_info anchor="bottom" id="TypeScript" order="12" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+    <layout-to-restore>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4987715" visible="true" weight="0.24947146" />
       <window_info id="Structure" order="1" sideWeight="0.5012285" side_tool="true" weight="0.24947146" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -575,7 +599,7 @@
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-    </layout>
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -866,13 +890,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="11" column="14" selection-start-line="11" selection-start-column="10" selection-end-line="11" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/build/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2320" />
@@ -896,16 +913,6 @@
     <entry file="file://$PROJECT_DIR$/build/static/css/2.5e63658b.chunk.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-18473" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/Admin/duck/operations.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="15" column="47" selection-start-line="15" selection-start-column="47" selection-end-line="15" selection-end-column="47" />
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
-          </folding>
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/Checkout/duck/operations.js">
@@ -942,6 +949,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="11" column="3" lean-forward="true" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1817">
+          <caret line="79" column="25" selection-start-line="79" selection-start-column="25" selection-end-line="79" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/Products/duck/operations.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="111">
@@ -952,27 +980,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/Auth/duck/operations.js">
+    <entry file="file://$PROJECT_DIR$/src/pages/Admin/duck/operations.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4">
-          <caret line="24" column="42" selection-start-line="24" selection-start-column="42" selection-end-line="24" selection-end-column="42" />
+        <state relative-caret-position="345">
+          <caret line="15" column="47" selection-start-line="15" selection-start-column="47" selection-end-line="15" selection-end-column="47" />
           <folding>
-            <element signature="e#0#26#0" expanded="true" />
+            <element signature="e#0#40#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
+    <entry file="file://$PROJECT_DIR$/src/pages/Auth/duck/operations.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1263">
-          <caret line="1" column="54" lean-forward="true" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+        <state relative-caret-position="326">
+          <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
