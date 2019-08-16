@@ -21,7 +21,7 @@ export const signUp = values => async dispatch => {
 
         const user = normalizeUser(values);
         const cart = getCartFromLS();
-        await axios.get('/ping');
+
         const { data } = await axios.post('/api/user', { user, cart });
 
         dispatch(signUpSuccess(data.user));
