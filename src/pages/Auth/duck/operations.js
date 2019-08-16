@@ -23,6 +23,7 @@ export const signUp = values => async dispatch => {
         const cart = getCartFromLS();
 
         const { data } = await axios.post('/api/user', { user, cart });
+        await axios.get('/ping');
 
         dispatch(signUpSuccess(data.user));
         dispatch(initCart(data.cart));

@@ -9,8 +9,7 @@ export const fetchProducts = (filter, params = {}) => async (
 ) => {
     try {
         dispatch(actions.getProductsRequest());
-        let url =
-            'https://dr-clauders-server.herokuapp.com/api/product/get_products';
+        let url = '/api/product/get_products';
 
         if (params.categoryID) {
             url = `${url}/${params.categoryID}`;
